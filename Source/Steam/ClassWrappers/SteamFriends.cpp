@@ -14,12 +14,19 @@
 // returns the local players name - guaranteed to not be NULL.
 const char *SteamFriends001::GetPersonaName()
 {
+	return RedactedFriends::GetPersonaName();
 }
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends001::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends001::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the friend status of the current user
-EPersonaState SteamFriends001::GetPersonaState() {}
+EPersonaState SteamFriends001::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 // sets the status, communicates to server, tells all friends
 void SteamFriends001::SetPersonaState(EPersonaState ePersonaState) {}
 
@@ -31,7 +38,10 @@ bool SteamFriends001::RemoveFriend(CSteamID steamIDFriend) {}
 bool SteamFriends001::HasFriend(CSteamID steamIDFriend) {}
 
 // gets the relationship to a user
-EFriendRelationship SteamFriends001::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends001::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 // returns true if the specified user is considered a friend (can see our online status)
 EPersonaState SteamFriends001::GetFriendPersonaState(CSteamID steamIDFriend) {}
 
@@ -46,8 +56,14 @@ const char *SteamFriends001::GetFriendPersonaName(CSteamID steamIDFriend) {}
 HSteamCall SteamFriends001::AddFriendByName(const char *pchEmailOrAccountName) {}
 
 // friend iteration
-int32_t SteamFriends001::GetFriendCount() {}
-CSteamID SteamFriends001::GetFriendByIndex(int32_t iFriend) {}
+int32_t SteamFriends001::GetFriendCount()
+{
+	return RedactedFriends::GetFriendCount();
+}
+CSteamID SteamFriends001::GetFriendByIndex(int32_t iFriend)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend);
+}
 
 // generic friend->friend message sending
 // DEPRECATED, use the sized-buffer version instead (has much higher max buffer size)
@@ -86,20 +102,38 @@ bool SteamFriends001::GetFriendGamePlayed2(CSteamID steamDIFriend, uint64 *pulGa
 
 #pragma region SteamFriends002
 // returns the local players name - guaranteed to not be NULL.
-const char *SteamFriends002::GetPersonaName() {}
+const char *SteamFriends002::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends002::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends002::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 // gets the friend status of the current user
-EPersonaState SteamFriends002::GetPersonaState() {}
+EPersonaState SteamFriends002::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 // sets the status, communicates to server, tells all friends
 void SteamFriends002::SetPersonaState(EPersonaState ePersonaState) {}
 
 // friend iteration
-int32_t SteamFriends002::GetFriendCount(EFriendFlags iFriendFlags) {}
-CSteamID SteamFriends002::GetFriendByIndex(int32_t iFriend, EFriendFlags iFriendFlags) {}
+int32_t SteamFriends002::GetFriendCount(EFriendFlags iFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(iFriendFlags);
+}
+CSteamID SteamFriends002::GetFriendByIndex(int32_t iFriend, EFriendFlags iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // gets the relationship to a user
-EFriendRelationship SteamFriends002::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends002::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 // returns true if the specified user is considered a friend (can see our online status)
 EPersonaState SteamFriends002::GetFriendPersonaState(CSteamID steamIDFriend) {}
 // returns the name of a friend - guaranteed to not be NULL.
@@ -158,18 +192,36 @@ CSteamID SteamFriends002::GetFriendFromSourceByIndex(CSteamID steamIDSource, int
 
 #pragma region SteamFriends003
 // returns the local players name - guaranteed to not be NULL.
-const char *SteamFriends003::GetPersonaName() {}
+const char *SteamFriends003::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends003::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends003::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 // gets the friend status of the current user
-EPersonaState SteamFriends003::GetPersonaState() {}
+EPersonaState SteamFriends003::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
-int32_t SteamFriends003::GetFriendCount(EFriendFlags iFriendFlags) {}
-CSteamID SteamFriends003::GetFriendByIndex(int32_t iFriend, EFriendFlags iFriendFlags) {}
+int32_t SteamFriends003::GetFriendCount(EFriendFlags iFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(iFriendFlags);
+}
+CSteamID SteamFriends003::GetFriendByIndex(int32_t iFriend, EFriendFlags iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // gets the relationship to a user
-EFriendRelationship SteamFriends003::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends003::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 // returns true if the specified user is considered a friend (can see our online status)
 EPersonaState SteamFriends003::GetFriendPersonaState(CSteamID steamIDFriend) {}
 // returns the name of a friend - guaranteed to not be NULL.
@@ -207,28 +259,45 @@ void SteamFriends003::ActivateGameOverlay(const char *pchDialog) {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends004::GetPersonaName() {}
+const char *SteamFriends004::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends004::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends004::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends004::GetPersonaState() {}
+EPersonaState SteamFriends004::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends004::GetFriendCount(EFriendFlags eFriendFlags) {}
+int32_t SteamFriends004::GetFriendCount(EFriendFlags eFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(eFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends004::GetFriendByIndex(int32_t iFriend, EFriendFlags eFriendFlags) {}
-
+CSteamID SteamFriends004::GetFriendByIndex(int32_t iFriend, EFriendFlags eFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, eFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends004::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends004::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -280,27 +349,45 @@ void SteamFriends004::ActivateGameOverlay(const char *pchDialog) {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends005::GetPersonaName() {}
+const char *SteamFriends005::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends005::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends005::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends005::GetPersonaState() {}
+EPersonaState SteamFriends005::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends005::GetFriendCount(EFriendFlags eFriendFlags) {}
+int32_t SteamFriends005::GetFriendCount(EFriendFlags eFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(eFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends005::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends005::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends005::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends005::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -367,27 +454,45 @@ void SteamFriends005::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends006::GetPersonaName() {}
+const char *SteamFriends006::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends006::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends006::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends006::GetPersonaState() {}
+EPersonaState SteamFriends006::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends006::GetFriendCount(EFriendFlags eFriendFlags) {}
+int32_t SteamFriends006::GetFriendCount(EFriendFlags eFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(eFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends006::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends006::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends006::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends006::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -459,27 +564,45 @@ void SteamFriends006::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends007::GetPersonaName() {}
+const char *SteamFriends007::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends007::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends007::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends007::GetPersonaState() {}
+EPersonaState SteamFriends007::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends007::GetFriendCount(EFriendFlags eFriendFlags) {}
+int32_t SteamFriends007::GetFriendCount(EFriendFlags eFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(eFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends007::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends007::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends007::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends007::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -554,27 +677,45 @@ int32_t SteamFriends007::GetLargeFriendAvatar(CSteamID steamIDFriend) {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends008::GetPersonaName() {}
+const char *SteamFriends008::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends008::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends008::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends008::GetPersonaState() {}
+EPersonaState SteamFriends008::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends008::GetFriendCount(EFriendFlags eFriendFlags) {}
+int32_t SteamFriends008::GetFriendCount(EFriendFlags eFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(eFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends008::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends008::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends008::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends008::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -682,27 +823,45 @@ EUserRestriction SteamFriends008::GetUserRestrictions() {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends009::GetPersonaName() {}
+const char *SteamFriends009::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends009::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends009::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends009::GetPersonaState() {}
+EPersonaState SteamFriends009::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends009::GetFriendCount(int32_t iFriendFlags) {}
+int32_t SteamFriends009::GetFriendCount(int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(iFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends009::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends009::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends009::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends009::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -843,27 +1002,45 @@ AppId_t SteamFriends009::GetFriendCoplayGame(CSteamID steamIDFriend) {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends010::GetPersonaName() {}
+const char *SteamFriends010::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends010::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends010::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends010::GetPersonaState() {}
+EPersonaState SteamFriends010::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends010::GetFriendCount(int32_t iFriendFlags) {}
+int32_t SteamFriends010::GetFriendCount(int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(iFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends010::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends010::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends010::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends010::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -1021,27 +1198,45 @@ int32_t SteamFriends010::GetFriendMessage(CSteamID friendID, int32_t iChatID, vo
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends011::GetPersonaName() {}
+const char *SteamFriends011::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-void SteamFriends011::SetPersonaName(const char *pchPersonaName) {}
+void SteamFriends011::SetPersonaName(const char *pchPersonaName)
+{
+	RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends011::GetPersonaState() {}
+EPersonaState SteamFriends011::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends011::GetFriendCount(int32_t iFriendFlags) {}
+int32_t SteamFriends011::GetFriendCount(int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(iFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends011::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends011::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends011::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends011::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -1214,27 +1409,45 @@ SteamAPICall_t SteamFriends011::EnumerateFollowingList(uint32 unStartIndex) {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends012::GetPersonaName() {}
+const char *SteamFriends012::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-SteamAPICall_t SteamFriends012::SetPersonaName(const char *pchPersonaName) {}
+SteamAPICall_t SteamFriends012::SetPersonaName(const char *pchPersonaName)
+{
+	return RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends012::GetPersonaState() {}
+EPersonaState SteamFriends012::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends012::GetFriendCount(int32_t iFriendFlags) {}
+int32_t SteamFriends012::GetFriendCount(int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(iFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends012::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends012::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends012::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends012::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -1407,27 +1620,45 @@ SteamAPICall_t SteamFriends012::EnumerateFollowingList(uint32 unStartIndex) {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends013::GetPersonaName() {}
+const char *SteamFriends013::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-SteamAPICall_t SteamFriends013::SetPersonaName(const char *pchPersonaName) {}
+SteamAPICall_t SteamFriends013::SetPersonaName(const char *pchPersonaName)
+{
+	return RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends013::GetPersonaState() {}
+EPersonaState SteamFriends013::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends013::GetFriendCount(int32_t iFriendFlags) {}
+int32_t SteamFriends013::GetFriendCount(int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(iFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends013::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends013::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends013::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends013::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
@@ -1600,27 +1831,45 @@ SteamAPICall_t SteamFriends013::EnumerateFollowingList(uint32 unStartIndex) {}
 // this is stored in UTF-8 format
 // like all the other interface functions that return a char *, it's important that this pointer is not saved
 // off {} it will eventually be free'd or re-allocated
-const char *SteamFriends014::GetPersonaName() {}
+const char *SteamFriends014::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
 
 // sets the player name, stores it on the server and publishes the changes to all friends who are online
-SteamAPICall_t SteamFriends014::SetPersonaName(const char *pchPersonaName) {}
+SteamAPICall_t SteamFriends014::SetPersonaName(const char *pchPersonaName)
+{
+	return RedactedFriends::SetPersonaName(pchPersonaName);
+}
 
 // gets the status of the current user
-EPersonaState SteamFriends014::GetPersonaState() {}
+EPersonaState SteamFriends014::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
 
 // friend iteration
 // takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
 // then GetFriendByIndex() can then be used to return the id's of each of those users
-int32_t SteamFriends014::GetFriendCount(int32_t iFriendFlags) {}
+int32_t SteamFriends014::GetFriendCount(int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(iFriendFlags);
+}
 
 // returns the steamID of a user
 // iFriend is a index of range [0, GetFriendCount())
 // iFriendsFlags must be the same value as used in GetFriendCount()
 // the returned CSteamID can then be used by all the functions below to access details about the user
-CSteamID SteamFriends014::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+CSteamID SteamFriends014::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
 
 // returns a relationship to a user
-EFriendRelationship SteamFriends014::GetFriendRelationship(CSteamID steamIDFriend) {}
+EFriendRelationship SteamFriends014::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
 
 // returns the current status of the specified user
 // this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
