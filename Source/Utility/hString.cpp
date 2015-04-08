@@ -3,7 +3,7 @@
 	Please do no evil.
 
 	Initial author: (https://github.com/)Convery
-	Started: 2014-03-10
+	Started: 2015-03-10
 	Notes:
 		String manipulation and tokenisation.
 */

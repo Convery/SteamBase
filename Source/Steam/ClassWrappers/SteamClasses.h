@@ -11,3 +11,4 @@
 #pragma once
 
 #include "SteamApps.h"
+#include "SteamFriends.h"

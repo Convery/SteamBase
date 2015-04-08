@@ -3,7 +3,7 @@
 	Please do no evil.
 
 	Initial author: (https://github.com/)Convery
-	Started: 2014-04-08
+	Started: 2015-04-08
 	Notes:
 		We unprotect the while module so the plugins can edit it.
 		We hook the entry point to call our function once everything is loaded.

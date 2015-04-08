@@ -11,3 +11,4 @@
 #pragma once
 
 #include "RedactedApps.h"
+#include "RedactedFriends.h"

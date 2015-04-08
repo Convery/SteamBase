@@ -3,7 +3,7 @@
 	Please do no evil.
 
 	Initial author: (https://github.com/)Convery
-	Started: 2014-02-16
+	Started: 2015-02-16
 	Notes:
 		Filesystem interaction, Win32 and Posix compatible.
 */
