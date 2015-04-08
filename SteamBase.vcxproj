@@ -322,6 +322,7 @@
     <ClInclude Include="Source\Utility\FileSystem.h" />
     <ClInclude Include="Source\Utility\hConsole.h" />
     <ClInclude Include="Source\Utility\hString.h" />
+    <ClInclude Include="Source\Utility\WebIO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\DllMain.cpp" />
@@ -336,6 +337,7 @@
     <ClCompile Include="Source\Utility\FileSystem.cpp" />
     <ClCompile Include="Source\Utility\hConsole.cpp" />
     <ClCompile Include="Source\Utility\hString.cpp" />
+    <ClCompile Include="Source\Utility\WebIO.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

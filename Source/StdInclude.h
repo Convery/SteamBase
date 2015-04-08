@@ -88,6 +88,7 @@
 #include "Utility\ByteBuffer.h"
 #include "Utility\FileSystem.h"
 #include "Utility\hConsole.h"
+#include "Utility\WebIO.h"
 #pragma endregion
 
 // Exported functionality.

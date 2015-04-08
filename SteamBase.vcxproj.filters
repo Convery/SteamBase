@@ -771,6 +771,9 @@
     <ClInclude Include="Source\Steam\ClassWrappers\SteamFriends.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Utility\WebIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Utility\ByteBuffer.cpp">
@@ -807,6 +810,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Steam\Classes\RedactedFriends.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility\WebIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
