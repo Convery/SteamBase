@@ -1,0 +1,28 @@
+/*
+	This project is released under the GPL 2.0 license.
+	Please do no evil.
+
+	Initial author: (https://github.com/)Convery
+	Started: 2014-04-08
+	Notes:
+		Variables that can be used anywhere.
+*/
+
+#include "..\StdInclude.h"
+
+namespace Global
+{
+	// Game information.
+	std::vector<std::string> Game_Argv;
+	char			Game_BinaryName[64]{};
+	std::string		Game_Commandline;
+
+	// Steam information.
+	char			Steam_Username[16]{};
+	uint64_t		Steam_UserID = 0;
+	bool			Steam_Offline = true;
+	bool			Steam_Dedicated = false;
+
+	// Performance.
+	std::chrono::high_resolution_clock::time_point StartupPoint = std::chrono::high_resolution_clock::now();
+}

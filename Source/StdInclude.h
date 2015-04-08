@@ -47,6 +47,7 @@
 
 // C\C++ includes.
 #pragma region Runtime
+#include <Windows.h>
 #include <string>
 #include <stdint.h>
 #include <stdarg.h>
@@ -58,10 +59,7 @@
 #include <mutex>
 #include <chrono>
 #include <thread>
-
-#ifdef _WIN32
 #include <direct.h>
-#endif
 #pragma endregion
 
 // Utility headers.
@@ -72,3 +70,8 @@
 #include "Utility\hConsole.h"
 #pragma endregion
 
+// Exported functionality.
+#pragma region ExportIncludes
+#include "External\GlobalVariables.h"
+#include "External\GameInformation.h"
+#pragma endregion

@@ -16,8 +16,10 @@ class hConsole
 	static std::queue<std::string> MessageQueue;
 	static std::string Filename;
 
+	static DWORD _stdcall PrintThread(void *);
+
 public:
-	static bool InitializeConsole(const char *FileLogName = nullptr);
+	static bool InitializeConsole(const char *Logfilename = nullptr);
 	static void StartPrinting();
 
 	static void EnqueueMessage(const char *Source, const char *Message, const char *Data);
