@@ -197,20 +197,20 @@ void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Me
 		strcpy_s(Pos, 7, hString::va("(%i/%i)", (i + 1), min(FragmentCount, 99)));
 
 		// Remove any null chars.
-		for (uint32_t i = 0; i < 74; i++)
+		for (uint32_t j = 0; j < 74; j++)
 		{
-			if (Msg[i] == '\0')
-				Msg[i] = ' ';
+			if (Msg[j] == '\0')
+				Msg[j] = ' ';
 		}
-		for (uint32_t i = 0; i < 6; i++)
+		for (uint32_t j = 0; j < 6; j++)
 		{
-			if (Dta[i] == '\0')
-				Dta[i] = ' ';
+			if (Dta[j] == '\0')
+				Dta[j] = ' ';
 		}
-		for (uint32_t i = 0; i < 7; i++)
+		for (uint32_t j = 0; j < 7; j++)
 		{
-			if (Pos[i] == '\0')
-				Pos[i] = ' ';
+			if (Pos[j] == '\0')
+				Pos[j] = ' ';
 		}
 
 		// Format the string.
