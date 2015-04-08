@@ -96,7 +96,7 @@ void hConsole::StartPrinting()
 	CreateThread(NULL, NULL, PrintThread, NULL, NULL, NULL);
 }
 
-void hConsole::EnqueueMessage(char *Source, char *Message, char *Data)
+void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool InstantPrint)
 {
 	char Time[7];
 	char Src[4];
@@ -163,10 +163,17 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data)
 	{
 		FileSystem::WriteFile(Filename.c_str(), (void *)FormatedString.c_str(), FormatedString.length(), true);
 	}
-	MessageQueue.push(FormatedString);
+	if (InstantPrint)
+	{
+		printf(FormatedString.c_str());
+	}
+	else
+	{
+		MessageQueue.push(FormatedString);
+	}
 	ThreadSafe.unlock();
 }
-void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Message, char **Data)
+void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Message, char **Data, bool InstantPrint)
 {
 	char Msg[74];
 	char Dta[6];
@@ -223,7 +230,14 @@ void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Me
 		{
 			FileSystem::WriteFile(Filename.c_str(), (void *)FormatedString.c_str(), FormatedString.length(), true);
 		}
-		MessageQueue.push(FormatedString);
+		if (InstantPrint)
+		{
+			printf(FormatedString.c_str());
+		}
+		else
+		{
+			MessageQueue.push(FormatedString);
+		}
 		ThreadSafe.unlock();
 	}	
 }

@@ -69,17 +69,9 @@ BOOL __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		hConsole::InitializeConsole("RedactedBase.log");
 
 		// A simple reminder for the users.
-		hConsole::EnqueueFragmented
-		(6, "INFO",
-			new char*[4]
-			{
-				(char *)hString::va("SteamBase - %s", __DATE__),
-				"",
-				"This software was created for modders, by modders.",
-				"It's currently maintained by redacted.se and should not be redistributed."
-			},
-			new char*[4]{"", "", "", ""}
-		);
+		hConsole::EnqueueMessage("INFO", (char *)hString::va("SteamBase - %s\n", __DATE__), "", true);
+		hConsole::EnqueueMessage("INFO", "This software was created for modders, by modders.", "", true);
+		hConsole::EnqueueMessage("INFO", "It's currently maintained by redacted.se and should not be redistributed.", "", true);
 
 		// Patch the entrypoint.
 		SafeInit();

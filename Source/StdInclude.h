@@ -95,3 +95,9 @@
 #include "External\GlobalVariables.h"
 #include "External\GameInformation.h"
 #pragma endregion
+
+// Plugin headers.
+#pragma region PluginIncludes
+#include "Plugin\PluginBase.h"
+#include "Plugin\PluginManager.h"
+#pragma endregion
