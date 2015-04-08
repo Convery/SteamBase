@@ -85,15 +85,18 @@ bool hConsole::InitializeConsole(const char *Logfilename)
 		{
 			// Append to create a new logfile.
 			EnqueueMessage("INFO", "Starting upp..", "");
+			return true;
 		}
-	}	
+	}
+
+	return !LogToFile;
 }
 void hConsole::StartPrinting()
 {
 	CreateThread(NULL, NULL, PrintThread, NULL, NULL, NULL);
 }
 
-void hConsole::EnqueueMessage(const char *Source, const char *Message, const char *Data)
+void hConsole::EnqueueMessage(char *Source, char *Message, char *Data)
 {
 	char Time[7];
 	char Src[4];
@@ -163,7 +166,7 @@ void hConsole::EnqueueMessage(const char *Source, const char *Message, const cha
 	MessageQueue.push(FormatedString);
 	ThreadSafe.unlock();
 }
-void hConsole::EnqueueFragmented(uint32_t FragmentCount, const char *Source, const char **Message, const char **Data)
+void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Message, char **Data)
 {
 	char Msg[74];
 	char Dta[6];

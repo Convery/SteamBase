@@ -19,9 +19,11 @@ namespace Global
 
 	// Steam information.
 	char			Steam_Username[16]{};
+	char			Steam_Language[16]{};
 	uint64_t		Steam_UserID = 0;
 	bool			Steam_Offline = true;
 	bool			Steam_Dedicated = false;
+	uint32_t		Steam_AppID = 0;
 
 	// Performance.
 	std::chrono::high_resolution_clock::time_point StartupPoint = std::chrono::high_resolution_clock::now();

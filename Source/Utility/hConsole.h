@@ -22,6 +22,6 @@ public:
 	static bool InitializeConsole(const char *Logfilename = nullptr);
 	static void StartPrinting();
 
-	static void EnqueueMessage(const char *Source, const char *Message, const char *Data);
-	static void EnqueueFragmented(uint32_t FragmentCount, const char *Source, const char **Message, const char **Data);
+	static void EnqueueMessage(char *Source, char *Message, char *Data);
+	static void EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Message, char **Data);
 };

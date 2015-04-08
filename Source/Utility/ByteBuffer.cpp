@@ -179,7 +179,7 @@ bool ByteBuffer::Read(uint32_t Count, void *Output)
 {
 	if (BufferPosition + Count > InternalBuffer.length())
 	{
-		fDBGPrint("%s tried to read out of bounds. Missing bytes: %i", __FUNCTION__, BufferPosition + Count - InternalBuffer.length());
+		fDBGPrint("", "%s tried to read out of bounds. Missing bytes: %i", __FUNCTION__, BufferPosition + Count - InternalBuffer.length());
 		return false;
 	}
 
@@ -222,7 +222,7 @@ bool ByteBuffer::Write(uint32_t Count, void *Input)
 			}
 			else
 			{
-				fDBGPrint("%s error, BufferPosition > InternalBuffer.length", __FUNCTION__);
+				fDBGPrint("", "%s error, BufferPosition > InternalBuffer.length", __FUNCTION__);
 				return false;
 			}
 		}
@@ -479,7 +479,7 @@ bool ByteBuffer::ReadBlob(std::string *Output)
 
 	if (BufferPosition + BlobLength > InternalBuffer.size())
 	{
-		fDBGPrint("%s - Blob (%lli) is larger than the buffer (%lli), check the endians.", __FUNCTION__, BufferPosition + BlobLength, InternalBuffer.size());
+		fDBGPrint("", "%s - Blob (%lli) is larger than the buffer (%lli), check the endians.", __FUNCTION__, BufferPosition + BlobLength, InternalBuffer.size());
 		__debugbreak();
 		return false;
 	}
@@ -501,7 +501,7 @@ bool ByteBuffer::ReadBlob(std::basic_string<uint8_t> *Output)
 
 	if (BufferPosition + BlobLength > InternalBuffer.size())
 	{
-		fDBGPrint("%s - Blob (%lli) is larger than the buffer (%lli), check the endians.", __FUNCTION__, BufferPosition + BlobLength, InternalBuffer.size());
+		fDBGPrint("", "%s - Blob (%lli) is larger than the buffer (%lli), check the endians.", __FUNCTION__, BufferPosition + BlobLength, InternalBuffer.size());
 		__debugbreak();
 		return false;
 	}
@@ -522,7 +522,7 @@ bool ByteBuffer::ReadArrayStart(uint8_t ExpectedType, uint32_t *ElementCount, ui
 	// Get the array type.
 	if (!Read<uint8_t>(&StoredType, false))
 	{
-		fDBGPrint("%s - No array header.", __FUNCTION__);
+		fDBGPrint("", "%s - No array header.", __FUNCTION__);
 		if (ElementSize != nullptr)
 			*ElementCount = 0;
 		return false;
@@ -531,7 +531,7 @@ bool ByteBuffer::ReadArrayStart(uint8_t ExpectedType, uint32_t *ElementCount, ui
 	// Check against the type we want.
 	if (StoredType - 100 != ExpectedType)
 	{
-		fDBGPrint("%s - Expected type %d but read type %d.", __FUNCTION__, ExpectedType, (StoredType - 100));
+		fDBGPrint("", "%s - Expected type %d but read type %d.", __FUNCTION__, ExpectedType, (StoredType - 100));
 		return false;
 	}
 

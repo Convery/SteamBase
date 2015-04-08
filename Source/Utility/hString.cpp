@@ -32,7 +32,7 @@ const char *hString::va(const char *fmt, ...)
 
 	if (StringLength < 0 || StringLength == 8192)
 	{
-		fDBGPrint("%s - Attempted to overrun string, increase the buffer. StrLen: %i", __FUNCTION__, StringLength);
+		fDBGPrint("", "%s - Attempted to overrun string, increase the buffer. StrLen: %i", __FUNCTION__, StringLength);
 	}
 
 	ThreadSafe.unlock();

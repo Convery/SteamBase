@@ -23,9 +23,29 @@
 
 // Debug functionallity.
 #if !defined(NET_DEBUG) && !defined(FS_DEBUG) && !defined(PERF_DEBUG)
-	#define DBGPrint(fmt, ...)
+#define DBGPrint(fmt, ...)
 #else
-	#define DBGPrint(fmt, ...) printf(fmt"\n",  ##__VA_ARGS__)
+#define DBGPrint(fmt, ...) hConsole::EnqueueMessage("DBG", (char *)hString::va(fmt, ##__VA_ARGS__), "")
+#endif
+
+// Useful for logging.
+#define PrintCurrentFunction()	hConsole::EnqueueMessage("INFO", __FUNCTION__, "")
+
+// Individual debug functions.
+#ifdef NET_DEBUG
+#define nDBGPrint(dta, fmt, ...) hConsole::EnqueueMessage("NET", (char *)hString::va(fmt, ##__VA_ARGS__), dta)
+#else
+#define nDBGPrint(fmt, ...)
+#endif
+#ifdef FS_DEBUG
+#define fDBGPrint(dta, fmt, ...) hConsole::EnqueueMessage("FS", (char *)hString::va(fmt, ##__VA_ARGS__), dta)
+#else
+#define fDBGPrint(fmt, ...)
+#endif
+#ifdef PERF_DEBUG
+#define pDBGPrint(dta, fmt, ...) hConsole::EnqueueMessage("PERF", (char *)hString::va(fmt, ##__VA_ARGS__), dta)
+#else
+#define pDBGPrint(fmt, ...)
 #endif
 
 #pragma endregion
