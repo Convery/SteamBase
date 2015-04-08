@@ -5,9 +5,9 @@
 	Initial author: (https://github.com/)Convery
 	Started: 2015-04-08
 	Notes:
-		We unprotect the while module so the plugins can edit it.
+		We unprotect the whole module so the plugins can edit it.
 		We hook the entry point to call our function once everything is loaded.
-		Then we initialize everything and jump to the programs entrypoint.
+		Then we initialize everything and jump to the program's entrypoint.
 */
 
 #include "STDInclude.h"
