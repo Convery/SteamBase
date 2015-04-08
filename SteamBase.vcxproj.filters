@@ -609,6 +609,9 @@
     <ClInclude Include="Source\Steam\Interface\ISteamUtils007.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Steam\Interface\SteamClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Steam\SteamTypes\CGameID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -747,7 +750,7 @@
     <ClInclude Include="Source\Steam\SteamTypes\TSteamUpdateStats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Steam\Interface\SteamClient.h">
+    <ClInclude Include="Source\Steam\InterfaceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -771,6 +774,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Plugin\PluginManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\InterfaceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

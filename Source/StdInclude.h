@@ -104,11 +104,10 @@
 
 // Steam headers.
 #pragma region SteamIncludes
-//#include "Steam\Interface.h"
+#include "Steam\InterfaceManager.h"
 //#include "Steam\Callback.h"
 
 #include "Steam\Common\ClientCommon.h"
 #include "Steam\SteamTypes\SteamTypes.h"
 #include "Steam\Interface\SteamClient.h"
-
 #pragma endregion
