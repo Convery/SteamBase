@@ -20,7 +20,6 @@
 #pragma once
 #endif
 
-
 // General result codes
 typedef enum EResult
 {
