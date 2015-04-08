@@ -19,7 +19,7 @@
 #define PERF_DEBUG			// Performance logging.
 
 // Piracy prevention as mandated by ATVI.
-#define NOPIRACY
+#define NO_PIRACY
 
 // Debug functionallity.
 #if !defined(NET_DEBUG) && !defined(FS_DEBUG) && !defined(PERF_DEBUG)
@@ -29,7 +29,7 @@
 #endif
 
 // Useful for logging.
-#define PrintCurrentFunction()	hConsole::EnqueueMessage("INFO", __FUNCTION__, "")
+#define PrintCurrentFunction()	hConsole::EnqueueMessage("INFO", __FUNCTION__, "", false)
 
 // Individual debug functions.
 #ifdef NET_DEBUG
@@ -110,4 +110,7 @@
 #include "Steam\Common\ClientCommon.h"
 #include "Steam\SteamTypes\SteamTypes.h"
 #include "Steam\Interface\SteamClient.h"
+
+#include "Steam\Classes\SteamClasses.h"
+#include "Steam\ClassWrappers\SteamClasses.h"
 #pragma endregion

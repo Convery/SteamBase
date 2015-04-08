@@ -75,6 +75,10 @@
     <ClInclude Include="Source\Plugin\PluginBase.h" />
     <ClInclude Include="Source\Plugin\PluginManager.h" />
     <ClInclude Include="Source\StdInclude.h" />
+    <ClInclude Include="Source\Steam\Classes\RedactedApps.h" />
+    <ClInclude Include="Source\Steam\Classes\SteamClasses.h" />
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamApps.h" />
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamClasses.h" />
     <ClInclude Include="Source\Steam\Common\AppsCommon.h" />
     <ClInclude Include="Source\Steam\Common\AppTicketCommon.h" />
     <ClInclude Include="Source\Steam\Common\BillingCommon.h" />
@@ -321,6 +325,8 @@
     <ClCompile Include="Source\DllMain.cpp" />
     <ClCompile Include="Source\External\GlobalVariables.cpp" />
     <ClCompile Include="Source\Plugin\PluginManager.cpp" />
+    <ClCompile Include="Source\Steam\Classes\RedactedApps.cpp" />
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamApps.cpp" />
     <ClCompile Include="Source\Steam\InterfaceManager.cpp" />
     <ClCompile Include="Source\Steam\SteamCallback.cpp" />
     <ClCompile Include="Source\Utility\ByteBuffer.cpp" />
