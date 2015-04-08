@@ -1,0 +1,1820 @@
+/*
+	This project is released under the GPL 2.0 license.
+	Please do no evil.
+
+	Initial author: (https://github.com/)Convery
+	Started: 2015-04-08
+	Notes:
+	Friendslist.
+	*/
+
+#include "..\..\StdInclude.h"
+
+#pragma region SteamFriends001
+// returns the local players name - guaranteed to not be NULL.
+const char *SteamFriends001::GetPersonaName()
+{
+}
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends001::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the friend status of the current user
+EPersonaState SteamFriends001::GetPersonaState() {}
+// sets the status, communicates to server, tells all friends
+void SteamFriends001::SetPersonaState(EPersonaState ePersonaState) {}
+
+// adds a friend to the users list.  Friend will be notified that they have been added, and have the option of accept/decline
+bool SteamFriends001::AddFriend(CSteamID steamIDFriend) {}
+// removes the friend from the list, and blocks them from contacting the user again
+bool SteamFriends001::RemoveFriend(CSteamID steamIDFriend) {}
+// returns true if the specified user is considered a friend (can see our online status)
+bool SteamFriends001::HasFriend(CSteamID steamIDFriend) {}
+
+// gets the relationship to a user
+EFriendRelationship SteamFriends001::GetFriendRelationship(CSteamID steamIDFriend) {}
+// returns true if the specified user is considered a friend (can see our online status)
+EPersonaState SteamFriends001::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// retrieves details about the game the friend is currently playing - returns false if the friend is not playing any games
+// this is deprecated, please use the GetFriendGamePlayed# functions below
+bool SteamFriends001::Deprecated_GetFriendGamePlayed(CSteamID steamIDFriend, int32 *pnGameID, uint32 *punGameIP, uint16 *pusGamePort) {}
+
+// returns the name of a friend - guaranteed to not be NULL.
+const char *SteamFriends001::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// adds a friend by email address or account name - value returned in callback
+HSteamCall SteamFriends001::AddFriendByName(const char *pchEmailOrAccountName) {}
+
+// friend iteration
+int32_t SteamFriends001::GetFriendCount() {}
+CSteamID SteamFriends001::GetFriendByIndex(int32_t iFriend) {}
+
+// generic friend->friend message sending
+// DEPRECATED, use the sized-buffer version instead (has much higher max buffer size)
+void SteamFriends001::SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const char *pchMsgBody) {}
+
+// steam registry, accessed by friend
+void SteamFriends001::SetFriendRegValue(CSteamID steamIDFriend, const char *pchKey, const char *pchValue) {}
+const char *SteamFriends001::GetFriendRegValue(CSteamID steamIDFriend, const char *pchKey) {}
+
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends001::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// chat message iteration
+// returns the number of bytes in the message, filling pvData with as many of those bytes as possible
+// returns 0 if the steamID or iChatID are invalid
+int32_t SteamFriends001::GetChatMessage(CSteamID steamIDFriend, int32_t iChatID, void *pvData, int32_t cubData, EChatEntryType *peFriendMsgType) {}
+
+// generic friend->friend message sending, takes a sized buffer
+bool SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const void *pvMsgBody, int32_t cubMsgBody) {}
+
+// returns the chatID that a chat should be resumed from when switching chat contexts
+OBSOLETE_FUNCTION int32_t SteamFriends001::GetChatIDOfChatHistoryStart(CSteamID steamIDFriend) {}
+// sets where a chat with a user should resume
+OBSOLETE_FUNCTION void SteamFriends001::SetChatHistoryStart(CSteamID steamIDFriend, int32_t iChatID) {}
+// clears the chat history - should be called when a chat dialog closes
+// the chat history can still be recovered by another context using SetChatHistoryStart() to reset the ChatIDOfChatHistoryStart
+void SteamFriends001::ClearChatHistory(CSteamID steamIDFriend) {}
+
+HSteamCall SteamFriends001::InviteFriendByEmail(const char *pchEmailOrAccountName) {}
+
+uint32 SteamFriends001::GetBlockedFriendCount() {}
+
+bool SteamFriends001::GetFriendGamePlayed(CSteamID steamIDFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort) {}
+bool SteamFriends001::GetFriendGamePlayed2(CSteamID steamDIFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort, uint16 *pusQueryPort) {}
+#pragma endregion
+
+#pragma region SteamFriends002
+// returns the local players name - guaranteed to not be NULL.
+const char *SteamFriends002::GetPersonaName() {}
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends002::SetPersonaName(const char *pchPersonaName) {}
+// gets the friend status of the current user
+EPersonaState SteamFriends002::GetPersonaState() {}
+// sets the status, communicates to server, tells all friends
+void SteamFriends002::SetPersonaState(EPersonaState ePersonaState) {}
+
+// friend iteration
+int32_t SteamFriends002::GetFriendCount(EFriendFlags iFriendFlags) {}
+CSteamID SteamFriends002::GetFriendByIndex(int32_t iFriend, EFriendFlags iFriendFlags) {}
+
+// gets the relationship to a user
+EFriendRelationship SteamFriends002::GetFriendRelationship(CSteamID steamIDFriend) {}
+// returns true if the specified user is considered a friend (can see our online status)
+EPersonaState SteamFriends002::GetFriendPersonaState(CSteamID steamIDFriend) {}
+// returns the name of a friend - guaranteed to not be NULL.
+const char *SteamFriends002::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// steam registry, accessed by friend
+void SteamFriends002::SetFriendRegValue(CSteamID steamIDFriend, const char *pchKey, const char *pchValue) {}
+const char *SteamFriends002::GetFriendRegValue(CSteamID steamIDFriend, const char *pchKey) {}
+
+// returns true if the friend is actually in a game
+bool SteamFriends002::GetFriendGamePlayed(CSteamID steamIDFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort, uint16 *pusQueryPort) {}
+
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends002::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// adds a friend to the users list.  Friend will be notified that they have been added, and have the option of accept/decline
+bool SteamFriends002::AddFriend(CSteamID steamIDFriend) {}
+// removes the friend from the list, and blocks them from contacting the user again
+bool SteamFriends002::RemoveFriend(CSteamID steamIDFriend) {}
+
+// returns true if the specified user is considered a friend (can see our online status)
+bool SteamFriends002::HasFriend(CSteamID steamIDFriend, EFriendFlags iFriendFlags) {}
+
+// adds a friend by email address or account name - value returned in callback
+HSteamCall SteamFriends002::AddFriendByName(const char *pchEmailOrAccountName) {}
+
+bool SteamFriends002::InviteFriendByEmail(const char *emailAddr) {}
+
+// chat message iteration
+// returns the number of bytes in the message, filling pvData with as many of those bytes as possible
+// returns 0 if the steamID or iChatID are invalid
+int32_t SteamFriends002::GetChatMessage(CSteamID steamIDFriend, int32_t iChatID, void *pvData, int32_t cubData, EChatEntryType *peFriendMsgType) {}
+
+// generic friend->friend message sending, takes a sized buffer
+bool SteamFriends002::SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const void *pvMsgBody, int32_t cubMsgBody) {}
+
+// returns the chatID that a chat should be resumed from when switching chat contexts
+OBSOLETE_FUNCTION int32_t SteamFriends002::GetChatIDOfChatHistoryStart(CSteamID steamIDFriend) {}
+// sets where a chat with a user should resume
+OBSOLETE_FUNCTION void SteamFriends002::SetChatHistoryStart(CSteamID steamIDFriend, int32_t iChatID) {}
+// clears the chat history - should be called when a chat dialog closes
+// the chat history can still be recovered by another context using SetChatHistoryStart() to reset the ChatIDOfChatHistoryStart
+void SteamFriends002::ClearChatHistory(CSteamID steamIDFriend) {}
+
+// clan functions
+int32_t SteamFriends002::GetClanCount() {}
+CSteamID SteamFriends002::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends002::GetClanName(CSteamID steamIDClan) {}
+
+bool SteamFriends002::InviteFriendToClan(CSteamID steamIDfriend, CSteamID steamIDclan) {}
+bool SteamFriends002::AcknowledgeInviteToClan(CSteamID steamID, bool) {}
+
+int32_t SteamFriends002::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends002::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+#pragma endregion
+
+#pragma region SteamFriends003
+// returns the local players name - guaranteed to not be NULL.
+const char *SteamFriends003::GetPersonaName() {}
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends003::SetPersonaName(const char *pchPersonaName) {}
+// gets the friend status of the current user
+EPersonaState SteamFriends003::GetPersonaState() {}
+
+// friend iteration
+int32_t SteamFriends003::GetFriendCount(EFriendFlags iFriendFlags) {}
+CSteamID SteamFriends003::GetFriendByIndex(int32_t iFriend, EFriendFlags iFriendFlags) {}
+
+// gets the relationship to a user
+EFriendRelationship SteamFriends003::GetFriendRelationship(CSteamID steamIDFriend) {}
+// returns true if the specified user is considered a friend (can see our online status)
+EPersonaState SteamFriends003::GetFriendPersonaState(CSteamID steamIDFriend) {}
+// returns the name of a friend - guaranteed to not be NULL.
+const char *SteamFriends003::GetFriendPersonaName(CSteamID steamIDFriend) {}
+// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends003::GetFriendAvatar(CSteamID steamIDFriend) {}
+// returns true if the friend is actually in a game
+bool SteamFriends003::GetFriendGamePlayed(CSteamID steamIDFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort, uint16 *pusQueryPort) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends003::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user is considered a friend
+bool SteamFriends003::HasFriend(CSteamID steamIDFriend, EFriendFlags iFriendFlags) {}
+
+// clan functions
+int32_t SteamFriends003::GetClanCount() {}
+CSteamID SteamFriends003::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends003::GetClanName(CSteamID steamIDClan) {}
+
+// iterators for any source
+int32_t SteamFriends003::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends003::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+bool SteamFriends003::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends003::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open ("Friends", "Community", "Players", "Settings")
+void SteamFriends003::ActivateGameOverlay(const char *pchDialog) {}
+#pragma endregion
+
+#pragma region SteamFriends004
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends004::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends004::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends004::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends004::GetFriendCount(EFriendFlags eFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends004::GetFriendByIndex(int32_t iFriend, EFriendFlags eFriendFlags) {}
+
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends004::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends004::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+const char *SteamFriends004::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends004::GetFriendAvatar(CSteamID steamIDFriend, int32_t eAvatarSize) {}
+
+// returns true if the friend is actually in a game
+bool SteamFriends004::GetFriendGamePlayed(CSteamID steamIDFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort, uint16 *pusQueryPort) {}
+
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends004::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends004::HasFriend(CSteamID steamIDFriend, EFriendFlags eFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends004::GetClanCount() {}
+CSteamID SteamFriends004::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends004::GetClanName(CSteamID steamIDClan) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends004::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends004::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends004::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends004::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup"
+void SteamFriends004::ActivateGameOverlay(const char *pchDialog) {}
+#pragma endregion
+
+#pragma region SteamFriends005
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends005::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends005::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends005::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends005::GetFriendCount(EFriendFlags eFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends005::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends005::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends005::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+const char *SteamFriends005::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends005::GetFriendAvatar(CSteamID steamIDFriend, int32_t eAvatarSize) {}
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends005::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends005::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends005::HasFriend(CSteamID steamIDFriend, EFriendFlags eFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends005::GetClanCount() {}
+CSteamID SteamFriends005::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends005::GetClanName(CSteamID steamIDClan) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends005::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends005::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends005::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends005::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup"
+void SteamFriends005::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+void SteamFriends005::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends005::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends005::ActivateGameOverlayToStore(AppId_t nAppID) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends005::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+#pragma endregion
+
+#pragma region SteamFriends006
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends006::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends006::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends006::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends006::GetFriendCount(EFriendFlags eFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends006::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends006::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends006::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+const char *SteamFriends006::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends006::GetFriendAvatar(CSteamID steamIDFriend, int32_t eAvatarSize) {}
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends006::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends006::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends006::HasFriend(CSteamID steamIDFriend, EFriendFlags eFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends006::GetClanCount() {}
+CSteamID SteamFriends006::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends006::GetClanName(CSteamID steamIDClan) {}
+const char *SteamFriends006::GetClanTag(CSteamID steamIDClan) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends006::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends006::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends006::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends006::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup"
+void SteamFriends006::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+void SteamFriends006::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends006::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends006::ActivateGameOverlayToStore(AppId_t nAppID) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends006::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+
+// activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
+// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
+void SteamFriends006::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
+#pragma endregion
+
+#pragma region SteamFriends007
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends007::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends007::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends007::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends007::GetFriendCount(EFriendFlags eFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends007::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends007::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends007::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+const char *SteamFriends007::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends007::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends007::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends007::HasFriend(CSteamID steamIDFriend, EFriendFlags eFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends007::GetClanCount() {}
+CSteamID SteamFriends007::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends007::GetClanName(CSteamID steamIDClan) {}
+const char *SteamFriends007::GetClanTag(CSteamID steamIDClan) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends007::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends007::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends007::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends007::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup"
+void SteamFriends007::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+void SteamFriends007::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends007::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends007::ActivateGameOverlayToStore(AppId_t nAppID) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends007::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+
+// activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
+// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
+void SteamFriends007::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
+
+// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends007::GetSmallFriendAvatar(CSteamID steamIDFriend) {}
+int32_t SteamFriends007::GetMediumFriendAvatar(CSteamID steamIDFriend) {}
+int32_t SteamFriends007::GetLargeFriendAvatar(CSteamID steamIDFriend) {}
+#pragma endregion
+
+#pragma region SteamFriends008
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends008::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends008::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends008::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends008::GetFriendCount(EFriendFlags eFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends008::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends008::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends008::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+const char *SteamFriends008::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends008::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends008::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends008::HasFriend(CSteamID steamIDFriend, EFriendFlags eFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends008::GetClanCount() {}
+CSteamID SteamFriends008::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends008::GetClanName(CSteamID steamIDClan) {}
+const char *SteamFriends008::GetClanTag(CSteamID steamIDClan) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends008::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends008::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends008::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends008::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup"
+void SteamFriends008::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+void SteamFriends008::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends008::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends008::ActivateGameOverlayToStore(AppId_t nAppID) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends008::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+
+// activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
+// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
+void SteamFriends008::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
+
+// gets the small (32x32) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends008::GetSmallFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the medium (64x64) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends008::GetMediumFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the large (184x184) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+// returns -1 if this image has yet to be loaded, in this case wait for a AvatarImageLoaded_t callback and then call this again
+int32_t SteamFriends008::GetLargeFriendAvatar(CSteamID steamIDFriend) {}
+
+// requests information about a user - persona name & avatar
+// if bRequireNameOnly is set, then the avatar of a user isn't downloaded 
+// - it's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them
+// if returns true, it means that data is being requested, and a PersonaStateChanged_t callback will be posted when it's retrieved
+// if returns false, it means that we already have all the details about that user, and functions can be called immediately
+bool SteamFriends008::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly) {}
+
+// requests information about a clan officer list
+// when complete, data is returned in ClanOfficerListResponse_t call result
+// this makes available the calls below
+// you can only ask about clans that a user is a member of
+// note that this won't download avatars automatically {} if you get an officer,
+// and no avatar image is available, call RequestUserInformation( steamID, false ) to download the avatar
+SteamAPICall_t SteamFriends008::RequestClanOfficerList(CSteamID steamIDClan) {}
+
+// iteration of clan officers - can only be done when a RequestClanOfficerList() call has completed
+
+// returns the steamID of the clan owner
+CSteamID SteamFriends008::GetClanOwner(CSteamID steamIDClan) {}
+// returns the number of officers in a clan (including the owner)
+int32_t SteamFriends008::GetClanOfficerCount(CSteamID steamIDClan) {}
+// returns the steamID of a clan officer, by index, of range [0,GetClanOfficerCount)
+CSteamID SteamFriends008::GetClanOfficerByIndex(CSteamID steamIDClan, int32_t iOfficer) {}
+// if current user is chat restricted, he can't send or receive any text/voice chat messages.
+// the user can't see custom avatars. But the user can be online and send/recv game invites.
+// a chat restricted user can't add friends or join any groups.
+EUserRestriction SteamFriends008::GetUserRestrictions() {}
+#pragma endregion
+
+#pragma region SteamFriends009
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends009::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends009::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends009::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends009::GetFriendCount(int32_t iFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends009::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends009::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends009::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+// 
+const char *SteamFriends009::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends009::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends009::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends009::HasFriend(CSteamID steamIDFriend, int32_t iFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends009::GetClanCount() {}
+CSteamID SteamFriends009::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends009::GetClanName(CSteamID steamIDClan) {}
+const char *SteamFriends009::GetClanTag(CSteamID steamIDClan) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends009::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends009::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends009::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends009::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup", "Stats", "Achievements"
+void SteamFriends009::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+//		"stats" - opens the overlay web browser to the specified user's stats
+//		"achievements" - opens the overlay web browser to the specified user's achievements
+void SteamFriends009::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends009::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends009::ActivateGameOverlayToStore(AppId_t nAppID) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends009::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+
+// activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
+// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
+void SteamFriends009::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
+
+// gets the small (32x32) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends009::GetSmallFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the medium (64x64) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends009::GetMediumFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the large (184x184) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+// returns -1 if this image has yet to be loaded, in this case wait for a AvatarImageLoaded_t callback and then call this again
+int32_t SteamFriends009::GetLargeFriendAvatar(CSteamID steamIDFriend) {}
+
+// requests information about a user - persona name & avatar
+// if bRequireNameOnly is set, then the avatar of a user isn't downloaded 
+// - it's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them
+// if returns true, it means that data is being requested, and a PersonaStateChanged_t callback will be posted when it's retrieved
+// if returns false, it means that we already have all the details about that user, and functions can be called immediately
+bool SteamFriends009::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly) {}
+
+// requests information about a clan officer list
+// when complete, data is returned in ClanOfficerListResponse_t call result
+// this makes available the calls below
+// you can only ask about clans that a user is a member of
+// note that this won't download avatars automatically {} if you get an officer,
+// and no avatar image is available, call RequestUserInformation( steamID, false ) to download the avatar
+SteamAPICall_t SteamFriends009::RequestClanOfficerList(CSteamID steamIDClan) {}
+
+// iteration of clan officers - can only be done when a RequestClanOfficerList() call has completed
+
+// returns the steamID of the clan owner
+CSteamID SteamFriends009::GetClanOwner(CSteamID steamIDClan) {}
+// returns the number of officers in a clan (including the owner)
+int32_t SteamFriends009::GetClanOfficerCount(CSteamID steamIDClan) {}
+// returns the steamID of a clan officer, by index, of range [0,GetClanOfficerCount)
+CSteamID SteamFriends009::GetClanOfficerByIndex(CSteamID steamIDClan, int32_t iOfficer) {}
+// if current user is chat restricted, he can't send or receive any text/voice chat messages.
+// the user can't see custom avatars. But the user can be online and send/recv game invites.
+// a chat restricted user can't add friends or join any groups.
+EUserRestriction SteamFriends009::GetUserRestrictions() {}
+
+// Rich Presence data is automatically shared between friends who are in the same game
+// Each user has a set of Key/Value pairs
+// Up to 20 different keys can be set
+// There are two magic keys:
+//		"status"  - a UTF-8 string that will show up in the 'view game info' dialog in the Steam friends list
+//		"connect" - a UTF-8 string that contains the command-line for how a friend can connect to a game
+// GetFriendRichPresence() returns an empty string "" if no value is set
+// SetRichPresence() to a NULL or an empty string deletes the key
+// You can iterate the current set of keys for a friend with GetFriendRichPresenceKeyCount()
+// and GetFriendRichPresenceKeyByIndex() (typically only used for debugging)
+bool SteamFriends009::SetRichPresence(const char *pchKey, const char *pchValue) {}
+void SteamFriends009::ClearRichPresence() {}
+const char *SteamFriends009::GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey) {}
+int32_t SteamFriends009::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend) {}
+const char *SteamFriends009::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int32_t iKey) {}
+
+// rich invite support
+// if the target accepts the invite, the pchConnectString gets added to the command-line for launching the game
+// if the game is already running, a GameRichPresenceJoinRequested_t callback is posted containing the connect string
+// invites can only be sent to friends
+bool SteamFriends009::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString) {}
+
+// recently-played-with friends iteration
+// this iterates the entire list of users recently played with, across games
+// GetFriendCoplayTime() returns as a unix time
+int32_t SteamFriends009::GetCoplayFriendCount() {}
+CSteamID SteamFriends009::GetCoplayFriend(int32_t iCoplayFriend) {}
+int32_t SteamFriends009::GetFriendCoplayTime(CSteamID steamIDFriend) {}
+AppId_t SteamFriends009::GetFriendCoplayGame(CSteamID steamIDFriend) {}
+#pragma endregion
+
+#pragma region SteamFriends010
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends010::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends010::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends010::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends010::GetFriendCount(int32_t iFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends010::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends010::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends010::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+// 
+const char *SteamFriends010::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends010::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends010::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends010::HasFriend(CSteamID steamIDFriend, int32_t iFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends010::GetClanCount() {}
+CSteamID SteamFriends010::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends010::GetClanName(CSteamID steamIDClan) {}
+const char *SteamFriends010::GetClanTag(CSteamID steamIDClan) {}
+
+bool SteamFriends010::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline, int32_t *pnInGame, int32_t *pnChatting) {}
+SteamAPICall_t SteamFriends010::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends010::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends010::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends010::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends010::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup", "Stats", "Achievements"
+void SteamFriends010::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+//		"stats" - opens the overlay web browser to the specified user's stats
+//		"achievements" - opens the overlay web browser to the specified user's achievements
+void SteamFriends010::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends010::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends010::ActivateGameOverlayToStore(AppId_t nAppID) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends010::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+
+// activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
+// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
+void SteamFriends010::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
+
+// gets the small (32x32) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends010::GetSmallFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the medium (64x64) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends010::GetMediumFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the large (184x184) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+// returns -1 if this image has yet to be loaded, in this case wait for a AvatarImageLoaded_t callback and then call this again
+int32_t SteamFriends010::GetLargeFriendAvatar(CSteamID steamIDFriend) {}
+
+// requests information about a user - persona name & avatar
+// if bRequireNameOnly is set, then the avatar of a user isn't downloaded 
+// - it's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them
+// if returns true, it means that data is being requested, and a PersonaStateChanged_t callback will be posted when it's retrieved
+// if returns false, it means that we already have all the details about that user, and functions can be called immediately
+bool SteamFriends010::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly) {}
+
+// requests information about a clan officer list
+// when complete, data is returned in ClanOfficerListResponse_t call result
+// this makes available the calls below
+// you can only ask about clans that a user is a member of
+// note that this won't download avatars automatically {} if you get an officer,
+// and no avatar image is available, call RequestUserInformation( steamID, false ) to download the avatar
+SteamAPICall_t SteamFriends010::RequestClanOfficerList(CSteamID steamIDClan) {}
+
+// iteration of clan officers - can only be done when a RequestClanOfficerList() call has completed
+
+// returns the steamID of the clan owner
+CSteamID SteamFriends010::GetClanOwner(CSteamID steamIDClan) {}
+// returns the number of officers in a clan (including the owner)
+int32_t SteamFriends010::GetClanOfficerCount(CSteamID steamIDClan) {}
+// returns the steamID of a clan officer, by index, of range [0,GetClanOfficerCount)
+CSteamID SteamFriends010::GetClanOfficerByIndex(CSteamID steamIDClan, int32_t iOfficer) {}
+// if current user is chat restricted, he can't send or receive any text/voice chat messages.
+// the user can't see custom avatars. But the user can be online and send/recv game invites.
+// a chat restricted user can't add friends or join any groups.
+EUserRestriction SteamFriends010::GetUserRestrictions() {}
+
+// Rich Presence data is automatically shared between friends who are in the same game
+// Each user has a set of Key/Value pairs
+// Up to 20 different keys can be set
+// There are two magic keys:
+//		"status"  - a UTF-8 string that will show up in the 'view game info' dialog in the Steam friends list
+//		"connect" - a UTF-8 string that contains the command-line for how a friend can connect to a game
+// GetFriendRichPresence() returns an empty string "" if no value is set
+// SetRichPresence() to a NULL or an empty string deletes the key
+// You can iterate the current set of keys for a friend with GetFriendRichPresenceKeyCount()
+// and GetFriendRichPresenceKeyByIndex() (typically only used for debugging)
+bool SteamFriends010::SetRichPresence(const char *pchKey, const char *pchValue) {}
+void SteamFriends010::ClearRichPresence() {}
+const char *SteamFriends010::GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey) {}
+int32_t SteamFriends010::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend) {}
+const char *SteamFriends010::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int32_t iKey) {}
+
+// rich invite support
+// if the target accepts the invite, the pchConnectString gets added to the command-line for launching the game
+// if the game is already running, a GameRichPresenceJoinRequested_t callback is posted containing the connect string
+// invites can only be sent to friends
+bool SteamFriends010::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString) {}
+
+// recently-played-with friends iteration
+// this iterates the entire list of users recently played with, across games
+// GetFriendCoplayTime() returns as a unix time
+int32_t SteamFriends010::GetCoplayFriendCount() {}
+CSteamID SteamFriends010::GetCoplayFriend(int32_t iCoplayFriend) {}
+int32_t SteamFriends010::GetFriendCoplayTime(CSteamID steamIDFriend) {}
+AppId_t SteamFriends010::GetFriendCoplayGame(CSteamID steamIDFriend) {}
+
+SteamAPICall_t SteamFriends010::JoinClanChatRoom(CSteamID groupID) {}
+bool SteamFriends010::LeaveClanChatRoom(CSteamID groupID) {}
+int32_t SteamFriends010::GetClanChatMemberCount(CSteamID groupID) {}
+CSteamID SteamFriends010::GetChatMemberByIndex(CSteamID groupID, int32_t iIndex) {}
+bool SteamFriends010::SendClanChatMessage(CSteamID groupID, const char *cszMessage) {}
+int32_t SteamFriends010::GetClanChatMessage(CSteamID groupID, int32_t iChatID, void *pvData, int32_t cubData, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter) {}
+bool SteamFriends010::IsClanChatAdmin(CSteamID groupID, CSteamID userID) {}
+bool SteamFriends010::IsClanChatWindowOpenInSteam(CSteamID groupID) {}
+bool SteamFriends010::OpenClanChatWindowInSteam(CSteamID groupID) {}
+bool SteamFriends010::CloseClanChatWindowInSteam(CSteamID groupID) {}
+bool SteamFriends010::SetListenForFriendsMessages(bool bListen) {}
+bool SteamFriends010::ReplyToFriendMessage(CSteamID friendID, const char *cszMessage) {}
+int32_t SteamFriends010::GetFriendMessage(CSteamID friendID, int32_t iChatID, void *pvData, int32_t cubData, EChatEntryType *peChatEntryType) {}
+#pragma endregion
+
+#pragma region SteamFriends011
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends011::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+void SteamFriends011::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends011::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends011::GetFriendCount(int32_t iFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends011::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends011::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends011::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+// 
+const char *SteamFriends011::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends011::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends011::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends011::HasFriend(CSteamID steamIDFriend, int32_t iFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends011::GetClanCount() {}
+CSteamID SteamFriends011::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends011::GetClanName(CSteamID steamIDClan) {}
+const char *SteamFriends011::GetClanTag(CSteamID steamIDClan) {}
+
+bool SteamFriends011::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline, int32_t *pnInGame, int32_t *pnChatting) {}
+SteamAPICall_t SteamFriends011::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends011::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends011::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends011::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends011::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup", "Stats", "Achievements"
+void SteamFriends011::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+//		"stats" - opens the overlay web browser to the specified user's stats
+//		"achievements" - opens the overlay web browser to the specified user's achievements
+void SteamFriends011::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends011::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends011::ActivateGameOverlayToStore(AppId_t nAppID) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends011::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+
+// activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
+// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
+void SteamFriends011::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
+
+// gets the small (32x32) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends011::GetSmallFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the medium (64x64) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends011::GetMediumFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the large (184x184) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+// returns -1 if this image has yet to be loaded, in this case wait for a AvatarImageLoaded_t callback and then call this again
+int32_t SteamFriends011::GetLargeFriendAvatar(CSteamID steamIDFriend) {}
+
+// requests information about a user - persona name & avatar
+// if bRequireNameOnly is set, then the avatar of a user isn't downloaded 
+// - it's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them
+// if returns true, it means that data is being requested, and a PersonaStateChanged_t callback will be posted when it's retrieved
+// if returns false, it means that we already have all the details about that user, and functions can be called immediately
+bool SteamFriends011::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly) {}
+
+// requests information about a clan officer list
+// when complete, data is returned in ClanOfficerListResponse_t call result
+// this makes available the calls below
+// you can only ask about clans that a user is a member of
+// note that this won't download avatars automatically {} if you get an officer,
+// and no avatar image is available, call RequestUserInformation( steamID, false ) to download the avatar
+SteamAPICall_t SteamFriends011::RequestClanOfficerList(CSteamID steamIDClan) {}
+
+// iteration of clan officers - can only be done when a RequestClanOfficerList() call has completed
+
+// returns the steamID of the clan owner
+CSteamID SteamFriends011::GetClanOwner(CSteamID steamIDClan) {}
+// returns the number of officers in a clan (including the owner)
+int32_t SteamFriends011::GetClanOfficerCount(CSteamID steamIDClan) {}
+// returns the steamID of a clan officer, by index, of range [0,GetClanOfficerCount)
+CSteamID SteamFriends011::GetClanOfficerByIndex(CSteamID steamIDClan, int32_t iOfficer) {}
+// if current user is chat restricted, he can't send or receive any text/voice chat messages.
+// the user can't see custom avatars. But the user can be online and send/recv game invites.
+// a chat restricted user can't add friends or join any groups.
+EUserRestriction SteamFriends011::GetUserRestrictions() {}
+
+// Rich Presence data is automatically shared between friends who are in the same game
+// Each user has a set of Key/Value pairs
+// Up to 20 different keys can be set
+// There are two magic keys:
+//		"status"  - a UTF-8 string that will show up in the 'view game info' dialog in the Steam friends list
+//		"connect" - a UTF-8 string that contains the command-line for how a friend can connect to a game
+// GetFriendRichPresence() returns an empty string "" if no value is set
+// SetRichPresence() to a NULL or an empty string deletes the key
+// You can iterate the current set of keys for a friend with GetFriendRichPresenceKeyCount()
+// and GetFriendRichPresenceKeyByIndex() (typically only used for debugging)
+bool SteamFriends011::SetRichPresence(const char *pchKey, const char *pchValue) {}
+void SteamFriends011::ClearRichPresence() {}
+const char *SteamFriends011::GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey) {}
+int32_t SteamFriends011::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend) {}
+const char *SteamFriends011::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int32_t iKey) {}
+void SteamFriends011::RequestFriendRichPresence(CSteamID steamIDFriend) {}
+
+// rich invite support
+// if the target accepts the invite, the pchConnectString gets added to the command-line for launching the game
+// if the game is already running, a GameRichPresenceJoinRequested_t callback is posted containing the connect string
+// invites can only be sent to friends
+bool SteamFriends011::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString) {}
+
+// recently-played-with friends iteration
+// this iterates the entire list of users recently played with, across games
+// GetFriendCoplayTime() returns as a unix time
+int32_t SteamFriends011::GetCoplayFriendCount() {}
+CSteamID SteamFriends011::GetCoplayFriend(int32_t iCoplayFriend) {}
+int32_t SteamFriends011::GetFriendCoplayTime(CSteamID steamIDFriend) {}
+AppId_t SteamFriends011::GetFriendCoplayGame(CSteamID steamIDFriend) {}
+
+// chat interface for games
+// this allows in-game access to group (clan) chats from in the game
+// the behavior is somewhat sophisticated, because the user may or may not be already in the group chat from outside the game or in the overlay
+// use ActivateGameOverlayToUser( "chat", steamIDClan ) to open the in-game overlay version of the chat
+SteamAPICall_t SteamFriends011::JoinClanChatRoom(CSteamID steamIDClan) {}
+bool SteamFriends011::LeaveClanChatRoom(CSteamID steamIDClan) {}
+int32_t SteamFriends011::GetClanChatMemberCount(CSteamID steamIDClan) {}
+CSteamID SteamFriends011::GetChatMemberByIndex(CSteamID steamIDClan, int32_t iUser) {}
+bool SteamFriends011::SendClanChatMessage(CSteamID steamIDClanChat, const char *pchText) {}
+int32_t SteamFriends011::GetClanChatMessage(CSteamID steamIDClanChat, int32_t iMessage, void *prgchText, int32_t cchTextMax, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter) {}
+bool SteamFriends011::IsClanChatAdmin(CSteamID steamIDClanChat, CSteamID steamIDUser) {}
+
+// interact with the Steam (game overlay / desktop)
+bool SteamFriends011::IsClanChatWindowOpenInSteam(CSteamID steamIDClanChat) {}
+bool SteamFriends011::OpenClanChatWindowInSteam(CSteamID steamIDClanChat) {}
+bool SteamFriends011::CloseClanChatWindowInSteam(CSteamID steamIDClanChat) {}
+
+// peer-to-peer chat interception
+// this is so you can show P2P chats inline in the game
+bool SteamFriends011::SetListenForFriendsMessages(bool bInterceptEnabled) {}
+bool SteamFriends011::ReplyToFriendMessage(CSteamID steamIDFriend, const char *pchMsgToSend) {}
+int32_t SteamFriends011::GetFriendMessage(CSteamID steamIDFriend, int32_t iMessageID, void *pvData, int32_t cubData, EChatEntryType *peChatEntryType) {}
+
+// following apis
+SteamAPICall_t SteamFriends011::GetFollowerCount(CSteamID steamID) {}
+SteamAPICall_t SteamFriends011::IsFollowing(CSteamID steamID) {}
+SteamAPICall_t SteamFriends011::EnumerateFollowingList(uint32 unStartIndex) {}
+#pragma endregion
+
+#pragma region SteamFriends012
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends012::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+SteamAPICall_t SteamFriends012::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends012::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends012::GetFriendCount(int32_t iFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends012::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends012::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends012::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+// 
+const char *SteamFriends012::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends012::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends012::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends012::HasFriend(CSteamID steamIDFriend, int32_t iFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends012::GetClanCount() {}
+CSteamID SteamFriends012::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends012::GetClanName(CSteamID steamIDClan) {}
+const char *SteamFriends012::GetClanTag(CSteamID steamIDClan) {}
+
+bool SteamFriends012::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline, int32_t *pnInGame, int32_t *pnChatting) {}
+SteamAPICall_t SteamFriends012::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends012::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends012::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends012::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends012::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup", "Stats", "Achievements"
+void SteamFriends012::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+//		"stats" - opens the overlay web browser to the specified user's stats
+//		"achievements" - opens the overlay web browser to the specified user's achievements
+void SteamFriends012::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends012::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends012::ActivateGameOverlayToStore(AppId_t nAppID) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends012::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+
+// activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
+// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
+void SteamFriends012::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
+
+// gets the small (32x32) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends012::GetSmallFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the medium (64x64) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends012::GetMediumFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the large (184x184) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+// returns -1 if this image has yet to be loaded, in this case wait for a AvatarImageLoaded_t callback and then call this again
+int32_t SteamFriends012::GetLargeFriendAvatar(CSteamID steamIDFriend) {}
+
+// requests information about a user - persona name & avatar
+// if bRequireNameOnly is set, then the avatar of a user isn't downloaded 
+// - it's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them
+// if returns true, it means that data is being requested, and a PersonaStateChanged_t callback will be posted when it's retrieved
+// if returns false, it means that we already have all the details about that user, and functions can be called immediately
+bool SteamFriends012::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly) {}
+
+// requests information about a clan officer list
+// when complete, data is returned in ClanOfficerListResponse_t call result
+// this makes available the calls below
+// you can only ask about clans that a user is a member of
+// note that this won't download avatars automatically {} if you get an officer,
+// and no avatar image is available, call RequestUserInformation( steamID, false ) to download the avatar
+SteamAPICall_t SteamFriends012::RequestClanOfficerList(CSteamID steamIDClan) {}
+
+// iteration of clan officers - can only be done when a RequestClanOfficerList() call has completed
+
+// returns the steamID of the clan owner
+CSteamID SteamFriends012::GetClanOwner(CSteamID steamIDClan) {}
+// returns the number of officers in a clan (including the owner)
+int32_t SteamFriends012::GetClanOfficerCount(CSteamID steamIDClan) {}
+// returns the steamID of a clan officer, by index, of range [0,GetClanOfficerCount)
+CSteamID SteamFriends012::GetClanOfficerByIndex(CSteamID steamIDClan, int32_t iOfficer) {}
+// if current user is chat restricted, he can't send or receive any text/voice chat messages.
+// the user can't see custom avatars. But the user can be online and send/recv game invites.
+// a chat restricted user can't add friends or join any groups.
+EUserRestriction SteamFriends012::GetUserRestrictions() {}
+
+// Rich Presence data is automatically shared between friends who are in the same game
+// Each user has a set of Key/Value pairs
+// Up to 20 different keys can be set
+// There are two magic keys:
+//		"status"  - a UTF-8 string that will show up in the 'view game info' dialog in the Steam friends list
+//		"connect" - a UTF-8 string that contains the command-line for how a friend can connect to a game
+// GetFriendRichPresence() returns an empty string "" if no value is set
+// SetRichPresence() to a NULL or an empty string deletes the key
+// You can iterate the current set of keys for a friend with GetFriendRichPresenceKeyCount()
+// and GetFriendRichPresenceKeyByIndex() (typically only used for debugging)
+bool SteamFriends012::SetRichPresence(const char *pchKey, const char *pchValue) {}
+void SteamFriends012::ClearRichPresence() {}
+const char *SteamFriends012::GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey) {}
+int32_t SteamFriends012::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend) {}
+const char *SteamFriends012::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int32_t iKey) {}
+void SteamFriends012::RequestFriendRichPresence(CSteamID steamIDFriend) {}
+
+// rich invite support
+// if the target accepts the invite, the pchConnectString gets added to the command-line for launching the game
+// if the game is already running, a GameRichPresenceJoinRequested_t callback is posted containing the connect string
+// invites can only be sent to friends
+bool SteamFriends012::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString) {}
+
+// recently-played-with friends iteration
+// this iterates the entire list of users recently played with, across games
+// GetFriendCoplayTime() returns as a unix time
+int32_t SteamFriends012::GetCoplayFriendCount() {}
+CSteamID SteamFriends012::GetCoplayFriend(int32_t iCoplayFriend) {}
+int32_t SteamFriends012::GetFriendCoplayTime(CSteamID steamIDFriend) {}
+AppId_t SteamFriends012::GetFriendCoplayGame(CSteamID steamIDFriend) {}
+
+// chat interface for games
+// this allows in-game access to group (clan) chats from in the game
+// the behavior is somewhat sophisticated, because the user may or may not be already in the group chat from outside the game or in the overlay
+// use ActivateGameOverlayToUser( "chat", steamIDClan ) to open the in-game overlay version of the chat
+SteamAPICall_t SteamFriends012::JoinClanChatRoom(CSteamID steamIDClan) {}
+bool SteamFriends012::LeaveClanChatRoom(CSteamID steamIDClan) {}
+int32_t SteamFriends012::GetClanChatMemberCount(CSteamID steamIDClan) {}
+CSteamID SteamFriends012::GetChatMemberByIndex(CSteamID steamIDClan, int32_t iUser) {}
+bool SteamFriends012::SendClanChatMessage(CSteamID steamIDClanChat, const char *pchText) {}
+int32_t SteamFriends012::GetClanChatMessage(CSteamID steamIDClanChat, int32_t iMessage, void *prgchText, int32_t cchTextMax, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter) {}
+bool SteamFriends012::IsClanChatAdmin(CSteamID steamIDClanChat, CSteamID steamIDUser) {}
+
+// interact with the Steam (game overlay / desktop)
+bool SteamFriends012::IsClanChatWindowOpenInSteam(CSteamID steamIDClanChat) {}
+bool SteamFriends012::OpenClanChatWindowInSteam(CSteamID steamIDClanChat) {}
+bool SteamFriends012::CloseClanChatWindowInSteam(CSteamID steamIDClanChat) {}
+
+// peer-to-peer chat interception
+// this is so you can show P2P chats inline in the game
+bool SteamFriends012::SetListenForFriendsMessages(bool bInterceptEnabled) {}
+bool SteamFriends012::ReplyToFriendMessage(CSteamID steamIDFriend, const char *pchMsgToSend) {}
+int32_t SteamFriends012::GetFriendMessage(CSteamID steamIDFriend, int32_t iMessageID, void *pvData, int32_t cubData, EChatEntryType *peChatEntryType) {}
+
+// following apis
+SteamAPICall_t SteamFriends012::GetFollowerCount(CSteamID steamID) {}
+SteamAPICall_t SteamFriends012::IsFollowing(CSteamID steamID) {}
+SteamAPICall_t SteamFriends012::EnumerateFollowingList(uint32 unStartIndex) {}
+#pragma endregion
+
+#pragma region SteamFriends013
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends013::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+SteamAPICall_t SteamFriends013::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends013::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends013::GetFriendCount(int32_t iFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends013::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends013::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends013::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+// 
+const char *SteamFriends013::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends013::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends013::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends013::HasFriend(CSteamID steamIDFriend, int32_t iFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends013::GetClanCount() {}
+CSteamID SteamFriends013::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends013::GetClanName(CSteamID steamIDClan) {}
+const char *SteamFriends013::GetClanTag(CSteamID steamIDClan) {}
+
+bool SteamFriends013::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline, int32_t *pnInGame, int32_t *pnChatting) {}
+SteamAPICall_t SteamFriends013::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends013::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends013::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends013::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends013::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup", "Stats", "Achievements"
+void SteamFriends013::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+//		"stats" - opens the overlay web browser to the specified user's stats
+//		"achievements" - opens the overlay web browser to the specified user's achievements
+void SteamFriends013::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends013::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends013::ActivateGameOverlayToStore(AppId_t nAppID, EOverlayToStoreFlag eFlag) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends013::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+
+// activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
+// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
+void SteamFriends013::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
+
+// gets the small (32x32) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends013::GetSmallFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the medium (64x64) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends013::GetMediumFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the large (184x184) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+// returns -1 if this image has yet to be loaded, in this case wait for a AvatarImageLoaded_t callback and then call this again
+int32_t SteamFriends013::GetLargeFriendAvatar(CSteamID steamIDFriend) {}
+
+// requests information about a user - persona name & avatar
+// if bRequireNameOnly is set, then the avatar of a user isn't downloaded 
+// - it's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them
+// if returns true, it means that data is being requested, and a PersonaStateChanged_t callback will be posted when it's retrieved
+// if returns false, it means that we already have all the details about that user, and functions can be called immediately
+bool SteamFriends013::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly) {}
+
+// requests information about a clan officer list
+// when complete, data is returned in ClanOfficerListResponse_t call result
+// this makes available the calls below
+// you can only ask about clans that a user is a member of
+// note that this won't download avatars automatically {} if you get an officer,
+// and no avatar image is available, call RequestUserInformation( steamID, false ) to download the avatar
+SteamAPICall_t SteamFriends013::RequestClanOfficerList(CSteamID steamIDClan) {}
+
+// iteration of clan officers - can only be done when a RequestClanOfficerList() call has completed
+
+// returns the steamID of the clan owner
+CSteamID SteamFriends013::GetClanOwner(CSteamID steamIDClan) {}
+// returns the number of officers in a clan (including the owner)
+int32_t SteamFriends013::GetClanOfficerCount(CSteamID steamIDClan) {}
+// returns the steamID of a clan officer, by index, of range [0,GetClanOfficerCount)
+CSteamID SteamFriends013::GetClanOfficerByIndex(CSteamID steamIDClan, int32_t iOfficer) {}
+// if current user is chat restricted, he can't send or receive any text/voice chat messages.
+// the user can't see custom avatars. But the user can be online and send/recv game invites.
+// a chat restricted user can't add friends or join any groups.
+EUserRestriction SteamFriends013::GetUserRestrictions() {}
+
+// Rich Presence data is automatically shared between friends who are in the same game
+// Each user has a set of Key/Value pairs
+// Up to 20 different keys can be set
+// There are two magic keys:
+//		"status"  - a UTF-8 string that will show up in the 'view game info' dialog in the Steam friends list
+//		"connect" - a UTF-8 string that contains the command-line for how a friend can connect to a game
+// GetFriendRichPresence() returns an empty string "" if no value is set
+// SetRichPresence() to a NULL or an empty string deletes the key
+// You can iterate the current set of keys for a friend with GetFriendRichPresenceKeyCount()
+// and GetFriendRichPresenceKeyByIndex() (typically only used for debugging)
+bool SteamFriends013::SetRichPresence(const char *pchKey, const char *pchValue) {}
+void SteamFriends013::ClearRichPresence() {}
+const char *SteamFriends013::GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey) {}
+int32_t SteamFriends013::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend) {}
+const char *SteamFriends013::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int32_t iKey) {}
+void SteamFriends013::RequestFriendRichPresence(CSteamID steamIDFriend) {}
+
+// rich invite support
+// if the target accepts the invite, the pchConnectString gets added to the command-line for launching the game
+// if the game is already running, a GameRichPresenceJoinRequested_t callback is posted containing the connect string
+// invites can only be sent to friends
+bool SteamFriends013::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString) {}
+
+// recently-played-with friends iteration
+// this iterates the entire list of users recently played with, across games
+// GetFriendCoplayTime() returns as a unix time
+int32_t SteamFriends013::GetCoplayFriendCount() {}
+CSteamID SteamFriends013::GetCoplayFriend(int32_t iCoplayFriend) {}
+int32_t SteamFriends013::GetFriendCoplayTime(CSteamID steamIDFriend) {}
+AppId_t SteamFriends013::GetFriendCoplayGame(CSteamID steamIDFriend) {}
+
+// chat interface for games
+// this allows in-game access to group (clan) chats from in the game
+// the behavior is somewhat sophisticated, because the user may or may not be already in the group chat from outside the game or in the overlay
+// use ActivateGameOverlayToUser( "chat", steamIDClan ) to open the in-game overlay version of the chat
+SteamAPICall_t SteamFriends013::JoinClanChatRoom(CSteamID steamIDClan) {}
+bool SteamFriends013::LeaveClanChatRoom(CSteamID steamIDClan) {}
+int32_t SteamFriends013::GetClanChatMemberCount(CSteamID steamIDClan) {}
+CSteamID SteamFriends013::GetChatMemberByIndex(CSteamID steamIDClan, int32_t iUser) {}
+bool SteamFriends013::SendClanChatMessage(CSteamID steamIDClanChat, const char *pchText) {}
+int32_t SteamFriends013::GetClanChatMessage(CSteamID steamIDClanChat, int32_t iMessage, void *prgchText, int32_t cchTextMax, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter) {}
+bool SteamFriends013::IsClanChatAdmin(CSteamID steamIDClanChat, CSteamID steamIDUser) {}
+
+// interact with the Steam (game overlay / desktop)
+bool SteamFriends013::IsClanChatWindowOpenInSteam(CSteamID steamIDClanChat) {}
+bool SteamFriends013::OpenClanChatWindowInSteam(CSteamID steamIDClanChat) {}
+bool SteamFriends013::CloseClanChatWindowInSteam(CSteamID steamIDClanChat) {}
+
+// peer-to-peer chat interception
+// this is so you can show P2P chats inline in the game
+bool SteamFriends013::SetListenForFriendsMessages(bool bInterceptEnabled) {}
+bool SteamFriends013::ReplyToFriendMessage(CSteamID steamIDFriend, const char *pchMsgToSend) {}
+int32_t SteamFriends013::GetFriendMessage(CSteamID steamIDFriend, int32_t iMessageID, void *pvData, int32_t cubData, EChatEntryType *peChatEntryType) {}
+
+// following apis
+SteamAPICall_t SteamFriends013::GetFollowerCount(CSteamID steamID) {}
+SteamAPICall_t SteamFriends013::IsFollowing(CSteamID steamID) {}
+SteamAPICall_t SteamFriends013::EnumerateFollowingList(uint32 unStartIndex) {}
+#pragma endregion
+
+#pragma region SteamFriends014
+// returns the local players name - guaranteed to not be NULL.
+// this is the same name as on the users community profile page
+// this is stored in UTF-8 format
+// like all the other interface functions that return a char *, it's important that this pointer is not saved
+// off {} it will eventually be free'd or re-allocated
+const char *SteamFriends014::GetPersonaName() {}
+
+// sets the player name, stores it on the server and publishes the changes to all friends who are online
+SteamAPICall_t SteamFriends014::SetPersonaName(const char *pchPersonaName) {}
+
+// gets the status of the current user
+EPersonaState SteamFriends014::GetPersonaState() {}
+
+// friend iteration
+// takes a set of k_EFriendFlags, and returns the number of users the client knows about who meet that criteria
+// then GetFriendByIndex() can then be used to return the id's of each of those users
+int32_t SteamFriends014::GetFriendCount(int32_t iFriendFlags) {}
+
+// returns the steamID of a user
+// iFriend is a index of range [0, GetFriendCount())
+// iFriendsFlags must be the same value as used in GetFriendCount()
+// the returned CSteamID can then be used by all the functions below to access details about the user
+CSteamID SteamFriends014::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags) {}
+
+// returns a relationship to a user
+EFriendRelationship SteamFriends014::GetFriendRelationship(CSteamID steamIDFriend) {}
+
+// returns the current status of the specified user
+// this will only be known by the local user if steamIDFriend is in their friends list {} on the same game server {} in a chat room or lobby {} or in a small group with the local user
+EPersonaState SteamFriends014::GetFriendPersonaState(CSteamID steamIDFriend) {}
+
+// returns the name another user - guaranteed to not be NULL.
+// same rules as GetFriendPersonaState() apply as to whether or not the user knowns the name of the other user
+// note that on first joining a lobby, chat room or game server the local user will not known the name of the other users automatically {} that information will arrive asyncronously
+// 
+const char *SteamFriends014::GetFriendPersonaName(CSteamID steamIDFriend) {}
+
+// returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
+bool SteamFriends014::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) {}
+// accesses old friends names - returns an empty string when their are no more items in the history
+const char *SteamFriends014::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName) {}
+
+const char *SteamFriends014::GetPlayerNickname(CSteamID steamIDPlayer) {}
+
+// returns true if the specified user meets any of the criteria specified in iFriendFlags
+// iFriendFlags can be the union (binary or, |) of one or more k_EFriendFlags values
+bool SteamFriends014::HasFriend(CSteamID steamIDFriend, int32_t iFriendFlags) {}
+
+// clan (group) iteration and access functions
+int32_t SteamFriends014::GetClanCount() {}
+CSteamID SteamFriends014::GetClanByIndex(int32_t iClan) {}
+const char *SteamFriends014::GetClanName(CSteamID steamIDClan) {}
+const char *SteamFriends014::GetClanTag(CSteamID steamIDClan) {}
+
+bool SteamFriends014::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline, int32_t *pnInGame, int32_t *pnChatting) {}
+SteamAPICall_t SteamFriends014::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) {}
+
+// iterators for getting users in a chat room, lobby, game server or clan
+// note that large clans that cannot be iterated by the local user
+// steamIDSource can be the steamID of a group, game server, lobby or chat room
+int32_t SteamFriends014::GetFriendCountFromSource(CSteamID steamIDSource) {}
+CSteamID SteamFriends014::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend) {}
+
+// returns true if the local user can see that steamIDUser is a member or in steamIDSource
+bool SteamFriends014::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) {}
+
+// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)
+void SteamFriends014::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking) {}
+
+// activates the game overlay, with an optional dialog to open 
+// valid options are "Friends", "Community", "Players", "Settings", "LobbyInvite", "OfficialGameGroup", "Stats", "Achievements"
+void SteamFriends014::ActivateGameOverlay(const char *pchDialog) {}
+
+// activates game overlay to a specific place
+// valid options are
+//		"steamid" - opens the overlay web browser to the specified user or groups profile
+//		"chat" - opens a chat window to the specified user, or joins the group chat 
+//		"stats" - opens the overlay web browser to the specified user's stats
+//		"achievements" - opens the overlay web browser to the specified user's achievements
+void SteamFriends014::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID) {}
+
+// activates game overlay web browser directly to the specified URL
+// full address with protocol type is required, e.g. http://www.steamgames.com/
+void SteamFriends014::ActivateGameOverlayToWebPage(const char *pchURL) {}
+
+// activates game overlay to store page for app
+void SteamFriends014::ActivateGameOverlayToStore(AppId_t nAppID, EOverlayToStoreFlag eFlag) {}
+
+// Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
+// in game 
+void SteamFriends014::SetPlayedWith(CSteamID steamIDUserPlayedWith) {}
+
+// activates game overlay to open the invite dialog. Invitations will be sent for the provided lobby.
+// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
+void SteamFriends014::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {}
+
+// gets the small (32x32) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends014::GetSmallFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the medium (64x64) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+int32_t SteamFriends014::GetMediumFriendAvatar(CSteamID steamIDFriend) {}
+
+// gets the large (184x184) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+// returns -1 if this image has yet to be loaded, in this case wait for a AvatarImageLoaded_t callback and then call this again
+int32_t SteamFriends014::GetLargeFriendAvatar(CSteamID steamIDFriend) {}
+
+// requests information about a user - persona name & avatar
+// if bRequireNameOnly is set, then the avatar of a user isn't downloaded 
+// - it's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them
+// if returns true, it means that data is being requested, and a PersonaStateChanged_t callback will be posted when it's retrieved
+// if returns false, it means that we already have all the details about that user, and functions can be called immediately
+bool SteamFriends014::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly) {}
+
+// requests information about a clan officer list
+// when complete, data is returned in ClanOfficerListResponse_t call result
+// this makes available the calls below
+// you can only ask about clans that a user is a member of
+// note that this won't download avatars automatically {} if you get an officer,
+// and no avatar image is available, call RequestUserInformation( steamID, false ) to download the avatar
+SteamAPICall_t SteamFriends014::RequestClanOfficerList(CSteamID steamIDClan) {}
+
+// iteration of clan officers - can only be done when a RequestClanOfficerList() call has completed
+
+// returns the steamID of the clan owner
+CSteamID SteamFriends014::GetClanOwner(CSteamID steamIDClan) {}
+// returns the number of officers in a clan (including the owner)
+int32_t SteamFriends014::GetClanOfficerCount(CSteamID steamIDClan) {}
+// returns the steamID of a clan officer, by index, of range [0,GetClanOfficerCount)
+CSteamID SteamFriends014::GetClanOfficerByIndex(CSteamID steamIDClan, int32_t iOfficer) {}
+// if current user is chat restricted, he can't send or receive any text/voice chat messages.
+// the user can't see custom avatars. But the user can be online and send/recv game invites.
+// a chat restricted user can't add friends or join any groups.
+EUserRestriction SteamFriends014::GetUserRestrictions() {}
+
+// Rich Presence data is automatically shared between friends who are in the same game
+// Each user has a set of Key/Value pairs
+// Up to 20 different keys can be set
+// There are two magic keys:
+//		"status"  - a UTF-8 string that will show up in the 'view game info' dialog in the Steam friends list
+//		"connect" - a UTF-8 string that contains the command-line for how a friend can connect to a game
+// GetFriendRichPresence() returns an empty string "" if no value is set
+// SetRichPresence() to a NULL or an empty string deletes the key
+// You can iterate the current set of keys for a friend with GetFriendRichPresenceKeyCount()
+// and GetFriendRichPresenceKeyByIndex() (typically only used for debugging)
+bool SteamFriends014::SetRichPresence(const char *pchKey, const char *pchValue) {}
+void SteamFriends014::ClearRichPresence() {}
+const char *SteamFriends014::GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey) {}
+int32_t SteamFriends014::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend) {}
+const char *SteamFriends014::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int32_t iKey) {}
+void SteamFriends014::RequestFriendRichPresence(CSteamID steamIDFriend) {}
+
+// rich invite support
+// if the target accepts the invite, the pchConnectString gets added to the command-line for launching the game
+// if the game is already running, a GameRichPresenceJoinRequested_t callback is posted containing the connect string
+// invites can only be sent to friends
+bool SteamFriends014::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString) {}
+
+// recently-played-with friends iteration
+// this iterates the entire list of users recently played with, across games
+// GetFriendCoplayTime() returns as a unix time
+int32_t SteamFriends014::GetCoplayFriendCount() {}
+CSteamID SteamFriends014::GetCoplayFriend(int32_t iCoplayFriend) {}
+int32_t SteamFriends014::GetFriendCoplayTime(CSteamID steamIDFriend) {}
+AppId_t SteamFriends014::GetFriendCoplayGame(CSteamID steamIDFriend) {}
+
+// chat interface for games
+// this allows in-game access to group (clan) chats from in the game
+// the behavior is somewhat sophisticated, because the user may or may not be already in the group chat from outside the game or in the overlay
+// use ActivateGameOverlayToUser( "chat", steamIDClan ) to open the in-game overlay version of the chat
+SteamAPICall_t SteamFriends014::JoinClanChatRoom(CSteamID steamIDClan) {}
+bool SteamFriends014::LeaveClanChatRoom(CSteamID steamIDClan)
+{
+}
+int32_t SteamFriends014::GetClanChatMemberCount(CSteamID steamIDClan)
+{
+}
+CSteamID SteamFriends014::GetChatMemberByIndex(CSteamID steamIDClan, int32_t iUser)
+{
+}
+bool SteamFriends014::SendClanChatMessage(CSteamID steamIDClanChat, const char *pchText)
+{
+}
+int32_t SteamFriends014::GetClanChatMessage(CSteamID steamIDClanChat, int32_t iMessage, void *prgchText, int32_t cchTextMax, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter)
+{
+}
+bool SteamFriends014::IsClanChatAdmin(CSteamID steamIDClanChat, CSteamID steamIDUser)
+{
+}
+
+// interact with the Steam (game overlay / desktop)
+bool SteamFriends014::IsClanChatWindowOpenInSteam(CSteamID steamIDClanChat)
+{
+}
+bool SteamFriends014::OpenClanChatWindowInSteam(CSteamID steamIDClanChat)
+{
+}
+bool SteamFriends014::CloseClanChatWindowInSteam(CSteamID steamIDClanChat)
+{
+}
+
+// peer-to-peer chat interception
+// this is so you can show P2P chats inline in the game
+bool SteamFriends014::SetListenForFriendsMessages(bool bInterceptEnabled)
+{
+}
+bool SteamFriends014::ReplyToFriendMessage(CSteamID steamIDFriend, const char *pchMsgToSend)
+{
+}
+int32_t SteamFriends014::GetFriendMessage(CSteamID steamIDFriend, int32_t iMessageID, void *pvData, int32_t cubData, EChatEntryType *peChatEntryType)
+{
+}
+
+// following apis
+SteamAPICall_t SteamFriends014::GetFollowerCount(CSteamID steamID)
+{
+}
+SteamAPICall_t SteamFriends014::IsFollowing(CSteamID steamID)
+{
+}
+SteamAPICall_t SteamFriends014::EnumerateFollowingList(uint32 unStartIndex)
+{
+}
+#pragma endregion
