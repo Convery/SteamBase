@@ -89,6 +89,8 @@
 #include "Utility\FileSystem.h"
 #include "Utility\hConsole.h"
 #include "Utility\WebIO.h"
+
+#include "JSON\json.h"
 #pragma endregion
 
 // Exported functionality.

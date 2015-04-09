@@ -8,20 +8,19 @@
 #define STEAM_REGISTRY_PATH "Software\\Valve\\Steam"
 #endif
 
-#define STEAMPROXY_ASSERT_VAR(x, var)                              \
-if(!SteamProxy::x)                                                 \
-{                                                                  \
-	DBGPrint("SteamProxy: %s creation failed!", var);              \
-	return false;	                                               \
-}                                                                  \
-else                                                               \
-{                                                                  \
-	DBGPrint("SteamProxy: %s creation succeeded!", var);           \
+#define STEAMPROXY_ASSERT(x)                            \
+if(!SteamProxy::x)                                      \
+{                                                       \
+	DBGPrint("SteamProxy: " #x " creation failed!");    \
+	return false;	                                    \
+}                                                       \
+else                                                    \
+{                                                       \
+	DBGPrint("SteamProxy: " #x " creation succeeded!"); \
 }
 
-#define STEAMPROXY_ASSERT(x) STEAMPROXY_ASSERT_VAR(x, typeid(x).name()) //STEAMPROXY_ASSERT_VAR(x, #x)
 #define STEAMPROXY_CREATEINTERFACE(_var, _type, _function, _version) \
-SteamProxy::_var = reinterpret_cast<_type*>(SteamProxy::ISteamClient->_function(SteamProxy::User, SteamProxy::Pipe, _version)); \
+SteamProxy::_var = reinterpret_cast<_type*>(SteamProxy::ISteamClient->_function(SteamProxy::GlobalUser, SteamProxy::Pipe, _version)); \
 STEAMPROXY_ASSERT(_var)
 
 #define STEAMPROXY_CREATEINTERFACE_NO_USER(_var, _type, _function, _version) \
@@ -71,7 +70,7 @@ class SteamProxy
 
 		static CreateInterfaceFn ClientFactory;
 		static HSteamPipe Pipe;
-		static HSteamUser User;
+		static HSteamUser GlobalUser;
 
 		static IClientEngine* ClientEngine;
 		static IClientUser* ClientUser;

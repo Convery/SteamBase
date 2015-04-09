@@ -84,7 +84,7 @@ bool hConsole::InitializeConsole(const char *Logfilename)
 		else
 		{
 			// Append to create a new logfile.
-			EnqueueMessage("INFO", "Starting upp..", "");
+			EnqueueMessage("INFO", "Starting up...", "");
 			return true;
 		}
 	}

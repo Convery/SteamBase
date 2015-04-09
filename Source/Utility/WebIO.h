@@ -10,6 +10,7 @@
 
 #pragma comment(lib, "Wininet.lib")
 #pragma comment(lib, "shlwapi.lib")
+#pragma comment(lib, "Ws2_32.lib")
 
 class WebIO
 {

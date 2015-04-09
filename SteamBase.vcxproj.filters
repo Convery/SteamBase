@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\JSON">
+      <UniqueIdentifier>{6d652660-b392-47ad-9673-97ff93886e85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\JSON">
+      <UniqueIdentifier>{c1c44acc-f069-45be-8154-14cbf501855a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\StdInclude.h">
@@ -777,6 +783,39 @@
     <ClInclude Include="Source\Steam\SteamProxy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\JSON\json.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\json_tool.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\reader.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\value.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\version.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\writer.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\assertions.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\autolink.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\config.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\features.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\JSON\forwards.h">
+      <Filter>Header Files\JSON</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Utility\ByteBuffer.cpp">
@@ -821,5 +860,25 @@
     <ClCompile Include="Source\Steam\SteamProxy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Steam\SteamExports.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\JSON\json_reader.cpp">
+      <Filter>Source Files\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\JSON\json_value.cpp">
+      <Filter>Source Files\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\JSON\json_writer.cpp">
+      <Filter>Source Files\JSON</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\JSON\json_valueiterator.inl">
+      <Filter>Source Files\JSON</Filter>
+    </None>
+    <None Include="Source\JSON\version.h.in">
+      <Filter>Header Files\JSON</Filter>
+    </None>
   </ItemGroup>
 </Project>

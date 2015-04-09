@@ -8,7 +8,7 @@ HMODULE SteamProxy::SteamOverlay = 0;
 
 CreateInterfaceFn SteamProxy::ClientFactory = 0;
 HSteamPipe SteamProxy::Pipe = 0;
-HSteamUser SteamProxy::User = 0;
+HSteamUser SteamProxy::GlobalUser = 0;
 
 IClientEngine* SteamProxy::ClientEngine = 0;
 IClientUser* SteamProxy::ClientUser = 0;
@@ -76,25 +76,25 @@ bool SteamProxy::CreateClient()
 {
 	SteamProxy::SteamClient = GetModuleHandleA(STEAMCLIENT_LIB);
 	if (!SteamProxy::SteamClient) SteamProxy::SteamClient = LoadLibraryA(STEAMCLIENT_LIB);
-	STEAMPROXY_ASSERT_VAR(SteamProxy::SteamClient, "SteamClient")
+	STEAMPROXY_ASSERT(SteamClient)
 
 	SteamProxy::ClientFactory = (CreateInterfaceFn)GetProcAddress(SteamProxy::SteamClient, "CreateInterface");
-	STEAMPROXY_ASSERT_VAR(SteamProxy::ClientFactory, "ClientFactory")
+	STEAMPROXY_ASSERT(ClientFactory)
 
 	SteamProxy::ClientEngine = (IClientEngine*)SteamProxy::ClientFactory(CLIENTENGINE_INTERFACE_VERSION, NULL);
-	STEAMPROXY_ASSERT_VAR(SteamProxy::ClientEngine, "ClientEngine")
-
-	SteamProxy::ClientUser = SteamProxy::ClientEngine->GetIClientUser(SteamProxy::User, SteamProxy::Pipe, CLIENTUSER_INTERFACE_VERSION);
-	STEAMPROXY_ASSERT_VAR(SteamProxy::ClientUser, "ClientUser")
+	STEAMPROXY_ASSERT(ClientEngine)
 
 	SteamProxy::ISteamClient = (ISteamClient012*)SteamProxy::ClientFactory(STEAMCLIENT_INTERFACE_VERSION_012, NULL);
-	STEAMPROXY_ASSERT(SteamProxy::ISteamClient)
+	STEAMPROXY_ASSERT(ISteamClient)
 
 	SteamProxy::Pipe = SteamProxy::ISteamClient->CreateSteamPipe();
-	STEAMPROXY_ASSERT(SteamProxy::Pipe)
+	STEAMPROXY_ASSERT(Pipe)
 
-	SteamProxy::User = SteamProxy::ISteamClient->ConnectToGlobalUser(SteamProxy::Pipe);
-	STEAMPROXY_ASSERT(SteamProxy::User)
+	SteamProxy::GlobalUser = SteamProxy::ISteamClient->ConnectToGlobalUser(SteamProxy::Pipe);
+	STEAMPROXY_ASSERT(GlobalUser)
+
+	SteamProxy::ClientUser = SteamProxy::ClientEngine->GetIClientUser(SteamProxy::GlobalUser, SteamProxy::Pipe, CLIENTUSER_INTERFACE_VERSION);
+	STEAMPROXY_ASSERT(ClientUser)
 
 	return true;
 }
