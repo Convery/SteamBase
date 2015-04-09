@@ -9,7 +9,7 @@
 #endif
 
 #define STEAMPROXY_ASSERT_VAR(x, var)                              \
-if(!x)                                                             \
+if(!SteamProxy::x)                                                 \
 {                                                                  \
 	DBGPrint("SteamProxy: %s creation failed!", var);              \
 	return false;	                                               \
@@ -19,14 +19,14 @@ else                                                               \
 	DBGPrint("SteamProxy: %s creation succeeded!", var);           \
 }
 
-#define STEAMPROXY_ASSERT(x) STEAMPROXY_ASSERT_VAR(x, typeid(x).name())
+#define STEAMPROXY_ASSERT(x) STEAMPROXY_ASSERT_VAR(x, typeid(x).name()) //STEAMPROXY_ASSERT_VAR(x, #x)
 #define STEAMPROXY_CREATEINTERFACE(_var, _type, _function, _version) \
 SteamProxy::_var = reinterpret_cast<_type*>(SteamProxy::ISteamClient->_function(SteamProxy::User, SteamProxy::Pipe, _version)); \
-STEAMPROXY_ASSERT(SteamProxy::_var)
+STEAMPROXY_ASSERT(_var)
 
 #define STEAMPROXY_CREATEINTERFACE_NO_USER(_var, _type, _function, _version) \
 SteamProxy::_var = reinterpret_cast<_type*>(SteamProxy::ISteamClient->_function(SteamProxy::Pipe, _version)); \
-STEAMPROXY_ASSERT(SteamProxy::_var) //STEAMPROXY_ASSERT_VAR(SteamProxy::_var, #_var)
+STEAMPROXY_ASSERT(_var)
 
 class SteamProxy
 {
