@@ -272,6 +272,7 @@
     <ClInclude Include="Source\Steam\Interface\ISteamUtils007.h" />
     <ClInclude Include="Source\Steam\Interface\SteamClient.h" />
     <ClInclude Include="Source\Steam\SteamCallback.h" />
+    <ClInclude Include="Source\Steam\SteamProxy.h" />
     <ClInclude Include="Source\Steam\SteamTypes\CGameID.h" />
     <ClInclude Include="Source\Steam\SteamTypes\CSteamAPIContext.h" />
     <ClInclude Include="Source\Steam\SteamTypes\CSteamID.h" />
@@ -333,6 +334,7 @@
     <ClCompile Include="Source\Steam\ClassWrappers\SteamApps.cpp" />
     <ClCompile Include="Source\Steam\InterfaceManager.cpp" />
     <ClCompile Include="Source\Steam\SteamCallback.cpp" />
+    <ClCompile Include="Source\Steam\SteamProxy.cpp" />
     <ClCompile Include="Source\Utility\ByteBuffer.cpp" />
     <ClCompile Include="Source\Utility\FileSystem.cpp" />
     <ClCompile Include="Source\Utility\hConsole.cpp" />

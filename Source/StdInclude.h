@@ -114,4 +114,6 @@
 
 #include "Steam\Classes\SteamClasses.h"
 #include "Steam\ClassWrappers\SteamClasses.h"
+
+#include "Steam\SteamProxy.h"
 #pragma endregion

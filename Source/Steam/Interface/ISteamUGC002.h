@@ -20,8 +20,7 @@
 #pragma once
 #endif
 
-#include "SteamTypes.h"
-#include "UGCCommon.h"
+#include "..\Common\UGCCommon.h"
 
 
 abstract_class ISteamUGC002
