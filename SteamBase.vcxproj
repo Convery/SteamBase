@@ -346,6 +346,7 @@
     <ClCompile Include="Source\Steam\Classes\RedactedApps.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedFriends.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamApps.cpp" />
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamFriends.cpp" />
     <ClCompile Include="Source\Steam\InterfaceManager.cpp" />
     <ClCompile Include="Source\Steam\SteamCallback.cpp" />
     <ClCompile Include="Source\Steam\SteamExports.cpp" />

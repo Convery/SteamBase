@@ -337,3 +337,24 @@ SteamAPICall_t RedactedFriends::EnumerateFollowingList(uint32 unStartIndex)
 	PrintCurrentFunction();
 	return 0;
 }
+// Extra methods.
+EPersonaState RedactedFriends::SetPersonaState(EPersonaState ePersonaState)
+{
+	PrintCurrentFunction();
+	return ePersonaState;
+}
+bool RedactedFriends::AddFriend(CSteamID steamIDFriend)
+{
+	PrintCurrentFunction();
+	return false;
+}
+bool RedactedFriends::RemoveFriend(CSteamID steamIDFriend)
+{
+	PrintCurrentFunction();
+	return false;
+}
+HSteamCall RedactedFriends::AddFriendByName(const char *pchEmailOrAccountName)
+{
+	PrintCurrentFunction();
+	return 0;
+}

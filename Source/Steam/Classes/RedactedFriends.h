@@ -93,4 +93,10 @@ public:
 	static SteamAPICall_t GetFollowerCount(CSteamID steamID);
 	static SteamAPICall_t IsFollowing(CSteamID steamID);
 	static SteamAPICall_t EnumerateFollowingList(uint32 unStartIndex);
+
+	// Extra methods.
+	static EPersonaState SetPersonaState(EPersonaState ePersonaState);
+	static bool AddFriend(CSteamID steamIDFriend);
+	static bool RemoveFriend(CSteamID steamIDFriend);
+	static HSteamCall AddFriendByName(const char *pchEmailOrAccountName);
 };

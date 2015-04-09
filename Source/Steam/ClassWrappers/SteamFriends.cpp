@@ -46,7 +46,7 @@ bool SteamFriends001::RemoveFriend(CSteamID steamIDFriend)
 // returns true if the specified user is considered a friend (can see our online status)
 bool SteamFriends001::HasFriend(CSteamID steamIDFriend)
 {
-	return RedactedFriends::HasFriend(steamIDFriend);
+	return RedactedFriends::HasFriend(steamIDFriend, 0);
 }
 
 // gets the relationship to a user
@@ -64,7 +64,8 @@ EPersonaState SteamFriends001::GetFriendPersonaState(CSteamID steamIDFriend)
 // this is deprecated, please use the GetFriendGamePlayed# functions below
 bool SteamFriends001::Deprecated_GetFriendGamePlayed(CSteamID steamIDFriend, int32 *pnGameID, uint32 *punGameIP, uint16 *pusGamePort)
 {
-	return RedactedFriends::Deprecated_GetFriendGamePlayed(steamIDFriend, pnGameID, punGameIP, pusQueryPort);
+	//return RedactedFriends::Deprecated_GetFriendGamePlayed(steamIDFriend, pnGameID, punGameIP, pusQueryPort);
+	return false;
 }
 
 // returns the name of a friend - guaranteed to not be NULL.
@@ -82,28 +83,29 @@ HSteamCall SteamFriends001::AddFriendByName(const char *pchEmailOrAccountName)
 // friend iteration
 int32_t SteamFriends001::GetFriendCount()
 {
-	return RedactedFriends::GetFriendCount();
+	return RedactedFriends::GetFriendCount(0);
 }
 CSteamID SteamFriends001::GetFriendByIndex(int32_t iFriend)
 {
-	return RedactedFriends::GetFriendByIndex(iFriend);
+	return RedactedFriends::GetFriendByIndex(iFriend, 0);
 }
 
 // generic friend->friend message sending
 // DEPRECATED, use the sized-buffer version instead (has much higher max buffer size)
 void SteamFriends001::SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const char *pchMsgBody)
 {
-	RedactedFriends::SendMsgToFriend(steamIDFriend, eFriendMsgType, pchMsgBody);
+	//RedactedFriends::SendMsgToFriend(steamIDFriend, eFriendMsgType, pchMsgBody);
 }
 
 // steam registry, accessed by friend
 void SteamFriends001::SetFriendRegValue(CSteamID steamIDFriend, const char *pchKey, const char *pchValue)
 {
-	RedactedFriends::SetFriendRegValue(steamIDFriend, pchKey, pchValue);
+	//RedactedFriends::SetFriendRegValue(steamIDFriend, pchKey, pchValue);
 }
 const char *SteamFriends001::GetFriendRegValue(CSteamID steamIDFriend, const char *pchKey)
 {
-	return RedactedFriends::GetFriendRegValue(steamIDFriend, pchKey);
+	//return RedactedFriends::GetFriendRegValue(steamIDFriend, pchKey);
+	return "";
 }
 
 // accesses old friends names - returns an empty string when their are no more items in the history
@@ -117,49 +119,56 @@ const char *SteamFriends001::GetFriendPersonaNameHistory(CSteamID steamIDFriend,
 // returns 0 if the steamID or iChatID are invalid
 int32_t SteamFriends001::GetChatMessage(CSteamID steamIDFriend, int32_t iChatID, void *pvData, int32_t cubData, EChatEntryType *peFriendMsgType)
 {
-	return RedactedFriends::GetChatMessage(steamIDFriend, iChatID, pvData, cubData, peFriendMsgType);
+	//return RedactedFriends::GetChatMessage(steamIDFriend, iChatID, pvData, cubData, peFriendMsgType);
+	return 0;
 }
 
 // generic friend->friend message sending, takes a sized buffer
 bool SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const void *pvMsgBody, int32_t cubMsgBody)
 {
-	return RedactedFriends::SendMsgToFriend(steamIDFriend, eFriendMsgType, pvMsgBody, cubMsgBody);
+	//return RedactedFriends::SendMsgToFriend(steamIDFriend, eFriendMsgType, pvMsgBody, cubMsgBody);
+	return false;
 }
 
 // returns the chatID that a chat should be resumed from when switching chat contexts
 OBSOLETE_FUNCTION int32_t SteamFriends001::GetChatIDOfChatHistoryStart(CSteamID steamIDFriend)
 {
-	return RedactedFriends::GetChatIDOfChatHistoryStart(steamIDFriend);
+	//return RedactedFriends::GetChatIDOfChatHistoryStart(steamIDFriend);
+	return 0;
 }
 // sets where a chat with a user should resume
 OBSOLETE_FUNCTION void SteamFriends001::SetChatHistoryStart(CSteamID steamIDFriend, int32_t iChatID) 
 {
-	return RedactedFriends::SetChatHistoryStart(steamIDFriend, iChatID);
+	//return RedactedFriends::SetChatHistoryStart(steamIDFriend, iChatID);
 }
 // clears the chat history - should be called when a chat dialog closes
 // the chat history can still be recovered by another context using SetChatHistoryStart() to reset the ChatIDOfChatHistoryStart
 void SteamFriends001::ClearChatHistory(CSteamID steamIDFriend)
 {
-	RedactedFriends::ClearChatHistory(steamIDFriend);
+	//RedactedFriends::ClearChatHistory(steamIDFriend);
 }
 
 HSteamCall SteamFriends001::InviteFriendByEmail(const char *pchEmailOrAccountName)
 {
-	return RedactedFriends::InviteFriendByEmail(pchEmailOrAccountName);
+	//return RedactedFriends::InviteFriendByEmail(pchEmailOrAccountName);
+	return 0;
 }
 
 uint32 SteamFriends001::GetBlockedFriendCount()
 {
-	return RedactedFriends::GetBlockedFriendCount();
+	//return RedactedFriends::GetBlockedFriendCount();
+	return 0;
 }
 
 bool SteamFriends001::GetFriendGamePlayed(CSteamID steamIDFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort) 
 {
-	return RedactedFriends::GetFriendGamePlayed(steamIDFriend, pulGameID, punGameIP, pusGamePort);
+	//return RedactedFriends::GetFriendGamePlayed(steamIDFriend, pulGameID, punGameIP, pusGamePort);
+	return false;
 }
 bool SteamFriends001::GetFriendGamePlayed2(CSteamID steamDIFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort, uint16 *pusQueryPort) 
 {
-	return RedactedFriends::GetFriendGamePlayed2(steamDIFriend, pulGameID, punGameIP, pusGamePort, pusQueryPort);
+	//return RedactedFriends::GetFriendGamePlayed2(steamDIFriend, pulGameID, punGameIP, pusGamePort, pusQueryPort);
+	return false;
 }
 #pragma endregion
 
@@ -215,17 +224,19 @@ const char *SteamFriends002::GetFriendPersonaName(CSteamID steamIDFriend)
 // steam registry, accessed by friend
 void SteamFriends002::SetFriendRegValue(CSteamID steamIDFriend, const char *pchKey, const char *pchValue) 
 {
-	RedactedFriends::SetFriendRegValue(steamIDFriend, pchKey, pchValue);
+	//RedactedFriends::SetFriendRegValue(steamIDFriend, pchKey, pchValue);
 }
 const char *SteamFriends002::GetFriendRegValue(CSteamID steamIDFriend, const char *pchKey)
 {
-	return RedactedFriends::GetFriendRegValue(steamIDFriend, pchKey);
+	//return RedactedFriends::GetFriendRegValue(steamIDFriend, pchKey);
+	return "";
 }
 
 // returns true if the friend is actually in a game
 bool SteamFriends002::GetFriendGamePlayed(CSteamID steamIDFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort, uint16 *pusQueryPort) 
 {
-	return RedactedFriends::GetFriendGamePlayed(steamIDFriend, pulGameID, punGameIP, pusGamePort, pusQueryPort);
+	//return RedactedFriends::GetFriendGamePlayed(steamIDFriend, pulGameID, punGameIP, pusGamePort, pusQueryPort);
+	return true;
 }
 
 // accesses old friends names - returns an empty string when their are no more items in the history
@@ -259,7 +270,8 @@ HSteamCall SteamFriends002::AddFriendByName(const char *pchEmailOrAccountName)
 
 bool SteamFriends002::InviteFriendByEmail(const char *emailAddr) 
 {
-	return RedactedFriends::InviteFriendByEmail(emailAddr);
+	//return RedactedFriends::InviteFriendByEmail(emailAddr);
+	return false;
 }
 
 // chat message iteration
@@ -267,30 +279,33 @@ bool SteamFriends002::InviteFriendByEmail(const char *emailAddr)
 // returns 0 if the steamID or iChatID are invalid
 int32_t SteamFriends002::GetChatMessage(CSteamID steamIDFriend, int32_t iChatID, void *pvData, int32_t cubData, EChatEntryType *peFriendMsgType)
 {
-	return RedactedFriends::GetChatMessage(steamIDFriend, iChatID, pvData, cubData, peFriendMsgType);
+	//return RedactedFriends::GetChatMessage(steamIDFriend, iChatID, pvData, cubData, peFriendMsgType);
+	return 0;
 }
 
 // generic friend->friend message sending, takes a sized buffer
 bool SteamFriends002::SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const void *pvMsgBody, int32_t cubMsgBody) 
 {
-	return RedactedFriends::SendMsgToFriend(steamIDFriend, eFriendMsgType, pvMsgBody, cubMsgBody);
+	//return RedactedFriends::SendMsgToFriend(steamIDFriend, eFriendMsgType, pvMsgBody, cubMsgBody);
+	return false;
 }
 
 // returns the chatID that a chat should be resumed from when switching chat contexts
 OBSOLETE_FUNCTION int32_t SteamFriends002::GetChatIDOfChatHistoryStart(CSteamID steamIDFriend)
 {
-	return RedactedFriends::GetChatIDOfChatHistoryStart(steamIDFriend);
+	//return RedactedFriends::GetChatIDOfChatHistoryStart(steamIDFriend);
+	return 0;
 }
 // sets where a chat with a user should resume
 OBSOLETE_FUNCTION void SteamFriends002::SetChatHistoryStart(CSteamID steamIDFriend, int32_t iChatID) 
 {
-	RedactedFriends::SetChatHistoryStart(steamIDFriend, iChatID);
+	//RedactedFriends::SetChatHistoryStart(steamIDFriend, iChatID);
 }
 // clears the chat history - should be called when a chat dialog closes
 // the chat history can still be recovered by another context using SetChatHistoryStart() to reset the ChatIDOfChatHistoryStart
 void SteamFriends002::ClearChatHistory(CSteamID steamIDFriend) 
 {
-	RedactedFriends::ClearChatHistory(steamIDFriend);
+	//RedactedFriends::ClearChatHistory(steamIDFriend);
 }
 
 // clan functions
@@ -309,11 +324,13 @@ const char *SteamFriends002::GetClanName(CSteamID steamIDClan)
 
 bool SteamFriends002::InviteFriendToClan(CSteamID steamIDfriend, CSteamID steamIDclan) 
 {
-	return RedactedFriends::InviteFriendToClan(steamIDfriend, steamIDclan);
+	//return RedactedFriends::InviteFriendToClan(steamIDfriend, steamIDclan);
+	return false;
 }
 bool SteamFriends002::AcknowledgeInviteToClan(CSteamID steamID, bool)
 {
-	return RedactedFriends::AcknowledgeInviteToClan(steamID);
+	//return RedactedFriends::AcknowledgeInviteToClan(steamID);
+	return false;
 }
 
 int32_t SteamFriends002::GetFriendCountFromSource(CSteamID steamIDSource)
@@ -371,12 +388,14 @@ const char *SteamFriends003::GetFriendPersonaName(CSteamID steamIDFriend)
 // gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
 int32_t SteamFriends003::GetFriendAvatar(CSteamID steamIDFriend) 
 {
-	return RedactedFriends::GetFriendAvatar(steamIDFriend);
+	//return RedactedFriends::GetFriendAvatar(steamIDFriend);
+	return false;
 }
 // returns true if the friend is actually in a game
 bool SteamFriends003::GetFriendGamePlayed(CSteamID steamIDFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort, uint16 *pusQueryPort)
 {
-	return RedactedFriends::GetFriendGamePlayed(steamIDFriend, pulGameID, punGameIP, pusGamePort, pusQueryPort);
+	//return RedactedFriends::GetFriendGamePlayed(steamIDFriend, pulGameID, punGameIP, pusGamePort, pusQueryPort);
+	return 0;
 }
 // accesses old friends names - returns an empty string when their are no more items in the history
 const char *SteamFriends003::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName)
@@ -495,13 +514,15 @@ const char *SteamFriends004::GetFriendPersonaName(CSteamID steamIDFriend)
 // gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
 int32_t SteamFriends004::GetFriendAvatar(CSteamID steamIDFriend, int32_t eAvatarSize) 
 {
-	return RedactedFriends::GetFriendAvatar(steamIDFriend, eAvatarSize);
+	//return RedactedFriends::GetFriendAvatar(steamIDFriend, eAvatarSize);
+	return 0;
 }
 
 // returns true if the friend is actually in a game
 bool SteamFriends004::GetFriendGamePlayed(CSteamID steamIDFriend, uint64 *pulGameID, uint32 *punGameIP, uint16 *pusGamePort, uint16 *pusQueryPort) 
 {
-	return RedactedFriends::GetFriendGamePlayed(steamIDFriend, pulGameID, punGameIP, pusGamePort, pusQueryPort);
+	//return RedactedFriends::GetFriendGamePlayed(steamIDFriend, pulGameID, punGameIP, pusGamePort, pusQueryPort);
+	return false;
 }
 
 // accesses old friends names - returns an empty string when their are no more items in the history
@@ -528,7 +549,7 @@ CSteamID SteamFriends004::GetClanByIndex(int32_t iClan)
 }
 const char *SteamFriends004::GetClanName(CSteamID steamIDClan) 
 {
-	return RedactedFriends::GetClanName(steamIDclan);
+	return RedactedFriends::GetClanName(steamIDClan);
 }
 
 // iterators for getting users in a chat room, lobby, game server or clan
@@ -627,7 +648,8 @@ const char *SteamFriends005::GetFriendPersonaName(CSteamID steamIDFriend)
 // gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
 int32_t SteamFriends005::GetFriendAvatar(CSteamID steamIDFriend, int32_t eAvatarSize) 
 {
-	return RedactedFriends::GetFriendAvatar(steamIDFriend, eAvatarSize);
+	//return RedactedFriends::GetFriendAvatar(steamIDFriend, eAvatarSize);
+	return 0;
 }
 // returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
 bool SteamFriends005::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) 
@@ -711,7 +733,7 @@ void SteamFriends005::ActivateGameOverlayToWebPage(const char *pchURL)
 // activates game overlay to store page for app
 void SteamFriends005::ActivateGameOverlayToStore(AppId_t nAppID) 
 {
-	RedactedFriends::ActivateGameOverlayToStore(nAppID);
+	RedactedFriends::ActivateGameOverlayToStore(nAppID, EOverlayToStoreFlag::k_EOverlayToStoreFlagNone);
 }
 
 // Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
@@ -786,7 +808,8 @@ const char *SteamFriends006::GetFriendPersonaName(CSteamID steamIDFriend)
 // gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
 int32_t SteamFriends006::GetFriendAvatar(CSteamID steamIDFriend, int32_t eAvatarSize) 
 {
-	return RedactedFriends::GetFriendAvatar(steamIDFriend, eAvatarSize);
+	//return RedactedFriends::GetFriendAvatar(steamIDFriend, eAvatarSize);
+	return 0;
 }
 // returns true if the friend is actually in a game, and fills in pFriendGameInfo with an extra details 
 bool SteamFriends006::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo) 
@@ -874,7 +897,7 @@ void SteamFriends006::ActivateGameOverlayToWebPage(const char *pchURL)
 // activates game overlay to store page for app
 void SteamFriends006::ActivateGameOverlayToStore(AppId_t nAppID) 
 {
-	RedactedFriends::ActivateGameOverlayToStore(nAppID);
+	RedactedFriends::ActivateGameOverlayToStore(nAppID, EOverlayToStoreFlag::k_EOverlayToStoreFlagNone);
 }
 
 // Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
@@ -1039,7 +1062,7 @@ void SteamFriends007::ActivateGameOverlayToWebPage(const char *pchURL)
 // activates game overlay to store page for app
 void SteamFriends007::ActivateGameOverlayToStore(AppId_t nAppID) 
 {
-	RedactedFriends::ActivateGameOverlayToStore(nAppID);
+	RedactedFriends::ActivateGameOverlayToStore(nAppID, EOverlayToStoreFlag::k_EOverlayToStoreFlagNone);
 }
 
 // Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
@@ -1218,7 +1241,7 @@ void SteamFriends008::ActivateGameOverlayToWebPage(const char *pchURL)
 // activates game overlay to store page for app
 void SteamFriends008::ActivateGameOverlayToStore(AppId_t nAppID) 
 {
-	RedactedFriends::ActivateGameOverlayToStore(nAppID);
+	RedactedFriends::ActivateGameOverlayToStore(nAppID, EOverlayToStoreFlag::k_EOverlayToStoreFlagNone);
 }
 
 // Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
@@ -1392,11 +1415,11 @@ CSteamID SteamFriends009::GetClanByIndex(int32_t iClan)
 }
 const char *SteamFriends009::GetClanName(CSteamID steamIDClan) 
 {
-	return RedactedFriends::GetClanName(steamIDclan);
+	return RedactedFriends::GetClanName(steamIDClan);
 }
 const char *SteamFriends009::GetClanTag(CSteamID steamIDClan) 
 {
-	return RedactedFriends::GetClanTag(steamIDclan);
+	return RedactedFriends::GetClanTag(steamIDClan);
 }
 
 // iterators for getting users in a chat room, lobby, game server or clan
@@ -1451,7 +1474,7 @@ void SteamFriends009::ActivateGameOverlayToWebPage(const char *pchURL)
 // activates game overlay to store page for app
 void SteamFriends009::ActivateGameOverlayToStore(AppId_t nAppID) 
 {
-	RedactedFriends::ActivateGameOverlayToStore(nAppID);
+	RedactedFriends::ActivateGameOverlayToStore(nAppID, EOverlayToStoreFlag::k_EOverlayToStoreFlagNone);
 }
 
 // Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
@@ -1698,7 +1721,7 @@ bool SteamFriends010::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline,
 }
 SteamAPICall_t SteamFriends010::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) 
 {
-	return RedactedFriends::DownloadClanActivityCounts(groupIDs[], nIds);
+	return RedactedFriends::DownloadClanActivityCounts(groupIDs, nIds);
 }
 
 // iterators for getting users in a chat room, lobby, game server or clan
@@ -1753,7 +1776,7 @@ void SteamFriends010::ActivateGameOverlayToWebPage(const char *pchURL)
 // activates game overlay to store page for app
 void SteamFriends010::ActivateGameOverlayToStore(AppId_t nAppID) 
 {
-	RedactedFriends::ActivateGameOverlayToStore(nAppID);
+	RedactedFriends::ActivateGameOverlayToStore(nAppID, EOverlayToStoreFlag::k_EOverlayToStoreFlagNone);
 }
 
 // Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
@@ -2053,7 +2076,7 @@ bool SteamFriends011::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline,
 }
 SteamAPICall_t SteamFriends011::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) 
 {
-	return RedactedFriends::DownloadClanActivityCounts(groupIDs[], nIds);
+	return RedactedFriends::DownloadClanActivityCounts(groupIDs, nIds);
 }
 
 // iterators for getting users in a chat room, lobby, game server or clan
@@ -2108,7 +2131,7 @@ void SteamFriends011::ActivateGameOverlayToWebPage(const char *pchURL)
 // activates game overlay to store page for app
 void SteamFriends011::ActivateGameOverlayToStore(AppId_t nAppID) 
 {
-	RedactedFriends::ActivateGameOverlayToStore(nAppID);
+	RedactedFriends::ActivateGameOverlayToStore(nAppID, EOverlayToStoreFlag::k_EOverlayToStoreFlagNone);
 }
 
 // Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
@@ -2435,7 +2458,7 @@ bool SteamFriends012::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline,
 }
 SteamAPICall_t SteamFriends012::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) 
 {
-	return RedactedFriends::DownloadClanActivityCounts(groupIDs[], nIds);
+	return RedactedFriends::DownloadClanActivityCounts(groupIDs, nIds);
 }
 
 // iterators for getting users in a chat room, lobby, game server or clan
@@ -2490,7 +2513,7 @@ void SteamFriends012::ActivateGameOverlayToWebPage(const char *pchURL)
 // activates game overlay to store page for app
 void SteamFriends012::ActivateGameOverlayToStore(AppId_t nAppID) 
 {
-	RedactedFriends::ActivateGameOverlayToStore(nAppID);
+	RedactedFriends::ActivateGameOverlayToStore(nAppID, EOverlayToStoreFlag::k_EOverlayToStoreFlagNone);
 }
 
 // Mark a target user as 'played with'. This is a client-side only feature that requires that the calling user is 
@@ -2533,7 +2556,7 @@ int32_t SteamFriends012::GetLargeFriendAvatar(CSteamID steamIDFriend)
 // if returns false, it means that we already have all the details about that user, and functions can be called immediately
 bool SteamFriends012::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly) 
 {
-	return RedactedFriends::RequestUserInformation(steamIDSource, bRequireNameOnly);
+	return RedactedFriends::RequestUserInformation(steamIDUser, bRequireNameOnly);
 }
 
 // requests information about a clan officer list
@@ -2817,7 +2840,7 @@ bool SteamFriends013::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline,
 }
 SteamAPICall_t SteamFriends013::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) 
 {
-	return RedactedFriends::DownloadClanActivityCounts(groupIDs[], nIds);
+	return RedactedFriends::DownloadClanActivityCounts(groupIDs, nIds);
 }
 
 // iterators for getting users in a chat room, lobby, game server or clan
@@ -3204,7 +3227,7 @@ bool SteamFriends014::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline,
 }
 SteamAPICall_t SteamFriends014::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds) 
 {
-	return RedactedFriends::DownloadClanActivityCounts(groupIDs[], nIds);
+	return RedactedFriends::DownloadClanActivityCounts(groupIDs, nIds);
 }
 
 // iterators for getting users in a chat room, lobby, game server or clan
@@ -3419,7 +3442,7 @@ bool SteamFriends014::LeaveClanChatRoom(CSteamID steamIDClan)
 }
 int32_t SteamFriends014::GetClanChatMemberCount(CSteamID steamIDClan)
 {
-	return RedactedFriends::GetClanChatMemberCount(steamIDclan);
+	return RedactedFriends::GetClanChatMemberCount(steamIDClan);
 }
 CSteamID SteamFriends014::GetChatMemberByIndex(CSteamID steamIDClan, int32_t iUser)
 {
