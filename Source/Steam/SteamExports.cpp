@@ -185,6 +185,8 @@ extern "C"
 
 		ReadInterfaces();
 
+		PluginManager::PostInit();
+
 		return SteamProxy::Inititalize();
 	}
 	API void __cdecl SteamAPI_RunCallbacks()

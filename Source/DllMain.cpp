@@ -105,6 +105,10 @@ void InitialCall()
 		ReadSettings("./Redacted.ini");
 	}
 
+	// Load all the plugins that we can and
+	// let them do their code changes.
+	PluginManager::Startup();
+	PluginManager::PreInit();
 
 	// Return to the hosts entrypoint.
 	memcpy(OriginalEP, OriginalCode, 20);
