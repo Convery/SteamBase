@@ -98,13 +98,10 @@ void hConsole::StartPrinting()
 
 void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool InstantPrint)
 {
-	printf("%s\n", Message);
-	return;
-
-	char Time[7];
-	char Src[4];
-	char Msg[74];
-	char Dta[6];
+	char Time[7  + 1];
+	char Src [4  + 1];
+	char Msg [74 + 1];
+	char Dta [6  + 1];
 	std::string FormatedString;
 
 	// Threadsafe operation.
@@ -120,32 +117,44 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 	strcpy_s(Time, 7, hString::va("%u", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Global::StartupPoint).count()));
 
 	// Truncate the args.
-	strcpy_s(Src, 4, Source);
-	strcpy_s(Msg, 74, Message);
-	strcpy_s(Dta, 6, Data);
+	if (Source)  memcpy(Src, Source, 4);
+	if (Message) memcpy(Msg, Message, 74);
+	if (Data)    memcpy(Dta, Data, 6);
 
 	// Remove any null chars.
+	bool clear = false;
 	for (uint32_t i = 0; i < 7; i++)
 	{
-		if (Time[i] == '\0')
-			Time[i] = ' ';
+		if (!clear && Time[i] == '\0') clear = true;
+		if (clear) Time[i] = ' ';
 	}
+
+	clear = false;
 	for (uint32_t i = 0; i < 4; i++)
 	{
-		if (Src[i] == '\0')
-			Src[i] = ' ';
+		if (!clear && Src[i] == '\0') clear = true;
+		if (clear) Src[i] = ' ';
 	}
+
+	clear = false;
 	for (uint32_t i = 0; i < 74; i++)
 	{
-		if (Msg[i] == '\0')
-			Msg[i] = ' ';
+		if (!clear && Msg[i] == '\0') clear = true;
+		if (clear) Msg[i] = ' ';
 	}
 	
+	clear = false;
 	for (uint32_t i = 0; i < 6; i++)
 	{
-		if (Dta[i] == '\0')
-			Dta[i] = ' ';
+		if (!clear && Dta[i] == '\0') clear = true;
+		if (clear) Dta[i] = ' ';
 	}
+
+	// Terminate the strings
+	Time[7]  = 0;
+	Src [4]  = 0;
+	Msg [74] = 0;
+	Dta [6]  = 0;
 
 	// Format the string.
 	FormatedString.append(Time);
@@ -158,8 +167,9 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 	{
 		FormatedString.append(" | ");
 		FormatedString.append(Dta);
-		FormatedString.append("\n");
 	}
+
+	FormatedString.append("\n");
 	
 	// Print to the logfile.
 	if (LogToFile)
@@ -178,15 +188,15 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 }
 void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Message, char **Data, bool InstantPrint)
 {
-	char Msg[74];
-	char Dta[6];
-	char Pos[7];
+	char Msg[74 + 1];
+	char Dta[6  + 1];
+	char Pos[7  + 1];
 	std::string FormatedString;
+	EnqueueMessage(Source, "Fragmented message:", "");
 
 	// Threadsafe operation.
 	ThreadSafe.lock();
 
-	EnqueueMessage(Source, "Fragmented message:", "");
 	for (uint32_t i = 0; i < min(FragmentCount, 99); i++)
 	{
 		// Clear any old data.
@@ -200,21 +210,31 @@ void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Me
 		strcpy_s(Pos, 7, hString::va("(%i/%i)", (i + 1), min(FragmentCount, 99)));
 
 		// Remove any null chars.
+		bool clear = false;
 		for (uint32_t j = 0; j < 74; j++)
 		{
-			if (Msg[j] == '\0')
-				Msg[j] = ' ';
+			if (!clear && Msg[j] == '\0') clear = true;
+			if (clear) Msg[j] = ' ';
 		}
+
+		clear = false;
 		for (uint32_t j = 0; j < 6; j++)
 		{
-			if (Dta[j] == '\0')
-				Dta[j] = ' ';
+			if (!clear && Dta[j] == '\0') clear = true;
+			if (clear) Dta[j] = ' ';
 		}
+
+		clear = false;
 		for (uint32_t j = 0; j < 7; j++)
 		{
-			if (Pos[j] == '\0')
-				Pos[j] = ' ';
+			if (!clear && Pos[j] == '\0') clear = true;
+			if (clear) Pos[j] = ' ';
 		}
+
+		// Terminate the strings
+		Msg[74] = 0;
+		Dta[6]  = 0;
+		Pos[7]  = 0;
 
 		// Format the string.
 		FormatedString.append(Pos);
@@ -241,6 +261,7 @@ void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Me
 		{
 			MessageQueue.push(FormatedString);
 		}
-		ThreadSafe.unlock();
 	}	
+
+	ThreadSafe.unlock();
 }

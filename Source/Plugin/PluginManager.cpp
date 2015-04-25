@@ -23,11 +23,18 @@ void PluginManager::LoadPlugins()
 	HMODULE Library = NULL;
 
 	// Enumerate all files with our extension.
+	if (!FileSystem::ListFiles(
+		"Plugins\\", 
+		&PluginFiles,
 #ifdef _WIN64
-	FileSystem::ListFiles("Plugins\\", &PluginFiles, ".Red64n");
+		".Red64n"
 #else
-	FileSystem::ListFiles("Plugins\\", &PluginFiles, ".Red32n");
+		".Red32n"
 #endif
+		)) 
+	{
+
+	}
 
 	// Load the plugins into process memory.
 	for (uint32_t i = 0; i < PluginFiles.size(); i++)
@@ -38,6 +45,7 @@ void PluginManager::LoadPlugins()
 		{
 			PluginNames.push_back(PluginFiles[i]);
 			PluginModules.push_back(Library);
+			hConsole::EnqueueMessage("INFO", (char *)PluginFiles[i].c_str(), "", true);
 		}
 		else
 		{
@@ -62,22 +70,14 @@ void PluginManager::VerifyExports()
 		BasePlugin.Name = PluginNames[i];
 
 		// Fill the struct with function pointers.
-		BasePlugin.PreInit = (uint64_t(__stdcall *)(void))
-			GetProcAddress(PluginModules[i], "PreInit");
-		BasePlugin.PostInit = (uint64_t(__stdcall *)(void))
-			GetProcAddress(PluginModules[i], "PostInit");
-		BasePlugin.AuthorInfo = (uint64_t(__stdcall *)(void))
-			GetProcAddress(PluginModules[i], "AuthorInfo");
-		BasePlugin.ExtendedInfo = (uint64_t(__stdcall *)(void))
-			GetProcAddress(PluginModules[i], "ExtendedInfo");
-		BasePlugin.OfficialMod = (uint64_t(__stdcall *)(void))
-			GetProcAddress(PluginModules[i], "OfficialMod");
-		BasePlugin.DependencyCount = (uint64_t(__stdcall *)(void))
-			GetProcAddress(PluginModules[i], "DependencyCount");
-		BasePlugin.GetDependency = (uint64_t(__stdcall *)(int32_t))
-			GetProcAddress(PluginModules[i], "GetDependency");
-		BasePlugin.SendMessageB = (uint64_t(__stdcall *)(uint64_t))
-			GetProcAddress(PluginModules[i], "SendMessageB");
+		BasePlugin.PreInit         = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "PreInit");
+		BasePlugin.PostInit        = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "PostInit");
+		BasePlugin.AuthorInfo      = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "AuthorInfo");
+		BasePlugin.ExtendedInfo    = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "ExtendedInfo");
+		BasePlugin.OfficialMod     = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "OfficialMod");
+		BasePlugin.DependencyCount = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "DependencyCount");
+		BasePlugin.GetDependency   = (uint64_t(__stdcall *)(int32_t))  GetProcAddress(PluginModules[i], "GetDependency");
+		BasePlugin.SendMessageB    = (uint64_t(__stdcall *)(uint64_t)) GetProcAddress(PluginModules[i], "SendMessageB");
 
 		// Verify that all functions were added.
 		if (!BasePlugin.PreInit)

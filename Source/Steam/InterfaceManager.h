@@ -10,6 +10,8 @@
 
 #pragma once
 
+#define ADD_INTERFACE(interfaceId, type) case interfaceId: return new type; break; 
+
 enum SteamInterface_t
 {
 	INTERFACE_STEAMAPPS001,
@@ -167,6 +169,8 @@ class InterfaceManager
 {
 	static std::unordered_map<SteamInterface_t, void *> Instances;
 	static void *CreateInterface(SteamInterface_t interfaceID);
+
+	static const char* SteamInterfaces[];
 
 public:
 	static void *GetInterface(SteamInterface_t interfaceID);

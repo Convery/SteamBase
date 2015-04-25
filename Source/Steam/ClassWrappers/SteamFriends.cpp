@@ -124,7 +124,7 @@ int32_t SteamFriends001::GetChatMessage(CSteamID steamIDFriend, int32_t iChatID,
 }
 
 // generic friend->friend message sending, takes a sized buffer
-bool SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const void *pvMsgBody, int32_t cubMsgBody)
+bool SteamFriends001::SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const void *pvMsgBody, int32_t cubMsgBody)
 {
 	//return RedactedFriends::SendMsgToFriend(steamIDFriend, eFriendMsgType, pvMsgBody, cubMsgBody);
 	return false;
