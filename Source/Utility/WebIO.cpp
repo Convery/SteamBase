@@ -2,14 +2,10 @@
 
 #include "WebIO.h"
 
-WebIO::WebIO()
-{
-	WebIO::OpenSession("WebIO");
-}
+WebIO::WebIO() : WebIO("WebIO") {}
 
-WebIO::WebIO(std::string useragent, std::string url)
+WebIO::WebIO(std::string useragent, std::string url) : WebIO(useragent)
 {
-	WebIO::OpenSession(useragent);
 	WebIO::SetURL(url);
 }
 

@@ -52,8 +52,7 @@ static bool ReadInterfaces()
 	}
 	else
 	{
-		WebIO webIO("Redacted");
-		auto data = webIO.Get(hString::va("https://momo5502.com/SteamAPI/?app=%d", Global::Steam_AppID));
+		std::string data = WebIO("Redacted").Get(hString::va("https://momo5502.com/SteamAPI/?app=%d", Global::Steam_AppID));
 
 		buffer.append(data.begin(), data.end());
 		FileSystem::WriteFile("steam_api.json", buffer, false);
