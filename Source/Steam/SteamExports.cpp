@@ -43,19 +43,25 @@ static SteamInterface_t _SteamUtils;
 	var = (SteamInterface_t)(default - 1 + val);                     \
 }
 
+#ifndef _WIN64
+#define INTERFACE_VERSION_FILE "steam_api.json"
+#else
+#define INTERFACE_VERSION_FILE "steam_api64.json"
+#endif
+
 static bool ReadInterfaces()
 {
 	ByteString buffer;
-	if (FileSystem::FileExists("steam_api.json"))
+	if (FileSystem::FileExists(INTERFACE_VERSION_FILE))
 	{
-		FileSystem::ReadFile("steam_api.json", buffer);
+		FileSystem::ReadFile(INTERFACE_VERSION_FILE, buffer);
 	}
 	else
 	{
 		std::string data = WebIO("Redacted").Get(hString::va("https://momo5502.com/SteamAPI/?app=%d", Global::Steam_AppID));
 
 		buffer.append(data.begin(), data.end());
-		FileSystem::WriteFile("steam_api.json", buffer, false);
+		FileSystem::WriteFile(INTERFACE_VERSION_FILE, buffer, false);
 	}
 
 	Json::Reader reader;
@@ -168,7 +174,7 @@ extern "C"
 			}
 			else
 			{
-				// TODO: Find an other identification method. Binary hash checks or so? 
+				// TODO: Find another identification method. Binary hash checks or so? 
 				MessageBox(0, "Unable to determine current AppID!", "Error", MB_ICONERROR);
 				return false;
 			}

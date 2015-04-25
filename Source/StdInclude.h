@@ -24,8 +24,10 @@
 // Debug functionallity.
 #if !defined(NET_DEBUG) && !defined(FS_DEBUG) && !defined(PERF_DEBUG)
 #define DBGPrint(fmt, ...)
+#define ERRPrint(fmt, ...) 
 #else
 #define DBGPrint(fmt, ...) hConsole::EnqueueMessage("DBG", (char *)hString::va(fmt, ##__VA_ARGS__), "")
+#define ERRPrint(fmt, ...) hConsole::EnqueueMessage("ERR", (char *)hString::va(fmt, ##__VA_ARGS__), "")
 #endif
 
 // Useful for logging.

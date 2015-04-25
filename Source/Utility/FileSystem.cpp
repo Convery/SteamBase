@@ -87,7 +87,7 @@ bool FileSystem::WriteFile(const char *Filename, ByteString &DataBuffer, bool Ap
 	return WriteFile(Filename, (void *)DataBuffer.data(), DataBuffer.size(), Append);
 }
 
-static bool Internal_win32_ListFiles(std::string Path, std::vector<std::string> *Results, const char *Extension = nullptr)
+static bool Internal_win32_ListFiles(std::string Path, std::vector<std::string>& Results, const char *Extension = nullptr)
 {
 	WIN32_FIND_DATA FindFileData;
 	HANDLE hFind;
@@ -105,7 +105,11 @@ static bool Internal_win32_ListFiles(std::string Path, std::vector<std::string> 
 	// Extension.
 	if (Extension != nullptr)
 	{
-		Path.append(".");
+		if (*Extension != '.')
+		{
+			Path.append(".");
+		}
+		
 		Path.append(Extension);
 	}
 
@@ -118,7 +122,7 @@ static bool Internal_win32_ListFiles(std::string Path, std::vector<std::string> 
 			// If not a directory.
 			if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
-				Results->push_back(FindFileData.cFileName);
+				Results.push_back(FindFileData.cFileName);
 				Result = true;
 			}
 		} while (FindNextFileA(hFind, &FindFileData));
@@ -132,7 +136,7 @@ static bool Internal_posix_ListFiles(std::string Path, std::vector<std::string> 
 	// TODO: This.
 	return false;
 }
-bool FileSystem::ListFiles(std::string Path, std::vector<std::string> *Results, const char *Extension)
+bool FileSystem::ListFiles(std::string Path, std::vector<std::string>& Results, const char *Extension)
 {
 #ifdef _WIN32
 	return Internal_win32_ListFiles(Path, Results, Extension);

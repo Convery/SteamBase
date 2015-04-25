@@ -65,6 +65,8 @@ BOOL __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
+		SteamProxy::RunClient();
+
 		// Create our logfile.
 		hConsole::InitializeConsole("RedactedBase.log");
 

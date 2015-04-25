@@ -1,3 +1,16 @@
+/*
+	This project is released under the GPL 2.0 license.
+	Some parts are based on research by Bas Timmer and the OpenSteamworks project.
+	Please do no evil.
+
+	Initial author: (https://github.com/)momo5502
+	Started: 2015-01-10
+	Notes:
+		Steam communication class.
+*/
+
+#define MOD_TITLE "Redacted"
+
 #ifdef _WIN64
 #define GAMEOVERLAY_LIB "gameoverlayrenderer64.dll"
 #define STEAMCLIENT_LIB "steamclient64.dll"
@@ -54,6 +67,21 @@ class SteamProxy
 	public:
 		static bool Inititalize();
 
+		static void RunClient();
+
+		static bool IsSubscribedApp();
+		static bool IsSubscribedApp(uint32_t appID);
+
+		static bool IsVACBanned();
+		static bool IsVACBanned(uint32_t appID);
+
+		static uint32_t GetDLCCount();
+		static bool IsDlcInstalled(uint32_t appID);
+
+		static CSteamID GetUserID();
+		static const char* GetUsername();
+		static bool GetAppName(uint32_t appID, char* buffer, size_t bufferLen);
+
 		// SteamInterface objects
 //		static ISteamAppList001*             ISteamAppList;
 		static ISteamApps006*                ISteamApps;
@@ -96,10 +124,15 @@ class SteamProxy
 
 		static IClientEngine* ClientEngine;
 		static IClientUser* ClientUser;
+		static IClientApps* ClientApps;
 
 		static void LoadOverlay();
+		static bool DoUserChecks();
 		static void SetSteamDirectory();
 
 		static bool CreateClient();
 		static bool CreateInterfaces();
+
+		static void StartMod();
+		static void StartGame();
 };

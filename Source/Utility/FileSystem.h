@@ -20,5 +20,5 @@ public:
 
 	static int64_t GetFileSize(const char *Filename);
 	static bool FileExists(const char *Filename);
-	static bool ListFiles(std::string Path, std::vector<std::string> *Results, const char *Extension = nullptr);
+	static bool ListFiles(std::string Path, std::vector<std::string>& Results, const char *Extension = nullptr);
 };

@@ -1,3 +1,14 @@
+/*
+	This project is released under the GPL 2.0 license.
+	Some parts are based on research by Bas Timmer and the OpenSteamworks project.
+	Please do no evil.
+
+	Initial author: (https://github.com/)momo5502
+	Started: 2015-01-10
+	Notes:
+		Steam communication class.
+*/
+
 #include "..\StdInclude.h"
 
 char SteamProxy::SteamPath[MAX_PATH] = { 0 };
@@ -11,7 +22,8 @@ HSteamPipe SteamProxy::Pipe = 0;
 HSteamUser SteamProxy::GlobalUser = 0;
 
 IClientEngine* SteamProxy::ClientEngine = 0;
-IClientUser* SteamProxy::ClientUser = 0;
+IClientUser*   SteamProxy::ClientUser   = 0;
+IClientApps*   SteamProxy::ClientApps   = 0;
 
 //ISteamAppList001*             SteamProxy::ISteamAppList             = 0;
 ISteamApps006*                  SteamProxy::ISteamApps                = 0;
@@ -44,7 +56,25 @@ ISteamUtils007*                 SteamProxy::ISteamUtils               = 0;
 bool SteamProxy::Inititalize()
 {
 	SteamProxy::LoadOverlay();
-	return SteamProxy::CreateInterfaces();
+
+	if (SteamProxy::CreateInterfaces())
+	{
+		SteamProxy::StartGame();
+
+#ifdef NO_PIRACY
+		if (SteamProxy::DoUserChecks()) {
+#endif
+
+			DBGPrint("SteamProxy: Initialization succeeded");
+			return true;
+
+#ifdef NO_PIRACY
+		}
+#endif
+	}
+
+	ERRPrint("SteamProxy: Initialization failed");
+	return false;
 }
 
 void SteamProxy::SetSteamDirectory()
@@ -96,6 +126,9 @@ bool SteamProxy::CreateClient()
 	SteamProxy::ClientUser = SteamProxy::ClientEngine->GetIClientUser(SteamProxy::GlobalUser, SteamProxy::Pipe, CLIENTUSER_INTERFACE_VERSION);
 	STEAMPROXY_ASSERT(ClientUser)
 
+	SteamProxy::ClientApps = SteamProxy::ClientEngine->GetIClientApps(SteamProxy::GlobalUser, SteamProxy::Pipe, CLIENTAPPS_INTERFACE_VERSION);
+	STEAMPROXY_ASSERT(ClientApps)
+
 	return true;
 }
 
@@ -120,4 +153,170 @@ bool SteamProxy::CreateInterfaces()
 	STEAMPROXY_CREATEINTERFACE_NO_USER(ISteamUtils,      ISteamUtils007,              GetISteamUtils,              STEAMUTILS_INTERFACE_VERSION_007)
 
 	return true;
+}
+
+bool SteamProxy::GetAppName(uint32_t appID, char* buffer, size_t bufferLen)
+{
+	if (!SteamProxy::ClientApps)
+	{
+		return false;
+	}
+
+	// Seems to read from app manifests, so you have to own the game!
+	SteamProxy::ClientApps->GetAppData(appID, "name", buffer, bufferLen);
+
+	return true;
+}
+
+void SteamProxy::StartGame()
+{
+	SetEnvironmentVariableA("SteamAppId", hString::va("%lu", Global::Steam_AppID));
+
+	if (!FileSystem::FileExists("steam_appid.txt"))
+	{
+		FileSystem::WriteFile("steam_appid.txt", ByteString((BYTE*)hString::va("%lu", Global::Steam_AppID)), false);
+	}
+
+	SteamProxy::GetAppName(Global::Steam_AppID, SteamProxy::AppName, sizeof(SteamProxy::AppName));
+
+	// Use real XUID if possible.
+	Global::Steam_UserID = SteamProxy::GetUserID().ConvertToUint64();
+
+	// Causes Steam to crash. Idk why xD
+#ifndef _WIN64
+	SteamProxy::StartMod();
+#endif
+}
+
+void SteamProxy::StartMod()
+{
+	if (!SteamProxy::ClientUser)
+	{
+		return;
+	}
+
+	CGameID gameID(0xF159010201000000 | Global::Steam_AppID);
+
+	char ourPath[MAX_PATH] = { 0 };
+	GetModuleFileNameA(GetModuleHandle(NULL), ourPath, sizeof(ourPath));
+
+	char ourDirectory[MAX_PATH] = { 0 };
+	GetCurrentDirectoryA(sizeof(ourDirectory), ourDirectory);
+
+	char blob[1] = { 0 };
+	const char* modTitle = hString::va(MOD_TITLE ": %s", SteamProxy::AppName);
+	SteamProxy::ClientUser->SpawnProcess(blob, 0, ourPath, hString::va("\"%s\" -parentProc %d", ourPath, GetCurrentProcessId()), 0, ourDirectory, gameID, Global::Steam_AppID, modTitle, 0);
+}
+
+void SteamProxy::RunClient()
+{
+	char* command = "-parentProc ";
+	char* parentProc = strstr(GetCommandLineA(), command);
+
+	if (parentProc)
+	{
+		parentProc += strlen(command);
+		int pid = atoi(parentProc);
+
+		HANDLE processHandle = OpenProcess(SYNCHRONIZE, FALSE, pid);
+
+		if (processHandle != INVALID_HANDLE_VALUE)
+		{
+			WaitForSingleObject(processHandle, INFINITE);
+			CloseHandle(processHandle);
+		}
+
+		exit(0);
+	}
+}
+
+bool SteamProxy::DoUserChecks()
+{
+	const char* username = SteamProxy::GetUsername();
+	if (username) DBGPrint("SteamProxy: Username: %s", username);
+
+	DBGPrint("SteamProxy: SteamID: %16llX", SteamProxy::GetUserID().ConvertToUint64());
+
+	if (!SteamProxy::IsSubscribedApp())
+	{
+		MessageBox(0, "You do not own this game!", "Error", MB_ICONERROR);
+		return false;
+	}
+
+	if (SteamProxy::IsVACBanned())
+	{
+		MessageBox(0, hString::va("You are VAC banned from '%s'", SteamProxy::AppName), "Error", MB_ICONERROR);
+		return false;
+	}
+
+	return true;
+}
+
+bool SteamProxy::IsSubscribedApp()
+{
+	return SteamProxy::IsSubscribedApp(Global::Steam_AppID);
+}
+
+bool SteamProxy::IsSubscribedApp(uint32_t appID)
+{
+	if (SteamProxy::ISteamApps)
+	{
+		return SteamProxy::ISteamApps->BIsSubscribedApp(appID);
+	}
+
+	return false;
+}
+
+bool SteamProxy::IsVACBanned()
+{
+	return SteamProxy::IsVACBanned(Global::Steam_AppID);
+}
+
+bool SteamProxy::IsVACBanned(uint32_t appID)
+{
+	if (SteamProxy::ClientUser)
+	{
+		return SteamProxy::ClientUser->IsVACBanned(appID);
+	}
+
+	return false;
+}
+
+const char* SteamProxy::GetUsername()
+{
+	const char* username = "";
+
+	if (SteamProxy::ISteamFriends)
+	{
+		username = SteamProxy::ISteamFriends->GetPersonaName();
+	}
+
+	return username;
+}
+
+CSteamID SteamProxy::GetUserID()
+{
+	CSteamID id(Global::Steam_UserID);
+
+	if (SteamProxy::ISteamUser)
+	{
+		id = SteamProxy::ISteamUser->GetSteamID();
+	}
+
+	return id;
+}
+
+uint32_t SteamProxy::GetDLCCount()
+{
+	if (SteamProxy::ISteamApps)
+	{
+		return SteamProxy::ISteamApps->GetDLCCount();
+	}
+
+	return 0;
+}
+
+bool SteamProxy::IsDlcInstalled(uint32_t appID)
+{
+	return SteamProxy::IsSubscribedApp(appID);
 }

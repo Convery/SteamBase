@@ -1,4 +1,13 @@
-// Small FTP and HTTP utility class using WinAPI by momo5502
+/*
+	This project is released under the GPL 2.0 license.
+	Some parts are based on research by Bas Timmer and the OpenSteamworks project.
+	Please do no evil.
+
+	Initial author: (https://github.com/)momo5502
+	Started: 2015-03-01
+	Notes:
+		Small FTP and HTTP utility class using WinAPI
+*/
 
 #pragma once
 #include <Windows.h>

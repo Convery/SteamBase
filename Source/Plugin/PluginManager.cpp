@@ -23,9 +23,7 @@ void PluginManager::LoadPlugins()
 	HMODULE Library = NULL;
 
 	// Enumerate all files with our extension.
-	if (!FileSystem::ListFiles(
-		"Plugins\\", 
-		&PluginFiles,
+	if (!FileSystem::ListFiles("Plugins\\", PluginFiles,
 #ifdef _WIN64
 		".Red64n"
 #else
@@ -33,7 +31,7 @@ void PluginManager::LoadPlugins()
 #endif
 		)) 
 	{
-
+		hConsole::EnqueueMessage("ERR", "Failed to list plugins!", "", true);
 	}
 
 	// Load the plugins into process memory.
@@ -49,7 +47,7 @@ void PluginManager::LoadPlugins()
 		}
 		else
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Failed to load [%s] for reason: %lu", PluginFiles[i].c_str(), GetLastError()), "");
+			hConsole::EnqueueMessage("ERR", (char *)hString::va("Failed to load [%s] for reason: %lu", PluginFiles[i].c_str(), GetLastError()), "", true);
 		}
 
 		Library = NULL;
@@ -288,7 +286,7 @@ void PluginManager::PrintAuthorInfo()
 		const char *AuthorName = nullptr;
 		AuthorName = (const char *)i->AuthorInfo();
 
-		if (AuthorName == nullptr)
+		if ((DWORD)AuthorName <= 1) // Preserve compatibility for old plugins.
 		{
 			hConsole::EnqueueMessage("INFO", (char *)hString::va("Loaded plugin <%s>", i->Name.c_str()), "");
 		}
@@ -325,16 +323,16 @@ void PluginManager::PreInit()
 	{
 		auto Start = std::chrono::high_resolution_clock::now();
 		
-		if (i->PreInit() == TRUE)
+		if (i->PreInit() != FALSE)
 		{
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> preinit succeeded in %ld msec", i, std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Start).count()), "", true);
+			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> preinit succeeded in %ld msec", i->Name.c_str(), std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Start).count()), "", true);
 		}
 		else
 		{
 			// We do not remove the plugin for this.
 			// It can still do memory edits if it wants.
 			// And it may provide exports for other functions.
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> preinit failed", i), "", true);
+			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> preinit failed", i->Name.c_str()), "", true);
 		}
 	}
 }
@@ -351,16 +349,16 @@ void PluginManager::PostInit()
 	{
 		auto Start = std::chrono::high_resolution_clock::now();
 
-		if (i->PostInit() == TRUE)
+		if (i->PostInit() != FALSE)
 		{
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> postinit succeeded in %ld msec", i, std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Start).count()), "", true);
+			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> postinit succeeded in %ld msec", i->Name.c_str(), std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Start).count()), "", true);
 		}
 		else
 		{
 			// We do not remove the plugin for this.
 			// It can still do memory edits if it wants.
 			// And it may provide exports for other functions.
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> postinit failed", i), "", true);
+			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> postinit failed", i->Name.c_str()), "", true);
 		}
 	}
 
@@ -368,4 +366,30 @@ void PluginManager::PostInit()
 	hConsole::EnqueueMessage("INFO", "", "", true);
 	hConsole::EnqueueMessage("INFO", "Gamelog:", "", true);
 	hConsole::StartPrinting();
+}
+
+// Legacy stuff. Remove that when old plugins are updated.
+#define API	__declspec(dllexport)
+extern "C"
+{
+	API int32_t __cdecl Plugin_PluginLoaded(const char *PluginName)
+	{
+		for (std::vector<PluginBase>::const_iterator i = PluginManager::Plugins.begin(); i != PluginManager::Plugins.end(); ++i)
+		{
+			if (!_stricmp(PluginName, i->Name.c_str()))
+				return TRUE;
+		}
+		return FALSE;
+	}
+
+	API int32_t __cdecl isPluginLoaded(const char *PluginName)
+	{
+		return Plugin_PluginLoaded(PluginName);
+	}
+
+	API int32_t __cdecl Debug_PrintDebugString(const char *Message)
+	{
+		DBGPrint(Message);
+		return TRUE;
+	}
 }

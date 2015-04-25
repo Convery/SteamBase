@@ -15,7 +15,7 @@ bool RedactedApps::IsSubscribedToCurrentApp()
 	PrintCurrentFunction();
 
 #ifdef NO_PIRACY
-	STEAMPROXY_CALL(ISteamApps, BIsSubscribed);
+	return SteamProxy::IsSubscribedApp();
 #else
 	return true;
 #endif
@@ -33,7 +33,7 @@ bool RedactedApps::IsACybercafeAccount()
 bool RedactedApps::IsUserVACBanned()
 {
 	PrintCurrentFunction();
-	STEAMPROXY_CALL(ISteamApps, BIsVACBanned);
+	return SteamProxy::IsVACBanned();
 }
 
 const char *RedactedApps::GetCurrentGameLanguage()
@@ -52,7 +52,7 @@ bool RedactedApps::IsSubscribedToApp(uint32_t AppID)
 	PrintCurrentFunction();
 
 #ifdef NO_PIRACY
-	STEAMPROXY_CALL(ISteamApps, BIsSubscribedApp, AppID);
+	return SteamProxy::IsSubscribedApp(AppID);
 #else
 	return true;
 #endif
@@ -62,7 +62,7 @@ bool RedactedApps::IsDlcInstalled(uint32_t DLCID)
 	DBGPrint("%s(%i)", __FUNCTION__, DLCID);
 
 #ifdef NO_PIRACY
-	STEAMPROXY_CALL(ISteamApps, BIsDlcInstalled, DLCID);
+	return SteamProxy::IsDlcInstalled(DLCID);
 #else
 	char FilePath[256];
 
@@ -82,7 +82,7 @@ uint32_t RedactedApps::GetDLCCount()
 	PrintCurrentFunction();
 
 #ifdef NO_PIRACY
-	STEAMPROXY_CALL(ISteamApps, GetDLCCount);
+	return SteamProxy::GetDLCCount();
 #else
 	return GetPrivateProfileIntA("DLC", "DLCCount", 0, hString::va("%s.ini", Global::Game_BinaryName));
 #endif
