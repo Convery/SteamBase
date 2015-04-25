@@ -98,6 +98,9 @@ void hConsole::StartPrinting()
 
 void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool InstantPrint)
 {
+	printf("%s\n", Message);
+	return;
+
 	char Time[7];
 	char Src[4];
 	char Msg[74];

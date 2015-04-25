@@ -162,21 +162,13 @@ extern "C"
 		// If the game doesn't create it, then we're fucked.
 		if (!Global::Steam_AppID)
 		{
-			if (FileSystem::FileExists("steam_appid.txt"))
+			ByteString buffer;
+			if (FileSystem::FileExists("steam_appid.txt") && FileSystem::ReadFile("steam_appid.txt", buffer))
 			{
-				ByteString buffer;
-				if (FileSystem::ReadFile("steam_appid.txt", buffer))
-				{
-					Global::Steam_AppID = atoi((char*)buffer.c_str());
-				}
-				else
-				{
-					goto weAreFucked;
-				}
+				Global::Steam_AppID = atoi((char*)buffer.c_str());
 			}
 			else
 			{
-				weAreFucked:
 				// TODO: Find an other identification method. Binary hash checks or so? 
 				MessageBox(0, "Unable to determine current AppID!", "Error", MB_ICONERROR);
 				return false;
