@@ -129,27 +129,33 @@ void RedactedFriends::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeakin
 void RedactedFriends::ActivateGameOverlay(const char *pchDialog)
 {
 	PrintCurrentFunction();
+	STEAMPROXY_CALL(ISteamFriends, ActivateGameOverlay, pchDialog);
 }
 void RedactedFriends::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID)
 {
 	PrintCurrentFunction();
+	STEAMPROXY_CALL(ISteamFriends, ActivateGameOverlayToUser, pchDialog, steamID);
 }
 void RedactedFriends::ActivateGameOverlayToWebPage(const char *pchURL)
 {
 	PrintCurrentFunction();
+	STEAMPROXY_CALL(ISteamFriends, ActivateGameOverlayToWebPage, pchURL);
 }
 void RedactedFriends::ActivateGameOverlayToStore(AppId_t nAppID, EOverlayToStoreFlag eFlag)
 {
 	PrintCurrentFunction();
+	STEAMPROXY_CALL(ISteamFriends, ActivateGameOverlayToStore, nAppID, eFlag);
 }
 
 void RedactedFriends::SetPlayedWith(CSteamID steamIDUserPlayedWith)
 {
 	PrintCurrentFunction();
+	//STEAMPROXY_CALL(ISteamFriends, SetPlayedWith, steamIDUserPlayedWith);
 }
 void RedactedFriends::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby)
 {
 	PrintCurrentFunction();
+	STEAMPROXY_CALL(ISteamFriends, ActivateGameOverlayInviteDialog, steamIDLobby);
 }
 
 int32_t RedactedFriends::GetSmallFriendAvatar(CSteamID steamIDFriend)

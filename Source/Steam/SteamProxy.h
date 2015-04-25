@@ -27,6 +27,28 @@ STEAMPROXY_ASSERT(_var)
 SteamProxy::_var = reinterpret_cast<_type*>(SteamProxy::ISteamClient->_function(SteamProxy::Pipe, _version)); \
 STEAMPROXY_ASSERT(_var)
 
+#ifdef _WIN64
+#define STEAM_PROXY_RETURN_NULL __asm { xor rax, rax } return;
+#else
+#define STEAM_PROXY_RETURN_NULL __asm { xor eax, eax } return;
+#endif
+
+#define STEAMPROXY_CALL(_interface, _function, ...)        \
+if(SteamProxy::_interface)                                 \
+{                                                          \
+	return SteamProxy::_interface->_function(__VA_ARGS__); \
+}                                                          \
+else                                                       \
+{                                                          \
+	STEAM_PROXY_RETURN_NULL                                \
+}
+
+#define STEAMPROXY_CALL_NO_RETURN(_interface, _function, ...) \
+if(SteamProxy::_interface)                                    \
+{                                                             \
+	SteamProxy::_interface->_function(__VA_ARGS__);           \
+}
+
 class SteamProxy
 {
 	public:

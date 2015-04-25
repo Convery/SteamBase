@@ -15,7 +15,7 @@ bool RedactedApps::IsSubscribedToCurrentApp()
 	PrintCurrentFunction();
 
 #ifdef NO_PIRACY
-	return false;
+	STEAMPROXY_CALL(ISteamApps, BIsSubscribed);
 #else
 	return true;
 #endif
@@ -33,7 +33,7 @@ bool RedactedApps::IsACybercafeAccount()
 bool RedactedApps::IsUserVACBanned()
 {
 	PrintCurrentFunction();
-	return false;
+	STEAMPROXY_CALL(ISteamApps, BIsVACBanned);
 }
 
 const char *RedactedApps::GetCurrentGameLanguage()
@@ -52,7 +52,7 @@ bool RedactedApps::IsSubscribedToApp(uint32_t AppID)
 	PrintCurrentFunction();
 
 #ifdef NO_PIRACY
-	return false;
+	STEAMPROXY_CALL(ISteamApps, BIsSubscribedApp, AppID);
 #else
 	return true;
 #endif
@@ -61,8 +61,8 @@ bool RedactedApps::IsDlcInstalled(uint32_t DLCID)
 {
 	DBGPrint("%s(%i)", __FUNCTION__, DLCID);
 
-#ifndef NO_PIRACY
-	return false;
+#ifdef NO_PIRACY
+	STEAMPROXY_CALL(ISteamApps, BIsDlcInstalled, DLCID);
 #else
 	char FilePath[256];
 
@@ -80,7 +80,12 @@ uint32_t RedactedApps::GetEarliestPurchaseUnixTime(uint32_t AppID)
 uint32_t RedactedApps::GetDLCCount()
 {
 	PrintCurrentFunction();
+
+#ifdef NO_PIRACY
+	STEAMPROXY_CALL(ISteamApps, GetDLCCount);
+#else
 	return GetPrivateProfileIntA("DLC", "DLCCount", 0, hString::va("%s.ini", Global::Game_BinaryName));
+#endif
 }
 bool RedactedApps::IsSubscribedFromFreeWeekend()
 {
@@ -96,10 +101,12 @@ bool RedactedApps::GetDLCDataByIndex(uint32_t iDLC, uint32_t *pAppID, bool *pbAv
 void RedactedApps::InstallDLC(uint32_t DLCID)
 {
 	PrintCurrentFunction();
+	STEAMPROXY_CALL(ISteamApps, InstallDLC, DLCID);
 }
 void RedactedApps::UninstallDLC(uint32_t DLCID)
 {
 	PrintCurrentFunction();
+	STEAMPROXY_CALL(ISteamApps, UninstallDLC, DLCID);
 }
 
 void RedactedApps::RequestAppProofOfPurchaseKey(AppId_t nAppID)
@@ -107,7 +114,7 @@ void RedactedApps::RequestAppProofOfPurchaseKey(AppId_t nAppID)
 	PrintCurrentFunction();
 
 #ifdef NO_PIRACY
-
+	STEAMPROXY_CALL(ISteamApps, RequestAppProofOfPurchaseKey, nAppID);
 #endif
 }
 bool RedactedApps::GetCurrentBetaName(char *pchName, uint32_t cchNameBufferSize)
@@ -134,7 +141,7 @@ uint32_t RedactedApps::GetAppInstallDir(uint32_t nAppID, char *pchPath, uint32_t
 	}
 	else
 	{
-		return FALSE;
+		STEAMPROXY_CALL(ISteamApps, GetAppInstallDir, nAppID, pchPath, cchPath);
 	}
 }
 bool RedactedApps::BIsAppInstalled(AppId_t appID)
@@ -142,7 +149,7 @@ bool RedactedApps::BIsAppInstalled(AppId_t appID)
 	PrintCurrentFunction();
 
 #ifdef NO_PIRACY
-	return false;
+	STEAMPROXY_CALL(ISteamApps, BIsAppInstalled, appID);
 #else
 	return false;
 #endif
