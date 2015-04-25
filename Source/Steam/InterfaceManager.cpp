@@ -177,7 +177,7 @@ void *InterfaceManager::GetInterface(SteamInterface_t interfaceID)
 }
 void *InterfaceManager::CreateInterface(SteamInterface_t interfaceID)
 {
-	DBGPrint("InterfaceManager: Creating steam interface %s (%d)", InterfaceManager::SteamInterfaces[interfaceID], interfaceID);
+	DBGPrint("InterfaceManager: Creating Steam interface '%s' (%d)", InterfaceManager::SteamInterfaces[interfaceID], interfaceID);
 
 	switch (interfaceID)
 	{
@@ -335,6 +335,9 @@ void *InterfaceManager::CreateInterface(SteamInterface_t interfaceID)
 		break;
 	}
 
-	MessageBoxA(0, hString::va("Missing interface %s (%d)!", InterfaceManager::SteamInterfaces[interfaceID], interfaceID), "Error", MB_ICONERROR);
+	auto message = hString::va("Missing handler for interface '%s' (%d)!", InterfaceManager::SteamInterfaces[interfaceID], interfaceID);
+
+	hConsole::EnqueueMessage("ERR", (char *)hString::va("InterfaceManager: %s", message), "");
+	MessageBoxA(0, message, "Error", MB_ICONERROR);
 	return NULL;
 }

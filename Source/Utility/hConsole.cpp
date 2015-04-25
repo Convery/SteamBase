@@ -98,10 +98,10 @@ void hConsole::StartPrinting()
 
 void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool InstantPrint)
 {
-	char Time[7  + 1];
-	char Src [4  + 1];
-	char Msg [74 + 1];
-	char Dta [6  + 1];
+	char Time[7        + 1];
+	char Src [4        + 1];
+	char Msg [MSG_SIZE + 1];
+	char Dta [6        + 1];
 	std::string FormatedString;
 
 	// Threadsafe operation.
@@ -110,7 +110,7 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 	// Clear any old data.
 	memset(Time, ' ', 7);
 	memset(Src, ' ', 4);
-	memset(Msg, ' ', 74);
+	memset(Msg, ' ', MSG_SIZE);
 	memset(Dta, ' ', 6);
 
 	// Create the timestamp.
@@ -118,7 +118,7 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 
 	// Truncate the args.
 	if (Source)  memcpy(Src, Source, 4);
-	if (Message) memcpy(Msg, Message, 74);
+	if (Message) memcpy(Msg, Message, MSG_SIZE);
 	if (Data)    memcpy(Dta, Data, 6);
 
 	// Remove any null chars.
@@ -137,7 +137,7 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 	}
 
 	clear = false;
-	for (uint32_t i = 0; i < 74; i++)
+	for (uint32_t i = 0; i < MSG_SIZE; i++)
 	{
 		if (!clear && Msg[i] == '\0') clear = true;
 		if (clear) Msg[i] = ' ';
@@ -151,10 +151,10 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 	}
 
 	// Terminate the strings
-	Time[7]  = 0;
-	Src [4]  = 0;
-	Msg [74] = 0;
-	Dta [6]  = 0;
+	Time[7]        = 0;
+	Src [4]        = 0;
+	Msg [MSG_SIZE] = 0;
+	Dta [6]        = 0;
 
 	// Format the string.
 	FormatedString.append(Time);
@@ -170,6 +170,8 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 	}
 
 	FormatedString.append("\n");
+
+	OutputDebugStringA(FormatedString.c_str());
 	
 	// Print to the logfile.
 	if (LogToFile)
