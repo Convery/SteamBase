@@ -10,16 +10,30 @@
 
 #include "..\..\StdInclude.h"
 
+static const int defaultPort = 31313;
+
  bool SendP2PPacket(CSteamID steamIDRemote, const void *pubData, uint32 cubData, EP2PSend eP2PSendType, int iPort)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
+ bool SendP2PPacket(CSteamID steamIDRemote, const void *pubData, uint32 cubData, EP2PSend eP2PSendType)
+ {
+	 PrintCurrentFunction();
+	 return SendP2PPacket(steamIDRemote, pubData, cubData, eP2PSendType, defaultPort);
+ }
+
  bool IsP2PPacketAvailable(uint32 *pcubMsgSize, int iPort)
  {
 	 PrintCurrentFunction();
 	 return false;
+ }
+
+ bool IsP2PPacketAvailable(uint32 *pcubMsgSize)
+ {
+	 PrintCurrentFunction();
+	 return IsP2PPacketAvailable(pcubMsgSize, defaultPort);
  }
 
  bool ReadP2PPacket(void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, CSteamID *psteamIDRemote, int iPort)
