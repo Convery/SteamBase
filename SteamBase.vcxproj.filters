@@ -828,6 +828,12 @@
     <ClInclude Include="Source\Steam\Classes\RedactedUserStats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\Classes\RedactedUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Utility\ByteBuffer.cpp">
@@ -897,6 +903,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Steam\Classes\RedactedUserStats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedUser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

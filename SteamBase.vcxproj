@@ -198,12 +198,14 @@
     <ClInclude Include="Source\StdInclude.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedApps.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedFriends.h" />
+    <ClInclude Include="Source\Steam\Classes\RedactedUser.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedUserStats.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedUtils.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedClasses.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamApps.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamClasses.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamFriends.h" />
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamUser.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamUserStats.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamUtils.h" />
     <ClInclude Include="Source\Steam\Common\AppsCommon.h" />
@@ -459,10 +461,12 @@
     <ClCompile Include="Source\Plugin\PluginManager.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedApps.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedFriends.cpp" />
+    <ClCompile Include="Source\Steam\Classes\RedactedUser.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedUserStats.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedUtils.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamApps.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamFriends.cpp" />
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamUser.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamUserStats.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamUtils.cpp" />
     <ClCompile Include="Source\Steam\InterfaceManager.cpp" />

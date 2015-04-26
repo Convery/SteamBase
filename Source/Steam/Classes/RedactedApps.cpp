@@ -32,7 +32,7 @@ bool RedactedApps::IsACybercafeAccount()
 }
 bool RedactedApps::IsUserVACBanned()
 {
-	PrintCurrentFunction();
+	//PrintCurrentFunction(); // Spams the console
 	return SteamProxy::IsVACBanned();
 }
 
@@ -49,7 +49,7 @@ const char *RedactedApps::GetAvailableGameLanguages()
 
 bool RedactedApps::IsSubscribedToApp(uint32_t AppID)
 {
-	PrintCurrentFunction();
+	//PrintCurrentFunction(); // Spams the console
 
 #ifdef NO_PIRACY
 	return SteamProxy::IsSubscribedApp(AppID);

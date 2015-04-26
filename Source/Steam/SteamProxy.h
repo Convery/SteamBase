@@ -53,7 +53,7 @@ if(SteamProxy::_interface)                                 \
 }                                                          \
 else                                                       \
 {                                                          \
-	STEAMPROXY_RETURN_NULL                                \
+	STEAMPROXY_RETURN_NULL                                 \
 }
 
 #define STEAMPROXY_CALL_NO_RETURN(_interface, _function, ...) \
@@ -127,8 +127,8 @@ class SteamProxy
 		static HSteamUser GlobalUser;
 
 		static IClientEngine* ClientEngine;
-		static IClientUser* ClientUser;
-		static IClientApps* ClientApps;
+		static IClientUser*   ClientUser;
+		static IClientApps*   ClientApps;
 
 		static void LoadOverlay();
 		static bool DoUserChecks();

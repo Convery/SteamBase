@@ -12,7 +12,7 @@
 
 const char *RedactedFriends::GetPersonaName()
 {
-	PrintCurrentFunction();
+	//PrintCurrentFunction(); // Spams the console
 	return Global::Steam_Username;
 }
 SteamAPICall_t RedactedFriends::SetPersonaName(const char *pchPersonaName)

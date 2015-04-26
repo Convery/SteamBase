@@ -12,5 +12,6 @@
 
 #include "RedactedApps.h"
 #include "RedactedFriends.h"
+#include "RedactedUser.h"
 #include "RedactedUserStats.h"
 #include "RedactedUtils.h"
