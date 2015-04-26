@@ -287,7 +287,7 @@ void SteamMatchmaking003::JoinLobby(CSteamID steamIDLobby)
 
 void SteamMatchmaking003::LeaveLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::LeaveLobby(steamIDLobby);
+	return RedactedMatchmaking::LeaveLobby(steamIDLobby);
 }
 
 bool SteamMatchmaking003::InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee)
@@ -312,7 +312,7 @@ const char* SteamMatchmaking003::GetLobbyData(CSteamID steamIDLobby, const char 
 
 bool SteamMatchmaking003::SetLobbyData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
 }
 
 const char* SteamMatchmaking003::GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, const char *pchKey)
@@ -322,7 +322,7 @@ const char* SteamMatchmaking003::GetLobbyMemberData(CSteamID steamIDLobby, CStea
 
 void SteamMatchmaking003::SetLobbyMemberData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
 }
 
 bool SteamMatchmaking003::SendLobbyChatMsg(CSteamID steamIDLobby, const void *pvMsgBody, int cubMsgBody)
@@ -342,7 +342,7 @@ bool SteamMatchmaking003::RequestLobbyData(CSteamID steamIDLobby)
 
 void SteamMatchmaking003::SetLobbyGameServer(CSteamID steamIDLobby, uint32 unGameServerIP, uint16 unGameServerPort, CSteamID steamIDGameServer)
 {
-	RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
+	return RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
 }
 
 bool SteamMatchmaking003::GetLobbyGameServer(CSteamID steamIDLobby, uint32 *punGameServerIP, uint16 *punGameServerPort, CSteamID *psteamIDGameServer)
@@ -399,11 +399,11 @@ SteamAPICall_t SteamMatchmaking004::RequestLobbyList()
 
 void SteamMatchmaking004::AddRequestLobbyListFilter(const char *pchKeyToMatch, const char *pchValueToMatch)
 {
-	RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
+	return RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
 }
 void SteamMatchmaking004::AddRequestLobbyListNumericalFilter(const char *pchKeyToMatch, int nValueToMatch, int nComparisonType)
 {
-	RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, static_cast<ELobbyComparison>(nComparisonType));
+	return RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, static_cast<ELobbyComparison>(nComparisonType));
 }
 OBSOLETE_FUNCTION void SteamMatchmaking004::AddRequestLobbyListSlotsAvailableFilter()
 {
@@ -426,7 +426,7 @@ void SteamMatchmaking004::JoinLobby(CSteamID steamIDLobby)
 }
 void SteamMatchmaking004::LeaveLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::LeaveLobby(steamIDLobby);
+	return RedactedMatchmaking::LeaveLobby(steamIDLobby);
 }
 
 bool SteamMatchmaking004::InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee)
@@ -451,7 +451,7 @@ const char* SteamMatchmaking004::GetLobbyData(CSteamID steamIDLobby, const char 
 
 bool SteamMatchmaking004::SetLobbyData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
 }
 
 const char* SteamMatchmaking004::GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, const char *pchKey)
@@ -461,7 +461,7 @@ const char* SteamMatchmaking004::GetLobbyMemberData(CSteamID steamIDLobby, CStea
 
 void SteamMatchmaking004::SetLobbyMemberData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
 }
 
 bool SteamMatchmaking004::SendLobbyChatMsg(CSteamID steamIDLobby, const void *pvMsgBody, int cubMsgBody)
@@ -481,7 +481,7 @@ bool SteamMatchmaking004::RequestLobbyData(CSteamID steamIDLobby)
 
 void SteamMatchmaking004::SetLobbyGameServer(CSteamID steamIDLobby, uint32 unGameServerIP, uint16 unGameServerPort, CSteamID steamIDGameServer)
 {
-	RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
+	return RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
 }
 
 bool SteamMatchmaking004::GetLobbyGameServer(CSteamID steamIDLobby, uint32 *punGameServerIP, uint16 *punGameServerPort, CSteamID *psteamIDGameServer)
@@ -534,12 +534,12 @@ SteamAPICall_t SteamMatchmaking005::RequestLobbyList()
 
 void SteamMatchmaking005::AddRequestLobbyListFilter(const char *pchKeyToMatch, const char *pchValueToMatch)
 {
-	RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
+	return RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
 }
 
 void SteamMatchmaking005::AddRequestLobbyListNumericalFilter(const char *pchKeyToMatch, int nValueToMatch, int nComparisonType)
 {
-	RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, static_cast<ELobbyComparison>(nComparisonType));
+	return RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, static_cast<ELobbyComparison>(nComparisonType));
 }
 
 OBSOLETE_FUNCTION void SteamMatchmaking005::AddRequestLobbyListSlotsAvailableFilter()
@@ -549,7 +549,7 @@ OBSOLETE_FUNCTION void SteamMatchmaking005::AddRequestLobbyListSlotsAvailableFil
 
 void SteamMatchmaking005::AddRequestLobbyListNearValueFilter(const char *pchKeyToMatch, int nValueToBeCloseTo)
 {
-	RedactedMatchmaking::AddRequestLobbyListNearValueFilter(pchKeyToMatch, nValueToBeCloseTo);
+	return RedactedMatchmaking::AddRequestLobbyListNearValueFilter(pchKeyToMatch, nValueToBeCloseTo);
 }
 
 CSteamID SteamMatchmaking005::GetLobbyByIndex(int iLobby)
@@ -559,17 +559,17 @@ CSteamID SteamMatchmaking005::GetLobbyByIndex(int iLobby)
 
 SteamAPICall_t SteamMatchmaking005::CreateLobby(ELobbyType eLobbyType)
 {
-	RedactedMatchmaking::CreateLobby(eLobbyType);
+	return RedactedMatchmaking::CreateLobby(eLobbyType);
 }
 
 SteamAPICall_t SteamMatchmaking005::JoinLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::JoinLobby(steamIDLobby);
+	return RedactedMatchmaking::JoinLobby(steamIDLobby);
 }
 
 void SteamMatchmaking005::LeaveLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::LeaveLobby(steamIDLobby);
+	return RedactedMatchmaking::LeaveLobby(steamIDLobby);
 }
 
 bool SteamMatchmaking005::InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee)
@@ -594,7 +594,7 @@ const char* SteamMatchmaking005::GetLobbyData(CSteamID steamIDLobby, const char 
 
 bool SteamMatchmaking005::SetLobbyData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
 }
 
 const char* SteamMatchmaking005::GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, const char *pchKey)
@@ -604,7 +604,7 @@ const char* SteamMatchmaking005::GetLobbyMemberData(CSteamID steamIDLobby, CStea
 
 void SteamMatchmaking005::SetLobbyMemberData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
 }
 
 bool SteamMatchmaking005::SendLobbyChatMsg(CSteamID steamIDLobby, const void *pvMsgBody, int cubMsgBody)
@@ -624,7 +624,7 @@ bool SteamMatchmaking005::RequestLobbyData(CSteamID steamIDLobby)
 
 void SteamMatchmaking005::SetLobbyGameServer(CSteamID steamIDLobby, uint32 unGameServerIP, uint16 unGameServerPort, CSteamID steamIDGameServer)
 {
-	RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
+	return RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
 }
 
 bool SteamMatchmaking005::GetLobbyGameServer(CSteamID steamIDLobby, uint32 *punGameServerIP, uint16 *punGameServerPort, CSteamID *psteamIDGameServer)
@@ -690,15 +690,15 @@ SteamAPICall_t SteamMatchmaking006::RequestLobbyList()
 }
 void SteamMatchmaking006::AddRequestLobbyListFilter(const char *pchKeyToMatch, const char *pchValueToMatch)
 {
-	RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
+	return RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
 }
 void SteamMatchmaking006::AddRequestLobbyListNumericalFilter(const char *pchKeyToMatch, int nValueToMatch, int nComparisonType)
 {
-	RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, static_cast<ELobbyComparison>(nComparisonType));
+	return RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, static_cast<ELobbyComparison>(nComparisonType));
 }
 void SteamMatchmaking006::AddRequestLobbyListNearValueFilter(const char *pchKeyToMatch, int nValueToBeCloseTo)
 {
-	RedactedMatchmaking::AddRequestLobbyListNearValueFilter(pchKeyToMatch, nValueToBeCloseTo);
+	return RedactedMatchmaking::AddRequestLobbyListNearValueFilter(pchKeyToMatch, nValueToBeCloseTo);
 }
 
 
@@ -708,15 +708,15 @@ CSteamID SteamMatchmaking006::GetLobbyByIndex(int iLobby)
 }
 SteamAPICall_t SteamMatchmaking006::CreateLobby(ELobbyType eLobbyType)
 {
-	RedactedMatchmaking::CreateLobby(eLobbyType);
+	return RedactedMatchmaking::CreateLobby(eLobbyType);
 }
 SteamAPICall_t SteamMatchmaking006::JoinLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::JoinLobby(steamIDLobby);
+	return RedactedMatchmaking::JoinLobby(steamIDLobby);
 }
 void SteamMatchmaking006::LeaveLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::LeaveLobby(steamIDLobby);
+	return RedactedMatchmaking::LeaveLobby(steamIDLobby);
 }
 bool SteamMatchmaking006::InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee)
 {
@@ -738,7 +738,7 @@ const char* SteamMatchmaking006::GetLobbyData(CSteamID steamIDLobby, const char 
 }
 bool SteamMatchmaking006::SetLobbyData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
 }
 
 const char* SteamMatchmaking006::GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, const char *pchKey)
@@ -747,7 +747,7 @@ const char* SteamMatchmaking006::GetLobbyMemberData(CSteamID steamIDLobby, CStea
 }
 void SteamMatchmaking006::SetLobbyMemberData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
 }
 
 bool SteamMatchmaking006::SendLobbyChatMsg(CSteamID steamIDLobby, const void *pvMsgBody, int cubMsgBody)
@@ -765,7 +765,7 @@ bool SteamMatchmaking006::RequestLobbyData(CSteamID steamIDLobby)
 
 void SteamMatchmaking006::SetLobbyGameServer(CSteamID steamIDLobby, uint32 unGameServerIP, uint16 unGameServerPort, CSteamID steamIDGameServer)
 {
-	RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
+	return RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
 }
 bool SteamMatchmaking006::GetLobbyGameServer(CSteamID steamIDLobby, uint32 *punGameServerIP, uint16 *punGameServerPort, CSteamID *psteamIDGameServer)
 {
@@ -820,19 +820,19 @@ SteamAPICall_t SteamMatchmaking007::RequestLobbyList()
 
 void SteamMatchmaking007::AddRequestLobbyListStringFilter(const char *pchKeyToMatch, const char *pchValueToMatch, ELobbyComparison eComparisonType)
 {
-	RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
+	return RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
 }
 void SteamMatchmaking007::AddRequestLobbyListNumericalFilter(const char *pchKeyToMatch, int nValueToMatch, ELobbyComparison eComparisonType)
 {
-	RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, eComparisonType);
+	return RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, eComparisonType);
 }
 void SteamMatchmaking007::AddRequestLobbyListNearValueFilter(const char *pchKeyToMatch, int nValueToBeCloseTo)
 {
-	RedactedMatchmaking::AddRequestLobbyListNearValueFilter(pchKeyToMatch, nValueToBeCloseTo);
+	return RedactedMatchmaking::AddRequestLobbyListNearValueFilter(pchKeyToMatch, nValueToBeCloseTo);
 }
 void SteamMatchmaking007::AddRequestLobbyListFilterSlotsAvailable(int nSlotsAvailable)
 {
-	RedactedMatchmaking::AddRequestLobbyListFilterSlotsAvailable(nSlotsAvailable);
+	return RedactedMatchmaking::AddRequestLobbyListFilterSlotsAvailable(nSlotsAvailable);
 }
 
 CSteamID SteamMatchmaking007::GetLobbyByIndex(int iLobby)
@@ -841,15 +841,15 @@ CSteamID SteamMatchmaking007::GetLobbyByIndex(int iLobby)
 }
 SteamAPICall_t SteamMatchmaking007::CreateLobby(ELobbyType eLobbyType, int cMaxMembers)
 {
-	RedactedMatchmaking::CreateLobby(eLobbyType, cMaxMembers);
+	return RedactedMatchmaking::CreateLobby(eLobbyType, cMaxMembers);
 }
 SteamAPICall_t SteamMatchmaking007::JoinLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::JoinLobby(steamIDLobby);
+	return RedactedMatchmaking::JoinLobby(steamIDLobby);
 }
 void SteamMatchmaking007::LeaveLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::LeaveLobby(steamIDLobby);
+	return RedactedMatchmaking::LeaveLobby(steamIDLobby);
 }
 bool SteamMatchmaking007::InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee)
 {
@@ -869,7 +869,7 @@ const char* SteamMatchmaking007::GetLobbyData(CSteamID steamIDLobby, const char 
 }
 bool SteamMatchmaking007::SetLobbyData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
 }
 int SteamMatchmaking007::GetLobbyDataCount(CSteamID steamIDLobby)
 {
@@ -890,7 +890,7 @@ const char* SteamMatchmaking007::GetLobbyMemberData(CSteamID steamIDLobby, CStea
 }
 void SteamMatchmaking007::SetLobbyMemberData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
 }
 bool SteamMatchmaking007::SendLobbyChatMsg(CSteamID steamIDLobby, const void *pvMsgBody, int cubMsgBody)
 {
@@ -986,7 +986,7 @@ void SteamMatchmaking008::AddRequestLobbyListDistanceFilter(ELobbyDistanceFilter
 }
 void SteamMatchmaking008::AddRequestLobbyListResultCountFilter(int cMaxResults)
 {
-	RedactedMatchmaking::AddRequestLobbyListResultCountFilter(cMaxResults);
+	return RedactedMatchmaking::AddRequestLobbyListResultCountFilter(cMaxResults);
 }
 
 CSteamID SteamMatchmaking008::GetLobbyByIndex(int iLobby)
@@ -995,15 +995,15 @@ CSteamID SteamMatchmaking008::GetLobbyByIndex(int iLobby)
 }
 SteamAPICall_t SteamMatchmaking008::CreateLobby(ELobbyType eLobbyType, int cMaxMembers)
 {
-	RedactedMatchmaking::CreateLobby(eLobbyType, cMaxMembers);
+	return RedactedMatchmaking::CreateLobby(eLobbyType, cMaxMembers);
 }
 SteamAPICall_t SteamMatchmaking008::JoinLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::JoinLobby(steamIDLobby);
+	return RedactedMatchmaking::JoinLobby(steamIDLobby);
 }
 void SteamMatchmaking008::LeaveLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::LeaveLobby(steamIDLobby);
+	return RedactedMatchmaking::LeaveLobby(steamIDLobby);
 }
 bool SteamMatchmaking008::InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee)
 {
@@ -1023,7 +1023,7 @@ const char* SteamMatchmaking008::GetLobbyData(CSteamID steamIDLobby, const char 
 }
 bool SteamMatchmaking008::SetLobbyData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
 }
 int SteamMatchmaking008::GetLobbyDataCount(CSteamID steamIDLobby)
 {
@@ -1043,7 +1043,7 @@ const char* SteamMatchmaking008::GetLobbyMemberData(CSteamID steamIDLobby, CStea
 }
 void SteamMatchmaking008::SetLobbyMemberData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
 }
 bool SteamMatchmaking008::SendLobbyChatMsg(CSteamID steamIDLobby, const void *pvMsgBody, int cubMsgBody)
 {
@@ -1059,7 +1059,7 @@ bool SteamMatchmaking008::RequestLobbyData(CSteamID steamIDLobby)
 }
 void SteamMatchmaking008::SetLobbyGameServer(CSteamID steamIDLobby, uint32 unGameServerIP, uint16 unGameServerPort, CSteamID steamIDGameServer)
 {
-	RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
+	return RedactedMatchmaking::SetLobbyGameServer(steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer);
 }
 bool SteamMatchmaking008::GetLobbyGameServer(CSteamID steamIDLobby, uint32 *punGameServerIP, uint16 *punGameServerPort, CSteamID *psteamIDGameServer)
 {
@@ -1120,32 +1120,32 @@ SteamAPICall_t SteamMatchmaking009::RequestLobbyList()
 }
 void SteamMatchmaking009::AddRequestLobbyListStringFilter(const char *pchKeyToMatch, const char *pchValueToMatch, ELobbyComparison eComparisonType)
 {
-	RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
+	return RedactedMatchmaking::AddRequestLobbyListStringFilter(pchKeyToMatch, pchValueToMatch, ELobbyComparison::k_ELobbyComparisonEqual);
 }
 void SteamMatchmaking009::AddRequestLobbyListNumericalFilter(const char *pchKeyToMatch, int nValueToMatch, ELobbyComparison eComparisonType)
 {
-	RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, eComparisonType);
+	return RedactedMatchmaking::AddRequestLobbyListNumericalFilter(pchKeyToMatch, nValueToMatch, eComparisonType);
 }
 void SteamMatchmaking009::AddRequestLobbyListNearValueFilter(const char *pchKeyToMatch, int nValueToBeCloseTo)
 {
-	RedactedMatchmaking::AddRequestLobbyListNearValueFilter(pchKeyToMatch, nValueToBeCloseTo);
+	return RedactedMatchmaking::AddRequestLobbyListNearValueFilter(pchKeyToMatch, nValueToBeCloseTo);
 }
 void SteamMatchmaking009::AddRequestLobbyListFilterSlotsAvailable(int nSlotsAvailable)
 {
-	RedactedMatchmaking::AddRequestLobbyListFilterSlotsAvailable(nSlotsAvailable);
+	return RedactedMatchmaking::AddRequestLobbyListFilterSlotsAvailable(nSlotsAvailable);
 }
 void SteamMatchmaking009::AddRequestLobbyListDistanceFilter(ELobbyDistanceFilter eLobbyDistanceFilter)
 {
-	RedactedMatchmaking::AddRequestLobbyListDistanceFilter(eLobbyDistanceFilter);
+	return RedactedMatchmaking::AddRequestLobbyListDistanceFilter(eLobbyDistanceFilter);
 }
 void SteamMatchmaking009::AddRequestLobbyListResultCountFilter(int cMaxResults)
 {
-	RedactedMatchmaking::AddRequestLobbyListResultCountFilter(cMaxResults);
+	return RedactedMatchmaking::AddRequestLobbyListResultCountFilter(cMaxResults);
 }
 
 void SteamMatchmaking009::AddRequestLobbyListCompatibleMembersFilter(CSteamID steamID)
 {
-	RedactedMatchmaking::AddRequestLobbyListCompatibleMembersFilter(steamID);
+	return RedactedMatchmaking::AddRequestLobbyListCompatibleMembersFilter(steamID);
 }
 
 CSteamID SteamMatchmaking009::GetLobbyByIndex(int iLobby)
@@ -1154,17 +1154,17 @@ CSteamID SteamMatchmaking009::GetLobbyByIndex(int iLobby)
 }
 SteamAPICall_t SteamMatchmaking009::CreateLobby(ELobbyType eLobbyType, int cMaxMembers)
 {
-	RedactedMatchmaking::CreateLobby(eLobbyType, cMaxMembers);
+	return RedactedMatchmaking::CreateLobby(eLobbyType, cMaxMembers);
 }
 
 SteamAPICall_t SteamMatchmaking009::JoinLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::JoinLobby(steamIDLobby);
+	return RedactedMatchmaking::JoinLobby(steamIDLobby);
 }
 
 void SteamMatchmaking009::LeaveLobby(CSteamID steamIDLobby)
 {
-	RedactedMatchmaking::LeaveLobby(steamIDLobby);
+	return RedactedMatchmaking::LeaveLobby(steamIDLobby);
 }
 
 bool SteamMatchmaking009::InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee)
@@ -1186,7 +1186,7 @@ const char* SteamMatchmaking009::GetLobbyData(CSteamID steamIDLobby, const char 
 }
 bool SteamMatchmaking009::SetLobbyData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyData(steamIDLobby, pchKey, pchValue);
 }
 
 int SteamMatchmaking009::GetLobbyDataCount(CSteamID steamIDLobby)
@@ -1210,7 +1210,7 @@ const char* SteamMatchmaking009::GetLobbyMemberData(CSteamID steamIDLobby, CStea
 }
 void SteamMatchmaking009::SetLobbyMemberData(CSteamID steamIDLobby, const char *pchKey, const char *pchValue)
 {
-	RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
+	return RedactedMatchmaking::SetLobbyMemberData(steamIDLobby, pchKey, pchValue);
 }
 
 bool SteamMatchmaking009::SendLobbyChatMsg(CSteamID steamIDLobby, const void *pvMsgBody, int cubMsgBody)

@@ -19,6 +19,18 @@
     <Filter Include="Source Files\JSON">
       <UniqueIdentifier>{c1c44acc-f069-45be-8154-14cbf501855a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Steam">
+      <UniqueIdentifier>{eb0d0c5f-3859-4622-b688-01237256ca6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Steam\Classes">
+      <UniqueIdentifier>{2f063188-bf47-44b6-83a6-80002d9bbfdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Steam\ClassWrappers">
+      <UniqueIdentifier>{c03281a3-eaff-449d-9759-5e2ba440e5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{0bd73331-75a8-4bfe-bb40-542646335087}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\StdInclude.h">
@@ -846,20 +858,14 @@
     <ClInclude Include="Source\Steam\ClassWrappers\SteamNetworking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamMatchmaking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\Classes\RedactedMatchmaking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Utility\ByteBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utility\FileSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utility\hString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utility\hConsole.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\External\GlobalVariables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -867,30 +873,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Plugin\PluginManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\InterfaceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\SteamCallback.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\Classes\RedactedApps.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\ClassWrappers\SteamApps.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\Classes\RedactedFriends.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utility\WebIO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\SteamProxy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\SteamExports.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\JSON\json_reader.cpp">
@@ -902,38 +884,80 @@
     <ClCompile Include="Source\JSON\json_writer.cpp">
       <Filter>Source Files\JSON</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Steam\ClassWrappers\SteamFriends.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Steam\Classes\RedactedApps.cpp">
+      <Filter>Source Files\Steam\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Steam\Classes\RedactedUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\ClassWrappers\SteamUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\ClassWrappers\SteamUserStats.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\Classes\RedactedUserStats.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\ClassWrappers\SteamUser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\Classes\RedactedUser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\ClassWrappers\SteamGameServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\Classes\RedactedNetworking.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Steam\Classes\RedactedFriends.cpp">
+      <Filter>Source Files\Steam\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Source\Steam\Classes\RedactedGameServer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Steam\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedMatchmaking.cpp">
+      <Filter>Source Files\Steam\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedNetworking.cpp">
+      <Filter>Source Files\Steam\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedUser.cpp">
+      <Filter>Source Files\Steam\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedUserStats.cpp">
+      <Filter>Source Files\Steam\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedUtils.cpp">
+      <Filter>Source Files\Steam\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamApps.cpp">
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamFriends.cpp">
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamGameServer.cpp">
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamMatchmaking.cpp">
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
     </ClCompile>
     <ClCompile Include="Source\Steam\ClassWrappers\SteamNetworking.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamUser.cpp">
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamUserStats.cpp">
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamUtils.cpp">
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\SteamCallback.cpp">
+      <Filter>Source Files\Steam</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\SteamExports.cpp">
+      <Filter>Source Files\Steam</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\SteamProxy.cpp">
+      <Filter>Source Files\Steam</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\InterfaceManager.cpp">
+      <Filter>Source Files\Steam</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility\WebIO.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility\hString.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility\hConsole.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility\FileSystem.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility\ByteBuffer.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
