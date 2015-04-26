@@ -759,9 +759,6 @@
     <ClInclude Include="Source\Steam\SteamCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Steam\Classes\SteamClasses.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Steam\Classes\RedactedApps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -815,6 +812,21 @@
     </ClInclude>
     <ClInclude Include="Source\JSON\forwards.h">
       <Filter>Header Files\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\Classes\RedactedUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\Classes\RedactedClasses.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamUserStats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\Classes\RedactedUserStats.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -873,6 +885,18 @@
       <Filter>Source Files\JSON</Filter>
     </ClCompile>
     <ClCompile Include="Source\Steam\ClassWrappers\SteamFriends.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamUserStats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedUserStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

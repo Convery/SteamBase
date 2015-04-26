@@ -369,10 +369,9 @@ void PluginManager::PostInit()
 }
 
 // Legacy stuff. Remove that when old plugins are updated.
-#define API	__declspec(dllexport)
 extern "C"
 {
-	API int32_t __cdecl Plugin_PluginLoaded(const char *PluginName)
+	__declspec(dllexport) int32_t __cdecl Plugin_PluginLoaded(const char *PluginName)
 	{
 		for (std::vector<PluginBase>::const_iterator i = PluginManager::Plugins.begin(); i != PluginManager::Plugins.end(); ++i)
 		{
@@ -382,12 +381,12 @@ extern "C"
 		return FALSE;
 	}
 
-	API int32_t __cdecl isPluginLoaded(const char *PluginName)
+	__declspec(dllexport) int32_t __cdecl isPluginLoaded(const char *PluginName)
 	{
 		return Plugin_PluginLoaded(PluginName);
 	}
 
-	API int32_t __cdecl Debug_PrintDebugString(const char *Message)
+	__declspec(dllexport) int32_t __cdecl Debug_PrintDebugString(const char *Message)
 	{
 		DBGPrint(Message);
 		return TRUE;

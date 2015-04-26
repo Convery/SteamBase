@@ -54,6 +54,7 @@
 
 // Unneeded warnings.
 #pragma region Warnings
+#pragma warning(disable:117)			// Non-void function should return a value
 #pragma warning(disable:4244)			// Conversion from large type to smaller type can cause data loss.
 #pragma warning(disable:4351)			// Elements of an array will be initialized by default.
 #pragma warning(disable:4100)			// Unreferenced parameter.
@@ -116,7 +117,7 @@
 #include "Steam\SteamTypes\SteamTypes.h"
 #include "Steam\Interface\SteamClient.h"
 
-#include "Steam\Classes\SteamClasses.h"
+#include "Steam\Classes\RedactedClasses.h"
 #include "Steam\ClassWrappers\SteamClasses.h"
 
 #include "Steam\SteamProxy.h"

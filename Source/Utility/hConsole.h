@@ -10,7 +10,7 @@
 
 #pragma once
 
-#define MSG_SIZE 74 // Fits the console width
+#define MSG_SIZE 82 // Fits the console width
 class hConsole
 {
 	static bool LogToFile;

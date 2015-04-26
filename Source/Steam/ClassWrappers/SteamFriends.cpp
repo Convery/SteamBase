@@ -5,7 +5,7 @@
 	Initial author: (https://github.com/)Convery
 	Started: 2015-04-08
 	Notes:
-	Friendslist.
+		Friendslist.
 	*/
 
 #include "..\..\StdInclude.h"

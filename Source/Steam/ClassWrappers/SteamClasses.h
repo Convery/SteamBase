@@ -12,3 +12,5 @@
 
 #include "SteamApps.h"
 #include "SteamFriends.h"
+#include "SteamUserStats.h"
+#include "SteamUtils.h"

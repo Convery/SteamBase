@@ -168,6 +168,61 @@ bool SteamProxy::GetAppName(uint32_t appID, char* buffer, size_t bufferLen)
 	return true;
 }
 
+void SteamProxy::SetOverlayNotificationPosition(ENotificationPosition eNotificationPosition)
+{
+	if (SteamProxy::SteamOverlay)
+	{
+		FARPROC _SetNotificationPosition = GetProcAddress(SteamProxy::SteamOverlay, "SetNotificationPosition");
+
+		if (_SetNotificationPosition)
+		{
+			((void(*)(ENotificationPosition))_SetNotificationPosition)(eNotificationPosition);
+		}
+	}
+	else if (SteamProxy::ISteamUtils)
+	{
+		SteamProxy::ISteamUtils->SetOverlayNotificationPosition(eNotificationPosition);
+	}
+}
+
+bool SteamProxy::IsOverlayEnabled()
+{
+	if (SteamProxy::SteamOverlay)
+	{
+		FARPROC _IsOverlayEnabled = GetProcAddress(SteamProxy::SteamOverlay, "IsOverlayEnabled");
+
+		if (_IsOverlayEnabled)
+		{
+			return ((bool(*)())_IsOverlayEnabled)();
+		}
+	}
+	else if (SteamProxy::ISteamUtils)
+	{
+		return SteamProxy::ISteamUtils->IsOverlayEnabled();
+	}
+
+	return false;
+}
+
+bool SteamProxy::BOverlayNeedsPresent()
+{
+	if (SteamProxy::SteamOverlay)
+	{
+		FARPROC _BOverlayNeedsPresent = GetProcAddress(SteamProxy::SteamOverlay, "BOverlayNeedsPresent");
+
+		if (_BOverlayNeedsPresent)
+		{
+			return ((bool(*)())_BOverlayNeedsPresent)();
+		}
+	}
+	else if (SteamProxy::ISteamUtils)
+	{
+		return SteamProxy::ISteamUtils->BOverlayNeedsPresent();
+	}
+
+	return false;
+}
+
 void SteamProxy::StartGame()
 {
 	SetEnvironmentVariableA("SteamAppId", hString::va("%lu", Global::Steam_AppID));

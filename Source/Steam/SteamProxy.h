@@ -41,9 +41,9 @@ SteamProxy::_var = reinterpret_cast<_type*>(SteamProxy::ISteamClient->_function(
 STEAMPROXY_ASSERT(_var)
 
 #ifdef _WIN64
-#define STEAM_PROXY_RETURN_NULL __asm { xor rax, rax } return;
+#define STEAMPROXY_RETURN_NULL __asm { xor rax, rax } return;
 #else
-#define STEAM_PROXY_RETURN_NULL __asm { xor eax, eax } return;
+#define STEAMPROXY_RETURN_NULL __asm { xor eax, eax } return;
 #endif
 
 #define STEAMPROXY_CALL(_interface, _function, ...)        \
@@ -53,7 +53,7 @@ if(SteamProxy::_interface)                                 \
 }                                                          \
 else                                                       \
 {                                                          \
-	STEAM_PROXY_RETURN_NULL                                \
+	STEAMPROXY_RETURN_NULL                                \
 }
 
 #define STEAMPROXY_CALL_NO_RETURN(_interface, _function, ...) \
@@ -81,6 +81,10 @@ class SteamProxy
 		static CSteamID GetUserID();
 		static const char* GetUsername();
 		static bool GetAppName(uint32_t appID, char* buffer, size_t bufferLen);
+
+		static void SetOverlayNotificationPosition(ENotificationPosition eNotificationPosition);
+		static bool IsOverlayEnabled();
+		static bool BOverlayNeedsPresent();
 
 		// SteamInterface objects
 //		static ISteamAppList001*             ISteamAppList;
