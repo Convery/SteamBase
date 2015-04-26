@@ -12,3 +12,4 @@
 
 #include "SteamApps.h"
 #include "SteamFriends.h"
+#include "SteamMatchmaking.h"

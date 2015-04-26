@@ -12,3 +12,4 @@
 
 #include "RedactedApps.h"
 #include "RedactedFriends.h"
+#include "RedactedMatchmaking.h"
