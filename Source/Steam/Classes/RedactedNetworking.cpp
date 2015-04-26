@@ -12,145 +12,145 @@
 
 static const int defaultPort = 31313;
 
- bool SendP2PPacket(CSteamID steamIDRemote, const void *pubData, uint32 cubData, EP2PSend eP2PSendType, int iPort)
+bool RedactedNetworking::SendP2PPacket(CSteamID steamIDRemote, const void *pubData, uint32 cubData, EP2PSend eP2PSendType, int iPort)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool SendP2PPacket(CSteamID steamIDRemote, const void *pubData, uint32 cubData, EP2PSend eP2PSendType)
+bool RedactedNetworking::SendP2PPacket(CSteamID steamIDRemote, const void *pubData, uint32 cubData, EP2PSend eP2PSendType)
  {
 	 PrintCurrentFunction();
-	 return SendP2PPacket(steamIDRemote, pubData, cubData, eP2PSendType, defaultPort);
+	 return RedactedNetworking::SendP2PPacket(steamIDRemote, pubData, cubData, eP2PSendType, defaultPort);
  }
 
- bool IsP2PPacketAvailable(uint32 *pcubMsgSize, int iPort)
- {
-	 PrintCurrentFunction();
-	 return false;
- }
-
- bool IsP2PPacketAvailable(uint32 *pcubMsgSize)
- {
-	 PrintCurrentFunction();
-	 return IsP2PPacketAvailable(pcubMsgSize, defaultPort);
- }
-
- bool ReadP2PPacket(void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, CSteamID *psteamIDRemote, int iPort)
+bool RedactedNetworking::IsP2PPacketAvailable(uint32 *pcubMsgSize, int iPort)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool AcceptP2PSessionWithUser(CSteamID steamIDRemote)
+bool RedactedNetworking::IsP2PPacketAvailable(uint32 *pcubMsgSize)
+ {
+	 PrintCurrentFunction();
+	 return RedactedNetworking::IsP2PPacketAvailable(pcubMsgSize, defaultPort);
+ }
+
+bool RedactedNetworking::ReadP2PPacket(void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, CSteamID *psteamIDRemote, int iPort)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool CloseP2PSessionWithUser(CSteamID steamIDRemote)
+bool RedactedNetworking::AcceptP2PSessionWithUser(CSteamID steamIDRemote)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool CloseP2PChannelWithUser(CSteamID steamIDRemote, int iPort)
+bool RedactedNetworking::CloseP2PSessionWithUser(CSteamID steamIDRemote)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool GetP2PSessionState(CSteamID steamIDRemote, P2PSessionState_t *pConnectionState)
+bool RedactedNetworking::CloseP2PChannelWithUser(CSteamID steamIDRemote, int iPort)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool AllowP2PPacketRelay(bool bAllow)
+bool RedactedNetworking::GetP2PSessionState(CSteamID steamIDRemote, P2PSessionState_t *pConnectionState)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- SNetListenSocket_t CreateListenSocket(int nP2PPort, uint32 nIP, uint16 nPort, bool bAllowUseOfPacketRelay)
+bool RedactedNetworking::AllowP2PPacketRelay(bool bAllow)
+ {
+	 PrintCurrentFunction();
+	 return false;
+ }
+
+SNetListenSocket_t RedactedNetworking::CreateListenSocket(int nP2PPort, uint32 nIP, uint16 nPort, bool bAllowUseOfPacketRelay)
  {
 	 PrintCurrentFunction();
 	 return NULL;
  }
 
- SNetSocket_t CreateP2PConnectionSocket(CSteamID steamIDTarget, int nPort, int nTimeoutSec, bool bAllowUseOfPacketRelay)
+SNetSocket_t RedactedNetworking::CreateP2PConnectionSocket(CSteamID steamIDTarget, int nPort, int nTimeoutSec, bool bAllowUseOfPacketRelay)
  {
 	 PrintCurrentFunction();
 	 return NULL;
  }
- SNetSocket_t CreateConnectionSocket(uint32 nIP, uint16 nPort, int nTimeoutSec)
+SNetSocket_t RedactedNetworking::CreateConnectionSocket(uint32 nIP, uint16 nPort, int nTimeoutSec)
  {
 	 PrintCurrentFunction();
 	 return NULL;
  }
 
 
- bool DestroySocket(SNetSocket_t hSocket, bool bNotifyRemoteEnd)
+bool RedactedNetworking::DestroySocket(SNetSocket_t hSocket, bool bNotifyRemoteEnd)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool DestroyListenSocket(SNetListenSocket_t hSocket, bool bNotifyRemoteEnd)
+bool RedactedNetworking::DestroyListenSocket(SNetListenSocket_t hSocket, bool bNotifyRemoteEnd)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool SendDataOnSocket(SNetSocket_t hSocket, void *pubData, uint32 cubData, bool bReliable)
+bool RedactedNetworking::SendDataOnSocket(SNetSocket_t hSocket, void *pubData, uint32 cubData, bool bReliable)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool IsDataAvailableOnSocket(SNetSocket_t hSocket, uint32 *pcubMsgSize)
+bool RedactedNetworking::IsDataAvailableOnSocket(SNetSocket_t hSocket, uint32 *pcubMsgSize)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool RetrieveDataFromSocket(SNetSocket_t hSocket, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize)
+bool RedactedNetworking::RetrieveDataFromSocket(SNetSocket_t hSocket, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool IsDataAvailable(SNetListenSocket_t hListenSocket, uint32 *pcubMsgSize, SNetSocket_t *phSocket)
+bool RedactedNetworking::IsDataAvailable(SNetListenSocket_t hListenSocket, uint32 *pcubMsgSize, SNetSocket_t *phSocket)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool RetrieveData(SNetListenSocket_t hListenSocket, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, SNetSocket_t *phSocket)
+bool RedactedNetworking::RetrieveData(SNetListenSocket_t hListenSocket, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, SNetSocket_t *phSocket)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool GetSocketInfo(SNetSocket_t hSocket, CSteamID *pSteamIDRemote, int *peSocketStatus, uint32 *punIPRemote, uint16 *punPortRemote)
+bool RedactedNetworking::GetSocketInfo(SNetSocket_t hSocket, CSteamID *pSteamIDRemote, int *peSocketStatus, uint32 *punIPRemote, uint16 *punPortRemote)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- bool GetListenSocketInfo(SNetListenSocket_t hListenSocket, uint32 *pnIP, uint16 *pnPort)
+bool RedactedNetworking::GetListenSocketInfo(SNetListenSocket_t hListenSocket, uint32 *pnIP, uint16 *pnPort)
  {
 	 PrintCurrentFunction();
 	 return false;
  }
 
- ESNetSocketConnectionType GetSocketConnectionType(SNetSocket_t hSocket)
+ESNetSocketConnectionType RedactedNetworking::GetSocketConnectionType(SNetSocket_t hSocket)
  {
 	 PrintCurrentFunction();
 	 return k_ESNetSocketConnectionTypeNotConnected;
  }
 
- int GetMaxPacketSize(SNetSocket_t hSocket)
+int RedactedNetworking::GetMaxPacketSize(SNetSocket_t hSocket)
  {
 	 PrintCurrentFunction();
 	 return 0;
