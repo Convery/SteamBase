@@ -36,6 +36,13 @@ bool RedactedNetworking::IsP2PPacketAvailable(uint32 *pcubMsgSize)
 	 return RedactedNetworking::IsP2PPacketAvailable(pcubMsgSize, defaultPort);
  }
 
+
+bool RedactedNetworking::ReadP2PPacket(void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, CSteamID *psteamIDRemote)
+{
+	PrintCurrentFunction();
+	return false;
+}
+
 bool RedactedNetworking::ReadP2PPacket(void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, CSteamID *psteamIDRemote, int iPort)
  {
 	 PrintCurrentFunction();
