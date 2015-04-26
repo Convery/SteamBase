@@ -29,49 +29,49 @@ EPersonaState RedactedFriends::GetPersonaState()
 int32_t RedactedFriends::GetFriendCount(int32_t iFriendFlags)
 {
 	PrintCurrentFunction();
-	return 0;
+	STEAMPROXY_CALL(ISteamFriends, GetFriendCount, iFriendFlags);
 }
 CSteamID RedactedFriends::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
 {
-	PrintCurrentFunction();
-	return CSteamID();
+	//PrintCurrentFunction(); // Spams the console
+	STEAMPROXY_CALL(ISteamFriends, GetFriendByIndex, iFriend, iFriendFlags);
 }
 EFriendRelationship RedactedFriends::GetFriendRelationship(CSteamID steamIDFriend)
 {
 	PrintCurrentFunction();
-	return EFriendRelationship::k_EFriendRelationshipNone;
+	STEAMPROXY_CALL(ISteamFriends, GetFriendRelationship, steamIDFriend);
 }
 
 EPersonaState RedactedFriends::GetFriendPersonaState(CSteamID steamIDFriend)
 {
-	PrintCurrentFunction();
-	return EPersonaState::k_EPersonaStateOffline;
+	//PrintCurrentFunction(); // Spams the console
+	STEAMPROXY_CALL(ISteamFriends, GetFriendPersonaState, steamIDFriend);
 }
 const char *RedactedFriends::GetFriendPersonaName(CSteamID steamIDFriend)
 {
-	PrintCurrentFunction();
-	return "";
+	//PrintCurrentFunction(); // Spams the console
+	STEAMPROXY_CALL(ISteamFriends, GetFriendPersonaName, steamIDFriend);
 }
 
 bool RedactedFriends::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo)
 {
-	PrintCurrentFunction();
-	return false;
+	//PrintCurrentFunction(); // Spams the console
+	STEAMPROXY_CALL(ISteamFriends, GetFriendGamePlayed, steamIDFriend, pFriendGameInfo);
 }
 const char *RedactedFriends::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName)
 {
 	PrintCurrentFunction();
-	return "";
+	STEAMPROXY_CALL(ISteamFriends, GetFriendPersonaNameHistory, steamIDFriend, iPersonaName);
 }
 const char *RedactedFriends::GetPlayerNickname(CSteamID steamIDPlayer)
 {
 	PrintCurrentFunction();
-	return "";
+	STEAMPROXY_CALL(ISteamFriends, GetPlayerNickname, steamIDPlayer);
 }
 bool RedactedFriends::HasFriend(CSteamID steamIDFriend, int32_t iFriendFlags)
 {
 	PrintCurrentFunction();
-	return false;
+	STEAMPROXY_CALL(ISteamFriends, HasFriend, steamIDFriend, iFriendFlags);
 }
 
 int32_t RedactedFriends::GetClanCount()
@@ -109,17 +109,17 @@ SteamAPICall_t RedactedFriends::DownloadClanActivityCounts(CSteamID groupIDs[], 
 int32_t RedactedFriends::GetFriendCountFromSource(CSteamID steamIDSource)
 {
 	PrintCurrentFunction();
-	return 0;
+	STEAMPROXY_CALL(ISteamFriends, GetFriendCountFromSource, steamIDSource);
 }
 CSteamID RedactedFriends::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend)
 {
 	PrintCurrentFunction();
-	return CSteamID();
+	STEAMPROXY_CALL(ISteamFriends, GetFriendFromSourceByIndex, steamIDSource, iFriend);
 }
 bool RedactedFriends::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource)
 {
 	PrintCurrentFunction();
-	return false;
+	STEAMPROXY_CALL(ISteamFriends, IsUserInSource, steamIDUser, steamIDSource);
 }
 
 void RedactedFriends::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking)
@@ -150,7 +150,7 @@ void RedactedFriends::ActivateGameOverlayToStore(AppId_t nAppID, EOverlayToStore
 void RedactedFriends::SetPlayedWith(CSteamID steamIDUserPlayedWith)
 {
 	PrintCurrentFunction();
-	//STEAMPROXY_CALL(ISteamFriends, SetPlayedWith, steamIDUserPlayedWith);
+	STEAMPROXY_CALL(ISteamFriends, SetPlayedWith, steamIDUserPlayedWith);
 }
 void RedactedFriends::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby)
 {
@@ -161,23 +161,23 @@ void RedactedFriends::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby)
 int32_t RedactedFriends::GetSmallFriendAvatar(CSteamID steamIDFriend)
 {
 	PrintCurrentFunction();
-	return 0;
+	STEAMPROXY_CALL(ISteamFriends, GetSmallFriendAvatar, steamIDFriend);
 }
 int32_t RedactedFriends::GetMediumFriendAvatar(CSteamID steamIDFriend)
 {
 	PrintCurrentFunction();
-	return 0;
+	STEAMPROXY_CALL(ISteamFriends, GetMediumFriendAvatar, steamIDFriend);
 }
 int32_t RedactedFriends::GetLargeFriendAvatar(CSteamID steamIDFriend)
 {
 	PrintCurrentFunction();
-	return 0;
+	STEAMPROXY_CALL(ISteamFriends, GetLargeFriendAvatar, steamIDFriend);
 }
 
 bool RedactedFriends::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly)
 {
 	PrintCurrentFunction();
-	return false;
+	STEAMPROXY_CALL(ISteamFriends, RequestUserInformation, steamIDUser, bRequireNameOnly);
 }
 SteamAPICall_t RedactedFriends::RequestClanOfficerList(CSteamID steamIDClan)
 {
