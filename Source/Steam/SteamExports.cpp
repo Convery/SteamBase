@@ -211,6 +211,7 @@ extern "C"
 	API void __cdecl SteamAPI_Shutdown()
 	{
 		PrintCurrentFunction();
+		ExitProcess(0); // For now, until CEG errors are resolved.
 	}
 
 	API bool __cdecl SteamGameServer_Init(uint32_t unIP, uint16_t usPort, uint16_t usGamePort, uint32_t Unk, int32_t eServerMode, const char *pchVersionString)
