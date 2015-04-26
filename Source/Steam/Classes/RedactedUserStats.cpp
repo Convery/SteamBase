@@ -6,7 +6,7 @@
 	Initial author: (https://github.com/)Convery
 	Started: 2014-11-04
 	Notes:
-		Utils.
+		UserStats
 */
 
 #include "..\..\StdInclude.h"
