@@ -17,7 +17,10 @@ class hConsole
 	static std::queue<std::string> MessageQueue;
 	static std::string Filename;
 
+	static void(*PrintCallback)(const char*);
+
 	static DWORD _stdcall PrintThread(void *);
+	static void Print(const char* message);
 
 public:
 	static bool InitializeConsole(const char *Logfilename = nullptr);
@@ -25,4 +28,6 @@ public:
 
 	static void EnqueueMessage(char *Source, char *Message, char *Data, bool InstantPrint = false);
 	static void EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Message, char **Data, bool InstantPrint = false);
+
+	static void RedirectOutput(void(*callback)(const char*));
 };

@@ -391,4 +391,9 @@ extern "C"
 		DBGPrint(Message);
 		return TRUE;
 	}
+
+	__declspec(dllexport) void __cdecl Console_RedirectOutput(void(*callback)(const char*))
+	{
+		return hConsole::RedirectOutput(callback);
+	}
 }

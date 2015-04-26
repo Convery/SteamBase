@@ -15,6 +15,8 @@ bool hConsole::LogToFile;
 std::queue<std::string> hConsole::MessageQueue;
 std::string hConsole::Filename;
 
+void(*hConsole::PrintCallback)(const char*) = 0;
+
 DWORD _stdcall hConsole::PrintThread(void *)
 {
 	while (true)
@@ -24,13 +26,26 @@ DWORD _stdcall hConsole::PrintThread(void *)
 
 		if (!MessageQueue.empty())
 		{
-			printf(MessageQueue.front().c_str());
+			hConsole::Print(MessageQueue.front().c_str());
 			MessageQueue.pop();
 		}
 		ThreadSafe.unlock();
 	}
 
 	return 0;
+}
+
+void hConsole::Print(const char* message)
+{
+	if (hConsole::PrintCallback)
+	{
+		hConsole::PrintCallback(message);
+	}
+	else
+	{
+		OutputDebugStringA(message);
+		printf(message);
+	}
 }
 
 bool hConsole::InitializeConsole(const char *Logfilename)
@@ -170,8 +185,6 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 	}
 
 	FormatedString.append("\n");
-
-	OutputDebugStringA(FormatedString.c_str());
 	
 	// Print to the logfile.
 	if (LogToFile)
@@ -180,7 +193,7 @@ void hConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool Inst
 	}
 	if (InstantPrint)
 	{
-		printf(FormatedString.c_str());
+		hConsole::Print(FormatedString.c_str());
 	}
 	else
 	{
@@ -257,7 +270,7 @@ void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Me
 		}
 		if (InstantPrint)
 		{
-			printf(FormatedString.c_str());
+			hConsole::Print(FormatedString.c_str());
 		}
 		else
 		{
@@ -266,4 +279,12 @@ void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Me
 	}	
 
 	ThreadSafe.unlock();
+}
+
+void hConsole::RedirectOutput(void(*callback)(const char*))
+{
+	hConsole::PrintCallback = callback;
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
+	DestroyWindow(GetConsoleWindow());
+	FreeConsole();
 }
