@@ -69,14 +69,13 @@ bool SteamNetworking001::IsDataAvailable(SNetListenSocket_t hListenSocket, uint3
 
 bool SteamNetworking001::RetrieveData(SNetListenSocket_t hListenSocket, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize)
 {
-	//return RedactedNetworking::RetrieveData(hListenSocket, pubDest, cubDest, pcubMsgSize, );
+	return RedactedNetworking::RetrieveData(hListenSocket, pubDest, cubDest, pcubMsgSize, NULL);
 }
 
 	// returns information about the specified socket, filling out the contents of the pointers
 bool SteamNetworking001::GetSocketInfo(SNetSocket_t hSocket, CSteamID *pSteamIDRemote, int *peSocketStatus, uint32 *punIPRemote, uint16 *punPortRemote)
 {
-	//return RedactedNetworking::GetListenSocketInfo(hSocket, pSteamIDRemote, peSocketStatus, punIPRemote, punPortRemote);
-	return RedactedNetworking::GetListenSocketInfo(hSocket, punIPRemote, punPortRemote);
+	return RedactedNetworking::GetSocketInfo(hSocket, pSteamIDRemote, peSocketStatus, punIPRemote, punPortRemote);
 }
 
 bool SteamNetworking001::GetListenSocketInfo(SNetListenSocket_t hListenSocket, uint32 *pnIP, uint16 *pnPort)
@@ -134,13 +133,12 @@ bool SteamNetworking002::IsDataAvailable(SNetListenSocket_t hListenSocket, uint3
 
 bool SteamNetworking002::RetrieveData(SNetListenSocket_t hListenSocket, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, SNetSocket_t *phSocket)
 {
-	//return RedactedNetworking::RetrieveData(hListenSocket, pubDest, cubDest, pcubMsgSize, );
+	return RedactedNetworking::RetrieveData(hListenSocket, pubDest, cubDest, pcubMsgSize, phSocket);
 }
 
 bool SteamNetworking002::GetSocketInfo(SNetSocket_t hSocket, CSteamID *pSteamIDRemote, ESNetSocketState *peSocketStatus, uint32 *punIPRemote, uint16 *punPortRemote)
 {
-	//return RedactedNetworking::GetListenSocketInfo(hSocket, pSteamIDRemote, peSocketStatus, punIPRemote, punPortRemote);
-	return RedactedNetworking::GetListenSocketInfo(hSocket, punIPRemote, punPortRemote);
+	return RedactedNetworking::GetSocketInfo(hSocket, pSteamIDRemote, (int*)peSocketStatus, punIPRemote, punPortRemote);
 }
 
 bool SteamNetworking002::GetListenSocketInfo(SNetListenSocket_t hListenSocket, uint32 *pnIP, uint16 *pnPort)

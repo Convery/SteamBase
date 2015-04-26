@@ -176,7 +176,7 @@ LABEL_RESTART:
 			DependencyName = (const char *)i->GetDependency(c);
 
 			// Iterate through the plugins vector and find by name.
-			for (auto k = Plugins.begin(); k != Plugins.end(); ++i)
+			for (auto k = Plugins.begin(); k != Plugins.end(); ++k)
 			{
 				if (!_stricmp(k->Name.c_str(), DependencyName))
 				{

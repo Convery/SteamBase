@@ -26,8 +26,9 @@
 #define DBGPrint(fmt, ...)
 #define ERRPrint(fmt, ...) 
 #else
-#define DBGPrint(fmt, ...) hConsole::EnqueueMessage("DBG", (char *)hString::va(fmt, ##__VA_ARGS__), "")
-#define ERRPrint(fmt, ...) hConsole::EnqueueMessage("ERR", (char *)hString::va(fmt, ##__VA_ARGS__), "")
+// Set them to instaprint for now, as it's helpful for debugging
+#define DBGPrint(fmt, ...) hConsole::EnqueueMessage("DBG", (char *)hString::va(fmt, ##__VA_ARGS__), "", true) 
+#define ERRPrint(fmt, ...) hConsole::EnqueueMessage("ERR", (char *)hString::va(fmt, ##__VA_ARGS__), "", true)
 #endif
 
 // Useful for logging.
