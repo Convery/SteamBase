@@ -13,6 +13,7 @@
 #include "SteamApps.h"
 #include "SteamFriends.h"
 #include "SteamGameServer.h"
+#include "SteamMatchmaking.h"
 #include "SteamNetworking.h"
 #include "SteamUser.h"
 #include "SteamUserStats.h"

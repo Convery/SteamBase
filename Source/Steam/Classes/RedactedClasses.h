@@ -13,6 +13,7 @@
 #include "RedactedApps.h"
 #include "RedactedFriends.h"
 #include "RedactedGameServer.h"
+#include "RedactedMatchmaking.h"
 #include "RedactedNetworking.h"
 #include "RedactedUser.h"
 #include "RedactedUserStats.h"
