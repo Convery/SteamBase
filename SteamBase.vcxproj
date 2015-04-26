@@ -104,6 +104,7 @@
 		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Black Ops II\"
 	) else (
 		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Ghosts\"
+		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Advanced Warfare\"
 	)
 )</Command>
     </PostBuildEvent>
@@ -125,6 +126,7 @@
 		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Black Ops II\"
 	) else (
 		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Ghosts\"
+		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Advanced Warfare\"
 	)
 )</Command>
     </PostBuildEvent>
@@ -150,6 +152,7 @@
 		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Black Ops II\"
 	) else (
 		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Ghosts\"
+		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Advanced Warfare\"
 	)
 )</Command>
     </PostBuildEvent>
@@ -175,6 +178,7 @@
 		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Black Ops II\"
 	) else (
 		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Ghosts\"
+		copy /y "$(TargetPath)" "D:\Games\SteamLibrary\steamapps\common\Call of Duty Advanced Warfare\"
 	)
 )</Command>
     </PostBuildEvent>

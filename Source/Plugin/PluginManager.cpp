@@ -31,7 +31,7 @@ void PluginManager::LoadPlugins()
 #endif
 		)) 
 	{
-		hConsole::EnqueueMessage("ERR", "Failed to list plugins!", "", true);
+		hConsole::EnqueueMessage("ERR", "No plugins found.", "", true);
 	}
 
 	// Load the plugins into process memory.

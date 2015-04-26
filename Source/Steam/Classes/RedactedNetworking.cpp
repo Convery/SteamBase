@@ -26,13 +26,13 @@ bool RedactedNetworking::SendP2PPacket(CSteamID steamIDRemote, const void *pubDa
 
 bool RedactedNetworking::IsP2PPacketAvailable(uint32 *pcubMsgSize, int iPort)
  {
-	 PrintCurrentFunction();
+	 //PrintCurrentFunction();
 	 return false;
  }
 
 bool RedactedNetworking::IsP2PPacketAvailable(uint32 *pcubMsgSize)
  {
-	 PrintCurrentFunction();
+	 //PrintCurrentFunction();
 	 return RedactedNetworking::IsP2PPacketAvailable(pcubMsgSize, defaultPort);
  }
 

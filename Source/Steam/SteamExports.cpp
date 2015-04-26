@@ -97,6 +97,25 @@ static bool ReadInterfaces()
 	return false;
 }
 
+// This method is ugly!
+bool IdentifyBinary()
+{
+	char path[MAX_PATH] = { 0 };
+	GetModuleFileNameA(GetModuleHandle(NULL), path, MAX_PATH);
+	std::string binary(path);
+	if (binary.find_last_of("\\") != std::string::npos) binary = binary.substr(binary.find_last_of("\\") + 1);
+	if (binary.find_last_of("/") != std::string::npos) binary = binary.substr(binary.find_last_of("/") + 1);
+
+	// Identify the apps 
+	if (binary == "s1_mp64_ship.exe")
+	{
+		Global::Steam_AppID = 209660;
+		return true;
+	}
+
+	return false;
+}
+
 #define API __declspec(dllexport)
 extern "C"
 {
@@ -172,7 +191,7 @@ extern "C"
 			{
 				Global::Steam_AppID = atoi((char*)buffer.c_str());
 			}
-			else
+			else if (!IdentifyBinary())
 			{
 				// TODO: Find another identification method. Binary hash checks or so? 
 				MessageBox(0, "Unable to determine current AppID!", "Error", MB_ICONERROR);
