@@ -97,6 +97,8 @@ static bool ReadInterfaces()
 	return false;
 }
 
+#define IDENITFY_BINARY(name, appid) if (binary == name){ Global::Steam_AppID = appid; return true; }
+
 // This method is ugly!
 bool IdentifyBinary()
 {
@@ -107,11 +109,10 @@ bool IdentifyBinary()
 	if (binary.find_last_of("/") != std::string::npos) binary = binary.substr(binary.find_last_of("/") + 1);
 
 	// Identify the apps 
-	if (binary == "s1_mp64_ship.exe")
-	{
-		Global::Steam_AppID = 209660;
-		return true;
-	}
+	IDENITFY_BINARY("iw4sp.exe", 10180)
+	IDENITFY_BINARY("iw4mp.exe", 10190)
+	IDENITFY_BINARY("s1_sp64_ship.exe", 209650)
+	IDENITFY_BINARY("s1_mp64_ship.exe", 209660)
 
 	return false;
 }
