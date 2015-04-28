@@ -34,6 +34,8 @@
 #include "ISteamClient010.h"
 #include "ISteamClient011.h"
 #include "ISteamClient012.h"
+// [...]
+#include "ISteamClient017.h"
 
 // friends
 #include "ISteamFriends001.h"
@@ -50,6 +52,7 @@
 #include "ISteamFriends012.h"
 #include "ISteamFriends013.h"
 #include "ISteamFriends014.h"
+#include "ISteamFriends015.h"
 
 // screenshots
 #include "ISteamScreenshots001.h"
@@ -81,6 +84,7 @@
 #include "ISteamApps004.h"
 #include "ISteamApps005.h"
 #include "ISteamApps006.h"
+#include "ISteamApps007.h"
 
 // app list
 #include "ISteamAppList001.h"

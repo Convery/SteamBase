@@ -864,6 +864,15 @@
     <ClInclude Include="Source\Steam\Classes\RedactedMatchmaking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Steam\Interface\ISteamApps007.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\Interface\ISteamClient017.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\Interface\ISteamFriends015.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\External\GlobalVariables.cpp">

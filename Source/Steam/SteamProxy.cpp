@@ -26,13 +26,13 @@ IClientUser*   SteamProxy::ClientUser   = 0;
 IClientApps*   SteamProxy::ClientApps   = 0;
 
 //ISteamAppList001*             SteamProxy::ISteamAppList             = 0;
-ISteamApps006*                  SteamProxy::ISteamApps                = 0;
+ISteamApps007*                  SteamProxy::ISteamApps                = 0;
 //ISteamAppTicket001*           SteamProxy::ISteamAppTicket           = 0;
 //ISteamBilling002*             SteamProxy::ISteamBilling             = 0;
-ISteamClient012*                SteamProxy::ISteamClient              = 0;
+ISteamClient017*                SteamProxy::ISteamClient              = 0;
 //ISteamContentServer002*       SteamProxy::ISteamContentServer       = 0;
 ISteamController001*            SteamProxy::ISteamController          = 0;
-ISteamFriends014*               SteamProxy::ISteamFriends             = 0;
+ISteamFriends015*               SteamProxy::ISteamFriends             = 0;
 //ISteamGameCoordinator001*     SteamProxy::ISteamGameCoordinator     = 0;
 ISteamGameServer012*            SteamProxy::ISteamGameServer          = 0;
 ISteamGameServerStats001*       SteamProxy::ISteamGameServerStats     = 0;
@@ -114,7 +114,7 @@ bool SteamProxy::CreateClient()
 	SteamProxy::ClientEngine = (IClientEngine*)SteamProxy::ClientFactory(CLIENTENGINE_INTERFACE_VERSION, NULL);
 	STEAMPROXY_ASSERT(ClientEngine)
 
-	SteamProxy::ISteamClient = (ISteamClient012*)SteamProxy::ClientFactory(STEAMCLIENT_INTERFACE_VERSION_012, NULL);
+	SteamProxy::ISteamClient = (ISteamClient017*)SteamProxy::ClientFactory(STEAMCLIENT_INTERFACE_VERSION_017, NULL);
 	STEAMPROXY_ASSERT(ISteamClient)
 
 	SteamProxy::Pipe = SteamProxy::ISteamClient->CreateSteamPipe();
@@ -136,9 +136,9 @@ bool SteamProxy::CreateInterfaces()
 {
 	if (!SteamProxy::CreateClient()) return false;
 
-	STEAMPROXY_CREATEINTERFACE(ISteamApps,               ISteamApps006,               GetISteamApps,               STEAMAPPS_INTERFACE_VERSION_006)
+	STEAMPROXY_CREATEINTERFACE(ISteamApps,               ISteamApps007,               GetISteamApps,               STEAMAPPS_INTERFACE_VERSION_007)
 	STEAMPROXY_CREATEINTERFACE(ISteamController,         ISteamController001,         GetISteamController,         STEAMCONTROLLER_INTERFACE_VERSION_001)
-	STEAMPROXY_CREATEINTERFACE(ISteamFriends,            ISteamFriends014,            GetISteamFriends,            STEAMFRIENDS_INTERFACE_VERSION_014)
+	STEAMPROXY_CREATEINTERFACE(ISteamFriends,            ISteamFriends015,            GetISteamFriends,            STEAMFRIENDS_INTERFACE_VERSION_015)
 	STEAMPROXY_CREATEINTERFACE(ISteamGameServer,         ISteamGameServer012,         GetISteamGameServer,         STEAMGAMESERVER_INTERFACE_VERSION_012)
 	STEAMPROXY_CREATEINTERFACE(ISteamGameServerStats,    ISteamGameServerStats001,    GetISteamGameServerStats,    STEAMGAMESERVERSTATS_INTERFACE_VERSION_001)
 	STEAMPROXY_CREATEINTERFACE(ISteamHTTP,               ISteamHTTP002,               GetISteamHTTP,               STEAMHTTP_INTERFACE_VERSION_002)

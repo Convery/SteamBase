@@ -11,6 +11,8 @@
 
 #include "..\..\STDInclude.h"
 
+typedef CSteamID SteamID;
+
 //-----------------------------------------------------------------------------
 // Purpose: avatar sizes, used in ISteamFriends::GetFriendAvatar()
 //-----------------------------------------------------------------------------

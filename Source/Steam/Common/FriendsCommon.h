@@ -38,6 +38,7 @@
 #define STEAMFRIENDS_INTERFACE_VERSION_012 "SteamFriends012"
 #define STEAMFRIENDS_INTERFACE_VERSION_013 "SteamFriends013"
 #define STEAMFRIENDS_INTERFACE_VERSION_014 "SteamFriends014"
+#define STEAMFRIENDS_INTERFACE_VERSION_015 "SteamFriends015"
 
 //-----------------------------------------------------------------------------
 // Purpose: avatar sizes, used in ISteamFriends::GetFriendAvatar()
@@ -994,6 +995,6 @@ struct NameHistoryResponse_t
 
 #pragma pack( pop )
 
-
+typedef int16 FriendsGroupID_t;
 
 #endif // FRIENDSCOMMON_H

@@ -88,13 +88,13 @@ class SteamProxy
 
 		// SteamInterface objects
 //		static ISteamAppList001*             ISteamAppList;
-		static ISteamApps006*                ISteamApps;
+		static ISteamApps007*                ISteamApps;
 //		static ISteamAppTicket001*           ISteamAppTicket;
 //		static ISteamBilling002*             ISteamBilling;
-		static ISteamClient012*              ISteamClient;
+		static ISteamClient017*              ISteamClient;
 //		static ISteamContentServer002*       ISteamContentServer;
 		static ISteamController001*          ISteamController;
-		static ISteamFriends014*             ISteamFriends;
+		static ISteamFriends015*             ISteamFriends;
 //		static ISteamGameCoordinator001*     ISteamGameCoordinator;
 		static ISteamGameServer012*          ISteamGameServer;
 		static ISteamGameServerStats001*     ISteamGameServerStats;

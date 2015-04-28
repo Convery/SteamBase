@@ -295,6 +295,7 @@
     <ClInclude Include="Source\Steam\Interface\ISteamApps004.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamApps005.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamApps006.h" />
+    <ClInclude Include="Source\Steam\Interface\ISteamApps007.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamAppTicket001.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamBilling001.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamBilling002.h" />
@@ -305,6 +306,7 @@
     <ClInclude Include="Source\Steam\Interface\ISteamClient010.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamClient011.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamClient012.h" />
+    <ClInclude Include="Source\Steam\Interface\ISteamClient017.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamContentServer001.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamContentServer002.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamController001.h" />
@@ -322,6 +324,7 @@
     <ClInclude Include="Source\Steam\Interface\ISteamFriends012.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamFriends013.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamFriends014.h" />
+    <ClInclude Include="Source\Steam\Interface\ISteamFriends015.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamGameCoordinator001.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamGameServer002.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamGameServer003.h" />
