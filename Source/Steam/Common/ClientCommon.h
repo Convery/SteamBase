@@ -63,6 +63,7 @@ class ISteamInventory;
 #define STEAMCLIENT_INTERFACE_VERSION_011		"SteamClient011"
 #define STEAMCLIENT_INTERFACE_VERSION_012		"SteamClient012"
 // [...]
+#define STEAMCLIENT_INTERFACE_VERSION_016		"SteamClient016"
 #define STEAMCLIENT_INTERFACE_VERSION_017		"SteamClient017"
 
 #endif

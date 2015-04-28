@@ -306,6 +306,7 @@
     <ClInclude Include="Source\Steam\Interface\ISteamClient010.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamClient011.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamClient012.h" />
+    <ClInclude Include="Source\Steam\Interface\ISteamClient016.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamClient017.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamContentServer001.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamContentServer002.h" />

@@ -35,6 +35,7 @@
 #include "ISteamClient011.h"
 #include "ISteamClient012.h"
 // [...]
+#include "ISteamClient016.h"
 #include "ISteamClient017.h"
 
 // friends

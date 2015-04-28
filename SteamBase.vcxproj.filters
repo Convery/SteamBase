@@ -873,6 +873,9 @@
     <ClInclude Include="Source\Steam\Interface\ISteamFriends015.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Steam\Interface\ISteamClient016.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\External\GlobalVariables.cpp">
