@@ -65,16 +65,6 @@ BOOL __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
-		SteamProxy::RunClient();
-
-		// Create our logfile.
-		hConsole::InitializeConsole("RedactedBase.log");
-
-		// A simple reminder for the users.
-		hConsole::EnqueueMessage("INFO", (char *)hString::va("SteamBase - %s\n", __DATE__), "", true);
-		hConsole::EnqueueMessage("INFO", "This software was created for modders, by modders.", "", true);
-		hConsole::EnqueueMessage("INFO", "It's currently maintained by redacted.se and should not be redistributed.", "", true);
-
 		// Patch the entrypoint.
 		SafeInit();
 	}
@@ -95,6 +85,16 @@ static void ReadSettings(const char *Filename)
 // The replacement for the games EP.
 void InitialCall()
 {
+	SteamProxy::RunClient();
+
+	// Create our logfile.
+	hConsole::InitializeConsole("RedactedBase.log");
+
+	// A simple reminder for the users.
+	hConsole::EnqueueMessage("INFO", (char *)hString::va("SteamBase - %s\n", __DATE__), "", true);
+	hConsole::EnqueueMessage("INFO", "This software was created for modders, by modders.", "", true);
+	hConsole::EnqueueMessage("INFO", "It's currently maintained by redacted.se and should not be redistributed.", "", true);
+
 	// Check that the INI exists.
 	if (!FileSystem::FileExists("./Redacted.ini"))
 	{
