@@ -205,7 +205,12 @@ extern "C"
 
 		PluginManager::PostInit();
 
+#ifdef NO_PIRACY
 		return SteamProxy::Inititalize();
+#else
+		SteamProxy::Inititalize();
+		return true; 
+#endif
 	}
 	API void __cdecl SteamAPI_RunCallbacks()
 	{

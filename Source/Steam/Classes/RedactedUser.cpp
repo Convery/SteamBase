@@ -27,6 +27,11 @@ bool RedactedUser::BLoggedOn()
 // Returns the current XUID.
 CSteamID RedactedUser::GetSteamID()
 {
+	if (!Global::Steam_UserID)
+	{
+		Global::Steam_UserID = 0x1100001DEADC0DE;
+	}
+
 	return CSteamID(Global::Steam_UserID);
 }
 
