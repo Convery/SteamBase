@@ -90,7 +90,7 @@ uint32_t RedactedApps::GetDLCCount()
 bool RedactedApps::IsSubscribedFromFreeWeekend()
 {
 	PrintCurrentFunction();
-	return false;
+	STEAMPROXY_CALL(ISteamApps, BIsSubscribedFromFreeWeekend);
 }
 bool RedactedApps::GetDLCDataByIndex(uint32_t iDLC, uint32_t *pAppID, bool *pbAvailable, char *pchName, int cchNameBufferSize)
 {
