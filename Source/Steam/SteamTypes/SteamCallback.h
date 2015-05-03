@@ -1,0 +1,221 @@
+#ifndef STEAMCALLBACK_H
+#define STEAMCALLBACK_H
+#ifdef _WIN32
+#pragma once
+#endif
+
+//-----------------------------------------------------------------------------
+// The CALLBACK macros are for client side callback logging enabled with
+// log_callback <first callnbackID> <last callbackID>
+// Do not change any of these. 
+//-----------------------------------------------------------------------------
+
+struct SteamCallback_t
+{
+public:
+	SteamCallback_t() {}
+};
+
+#define DEFINE_CALLBACK( callbackname, callbackid ) \
+struct callbackname : SteamCallback_t { \
+	enum { k_iCallback = callbackid }; \
+	static callbackname *GetNullPointer() { return 0; } \
+	static const char *GetCallbackName() { return #callbackname; } \
+	static uint32  GetCallbackID() { return callbackname::k_iCallback; }
+
+#define CALLBACK_MEMBER( varidx, vartype, varname ) \
+	public: vartype varname ; \
+	static void GetMemberVar_##varidx( unsigned int &varOffset, unsigned int &varSize, uint32 &varCount, const char **pszName, const char **pszType ) { \
+			varOffset = (unsigned int)(size_t)&GetNullPointer()->varname; \
+			varSize = sizeof( vartype ); \
+			varCount = 1; \
+			*pszName = #varname; *pszType = #vartype; }
+
+#define CALLBACK_ARRAY( varidx, vartype, varname, varcount ) \
+	public: vartype varname [ varcount ]; \
+	static void GetMemberVar_##varidx( unsigned int &varOffset, unsigned int &varSize, uint32 &varCount, const char **pszName, const char **pszType ) { \
+	varOffset = (unsigned int)(size_t)&GetNullPointer()->varname[0]; \
+	varSize = sizeof( vartype ); \
+	varCount = varcount; \
+	*pszName = #varname; *pszType = #vartype; }
+
+
+#define END_CALLBACK_INTERNAL_BEGIN( numvars )  \
+	static uint32  GetNumMemberVariables() { return numvars; } \
+	static bool    GetMemberVariable( uint32 index, uint32 &varOffset, uint32 &varSize,  uint32 &varCount, const char **pszName, const char **pszType ) { \
+	switch ( index ) { default : return false;
+
+
+#define END_CALLBACK_INTERNAL_SWITCH( varidx ) case varidx : GetMemberVar_##varidx( varOffset, varSize, varCount, pszName, pszType ); return true;
+
+#define END_CALLBACK_INTERNAL_END() }; } };
+
+#define END_DEFINE_CALLBACK_0() \
+	static uint32  GetNumMemberVariables() { return 0; } \
+	static bool    GetMemberVariable( uint32 index, uint32 &varOffset, uint32 &varSize,  uint32 &varCount, const char **pszName, const char **pszType ) { REFERENCE( pszType ); REFERENCE( pszName ); REFERENCE( varCount ); REFERENCE( varSize ); REFERENCE( varOffset ); REFERENCE( index ); return false; } \
+	};
+	
+
+#define END_DEFINE_CALLBACK_1() \
+	END_CALLBACK_INTERNAL_BEGIN( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_2() \
+	END_CALLBACK_INTERNAL_BEGIN( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_3() \
+	END_CALLBACK_INTERNAL_BEGIN( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_4() \
+	END_CALLBACK_INTERNAL_BEGIN( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_5() \
+	END_CALLBACK_INTERNAL_BEGIN( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_END()
+
+
+#define END_DEFINE_CALLBACK_6() \
+	END_CALLBACK_INTERNAL_BEGIN( 6 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 5 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_7() \
+	END_CALLBACK_INTERNAL_BEGIN( 7 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 5 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 6 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_8() \
+	END_CALLBACK_INTERNAL_BEGIN( 8 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 5 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 6 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 7 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_9() \
+	END_CALLBACK_INTERNAL_BEGIN( 9 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 5 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 6 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 7 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 8 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_10() \
+	END_CALLBACK_INTERNAL_BEGIN( 10 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 5 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 6 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 7 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 8 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 9 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_11() \
+	END_CALLBACK_INTERNAL_BEGIN( 11 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 5 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 6 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 7 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 8 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 9 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 10 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_12() \
+	END_CALLBACK_INTERNAL_BEGIN( 12 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 5 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 6 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 7 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 8 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 9 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 10 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 11 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_13() \
+	END_CALLBACK_INTERNAL_BEGIN( 13 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 5 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 6 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 7 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 8 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 9 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 10 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 11 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 12 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#define END_DEFINE_CALLBACK_14() \
+	END_CALLBACK_INTERNAL_BEGIN( 14 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 0 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 1 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 2 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 3 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 4 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 5 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 6 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 7 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 8 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 9 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 10 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 11 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 12 ) \
+	END_CALLBACK_INTERNAL_SWITCH( 13 ) \
+	END_CALLBACK_INTERNAL_END()
+
+#endif // STEAMCALLBACK_H

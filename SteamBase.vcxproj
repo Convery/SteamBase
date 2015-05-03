@@ -232,6 +232,7 @@
     <ClInclude Include="Source\Steam\Common\GameServerItem.h" />
     <ClInclude Include="Source\Steam\Common\GameServerStatsCommon.h" />
     <ClInclude Include="Source\Steam\Common\GameStatsCommon.h" />
+    <ClInclude Include="Source\Steam\Common\HTMLSurfaceCommon.h" />
     <ClInclude Include="Source\Steam\Common\HTTPCommon.h" />
     <ClInclude Include="Source\Steam\Common\MasterServerUpdaterCommon.h" />
     <ClInclude Include="Source\Steam\Common\MatchmakingCommon.h" />
@@ -340,6 +341,7 @@
     <ClInclude Include="Source\Steam\Interface\ISteamGameServer012.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamGameServerStats001.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamGameStats001.h" />
+    <ClInclude Include="Source\Steam\Interface\ISteamHTMLSurface002.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamHTTP001.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamHTTP002.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamMasterServerUpdater001.h" />
@@ -434,6 +436,7 @@
     <ClInclude Include="Source\Steam\SteamTypes\gameserveritem.h" />
     <ClInclude Include="Source\Steam\SteamTypes\MatchMakingKeyValuePair.h" />
     <ClInclude Include="Source\Steam\SteamTypes\servernetadr.h" />
+    <ClInclude Include="Source\Steam\SteamTypes\SteamCallback.h" />
     <ClInclude Include="Source\Steam\SteamTypes\SteamSalt.h" />
     <ClInclude Include="Source\Steam\SteamTypes\SteamTypes.h" />
     <ClInclude Include="Source\Steam\SteamTypes\Steamworks.h" />

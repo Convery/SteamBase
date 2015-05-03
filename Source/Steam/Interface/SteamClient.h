@@ -192,6 +192,9 @@
 #include "ISteamHTTP001.h"
 #include "ISteamHTTP002.h"
 
+// html surface
+#include "ISteamHTMLSurface002.h"
+
 // unified messages
 #include "ISteamUnifiedMessages001.h"
 

@@ -87,7 +87,7 @@ class SteamProxy
 		static bool BOverlayNeedsPresent();
 
 		// SteamInterface objects
-//		static ISteamAppList001*             ISteamAppList;
+		static ISteamAppList001*             ISteamAppList;
 		static ISteamApps007*                ISteamApps;
 //		static ISteamAppTicket001*           ISteamAppTicket;
 //		static ISteamBilling002*             ISteamBilling;
@@ -99,6 +99,7 @@ class SteamProxy
 		static ISteamGameServer012*          ISteamGameServer;
 		static ISteamGameServerStats001*     ISteamGameServerStats;
 //		static ISteamGameStats001*           ISteamGameStats;
+		static ISteamHTMLSurface002*         ISteamHTMLSurface;
 		static ISteamHTTP002*                ISteamHTTP;
 //		static ISteamMasterServerUpdater001* ISteamMasterServerUpdater;
 		static ISteamMatchmaking009*         ISteamMatchmaking;
@@ -109,7 +110,7 @@ class SteamProxy
 		static ISteamRemoteStorage012*       ISteamRemoteStorage;
 		static ISteamScreenshots002*         ISteamScreenshots;
 //		static ISteamStreamLauncher001*      ISteamStreamLauncher;
-//		static ISteamUGC002*                 ISteamUGC;
+		static ISteamUGC002*                 ISteamUGC;
 		static ISteamUnifiedMessages001*     ISteamUnifiedMessages;
 		static ISteamUser017*                ISteamUser;
 		static ISteamUserStats011*           ISteamUserStats;

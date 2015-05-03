@@ -876,6 +876,15 @@
     <ClInclude Include="Source\Steam\Interface\ISteamClient016.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Steam\Interface\ISteamHTMLSurface002.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\Common\HTMLSurfaceCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\SteamTypes\SteamCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\External\GlobalVariables.cpp">
