@@ -15,6 +15,7 @@
 #include "SteamGameServer.h"
 #include "SteamMatchmaking.h"
 #include "SteamNetworking.h"
+#include "SteamRemoteStorage.h"
 #include "SteamUser.h"
 #include "SteamUserStats.h"
 #include "SteamUtils.h"

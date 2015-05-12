@@ -15,6 +15,7 @@
 #include "RedactedGameServer.h"
 #include "RedactedMatchmaking.h"
 #include "RedactedNetworking.h"
+#include "RedactedRemoteStorage.h"
 #include "RedactedUser.h"
 #include "RedactedUserStats.h"
 #include "RedactedUtils.h"

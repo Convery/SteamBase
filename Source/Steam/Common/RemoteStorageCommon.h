@@ -155,7 +155,8 @@ enum EWorkshopVote
 
 enum EWorkshopVideoProvider
 {
-	// TODO: Reverse this enum
+	k_EWorkshopVideoProviderNone = 0,
+	k_EWorkshopVideoProviderYoutube = 1
 };
 
 enum EWorkshopFileAction
@@ -183,7 +184,18 @@ enum EPublishedFileInfoMatchingFileType
 
 enum EUGCReadAction
 {
-	// TODO: Reverse this enum
+	// Keeps the file handle open unless the last byte is read.  You can use this when reading large files (over 100MB) in sequential chunks.
+	// If the last byte is read, this will behave the same as k_EUGCRead_Close.  Otherwise, it behaves the same as k_EUGCRead_ContinueReading.
+	// This value maintains the same behavior as before the EUGCReadAction parameter was introduced.
+	k_EUGCRead_ContinueReadingUntilFinished = 0,
+
+	// Keeps the file handle open.  Use this when using UGCRead to seek to different parts of the file.
+	// When you are done seeking around the file, make a final call with k_EUGCRead_Close to close it.
+	k_EUGCRead_ContinueReading = 1,
+
+	// Frees the file handle.  Use this when you're done reading the content.  
+	// To read the file from Steam again you will need to call UGCDownload again. 
+	k_EUGCRead_Close = 2,
 };
 
 #pragma pack( push, 8 )
