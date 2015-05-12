@@ -885,6 +885,12 @@
     <ClInclude Include="Source\Steam\SteamTypes\SteamCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Steam\Classes\RedactedRemoteStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamRemoteStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\External\GlobalVariables.cpp">
@@ -979,6 +985,12 @@
     </ClCompile>
     <ClCompile Include="Source\Utility\ByteBuffer.cpp">
       <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedRemoteStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamRemoteStorage.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

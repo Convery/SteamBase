@@ -205,6 +205,7 @@
     <ClInclude Include="Source\Steam\Classes\RedactedGameServer.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedMatchmaking.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedNetworking.h" />
+    <ClInclude Include="Source\Steam\Classes\RedactedRemoteStorage.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedUser.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedUserStats.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedUtils.h" />
@@ -215,6 +216,7 @@
     <ClInclude Include="Source\Steam\ClassWrappers\SteamGameServer.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamMatchmaking.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamNetworking.h" />
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamRemoteStorage.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamUser.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamUserStats.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamUtils.h" />
@@ -481,6 +483,7 @@
     <ClCompile Include="Source\Steam\Classes\RedactedGameServer.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedMatchmaking.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedNetworking.cpp" />
+    <ClCompile Include="Source\Steam\Classes\RedactedRemoteStorage.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedUser.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedUserStats.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedUtils.cpp" />
@@ -489,6 +492,7 @@
     <ClCompile Include="Source\Steam\ClassWrappers\SteamGameServer.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamMatchmaking.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamNetworking.cpp" />
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamRemoteStorage.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamUser.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamUserStats.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamUtils.cpp" />
