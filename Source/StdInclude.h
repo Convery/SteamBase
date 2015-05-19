@@ -107,6 +107,7 @@
 #pragma region PluginIncludes
 #include "Plugin\PluginBase.h"
 #include "Plugin\PluginManager.h"
+#include "Plugin\Handler\HandlerManager.h"
 #pragma endregion
 
 // Steam headers.
