@@ -197,6 +197,7 @@
     <ClInclude Include="Source\JSON\value.h" />
     <ClInclude Include="Source\JSON\version.h" />
     <ClInclude Include="Source\JSON\writer.h" />
+    <ClInclude Include="Source\Plugin\Handler\HandlerManager.h" />
     <ClInclude Include="Source\Plugin\PluginBase.h" />
     <ClInclude Include="Source\Plugin\PluginManager.h" />
     <ClInclude Include="Source\StdInclude.h" />
@@ -477,6 +478,7 @@
     <ClCompile Include="Source\JSON\json_reader.cpp" />
     <ClCompile Include="Source\JSON\json_value.cpp" />
     <ClCompile Include="Source\JSON\json_writer.cpp" />
+    <ClCompile Include="Source\Plugin\Handler\HandlerManager.cpp" />
     <ClCompile Include="Source\Plugin\PluginManager.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedApps.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedFriends.cpp" />

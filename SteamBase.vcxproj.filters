@@ -891,6 +891,9 @@
     <ClInclude Include="Source\Steam\ClassWrappers\SteamRemoteStorage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Plugin\Handler\HandlerManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\External\GlobalVariables.cpp">
@@ -990,6 +993,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Steam\ClassWrappers\SteamRemoteStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Plugin\Handler\HandlerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
