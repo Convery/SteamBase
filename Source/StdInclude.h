@@ -27,26 +27,26 @@
 #define ERRPrint(fmt, ...) 
 #else
 // Set them to instaprint for now, as it's helpful for debugging
-#define DBGPrint(fmt, ...) hConsole::EnqueueMessage("DBG", (char *)hString::va(fmt, ##__VA_ARGS__), "", true) 
-#define ERRPrint(fmt, ...) hConsole::EnqueueMessage("ERR", (char *)hString::va(fmt, ##__VA_ARGS__), "", true)
+#define DBGPrint(fmt, ...) WinConsole::EnqueueMessage("DBG", (char *)hString::va(fmt, ##__VA_ARGS__), "", true) 
+#define ERRPrint(fmt, ...) WinConsole::EnqueueMessage("ERR", (char *)hString::va(fmt, ##__VA_ARGS__), "", true)
 #endif
 
 // Useful for logging.
-#define PrintCurrentFunction()	hConsole::EnqueueMessage("INFO", __FUNCTION__, "", false)
+#define PrintCurrentFunction()	WinConsole::EnqueueMessage("INFO", __FUNCTION__, "", false)
 
 // Individual debug functions.
 #ifdef NET_DEBUG
-#define nDBGPrint(dta, fmt, ...) hConsole::EnqueueMessage("NET", (char *)hString::va(fmt, ##__VA_ARGS__), dta)
+#define nDBGPrint(dta, fmt, ...) WinConsole::EnqueueMessage("NET", (char *)hString::va(fmt, ##__VA_ARGS__), dta)
 #else
 #define nDBGPrint(fmt, ...)
 #endif
 #ifdef FS_DEBUG
-#define fDBGPrint(dta, fmt, ...) hConsole::EnqueueMessage("FS", (char *)hString::va(fmt, ##__VA_ARGS__), dta)
+#define fDBGPrint(dta, fmt, ...) WinConsole::EnqueueMessage("FS", (char *)hString::va(fmt, ##__VA_ARGS__), dta)
 #else
 #define fDBGPrint(fmt, ...)
 #endif
 #ifdef PERF_DEBUG
-#define pDBGPrint(dta, fmt, ...) hConsole::EnqueueMessage("PERF", (char *)hString::va(fmt, ##__VA_ARGS__), dta)
+#define pDBGPrint(dta, fmt, ...) WinConsole::EnqueueMessage("PERF", (char *)hString::va(fmt, ##__VA_ARGS__), dta)
 #else
 #define pDBGPrint(fmt, ...)
 #endif
@@ -72,10 +72,13 @@
 // C\C++ includes.
 #pragma region Runtime
 #include <Windows.h>
+#include <windowsx.h>
 #include <string>
 #include <stdint.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <io.h>
+#include <fcntl.h>
 #include <queue>
 #include <fstream>
 #include <unordered_map>
@@ -92,6 +95,7 @@
 #include "Utility\ByteBuffer.h"
 #include "Utility\FileSystem.h"
 #include "Utility\hConsole.h"
+#include "Utility\WinConsole\WinConsole.h"
 #include "Utility\WebIO.h"
 
 #include "JSON\json.h"
@@ -111,6 +115,7 @@
 
 // Steam headers.
 #pragma region SteamIncludes
+#include "Steam\ConsoleCommandHandler.h"
 #include "Steam\InterfaceManager.h"
 #include "Steam\SteamCallback.h"
 

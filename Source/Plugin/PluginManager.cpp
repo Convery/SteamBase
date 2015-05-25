@@ -31,7 +31,7 @@ void PluginManager::LoadPlugins()
 #endif
 		)) 
 	{
-		hConsole::EnqueueMessage("ERR", "No plugins found.", "", true);
+		WinConsole::EnqueueMessage("ERR", "No plugins found.", "", true);
 	}
 
 	// Load the plugins into process memory.
@@ -43,11 +43,11 @@ void PluginManager::LoadPlugins()
 		{
 			PluginNames.push_back(PluginFiles[i]);
 			PluginModules.push_back(Library);
-			hConsole::EnqueueMessage("INFO", (char *)PluginFiles[i].c_str(), "", true);
+			WinConsole::EnqueueMessage("INFO", (char *)PluginFiles[i].c_str(), "", true);
 		}
 		else
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Failed to load [%s] for reason: %lu", PluginFiles[i].c_str(), GetLastError()), "", true);
+			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Failed to load [%s] for reason: %lu", PluginFiles[i].c_str(), GetLastError()), "", true);
 		}
 
 		Library = NULL;
@@ -80,56 +80,56 @@ void PluginManager::VerifyExports()
 		// Verify that all functions were added.
 		if (!BasePlugin.PreInit)
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "PreInit"), "");
+			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "PreInit"), "");
 			PurgeList.push_back(i);
 			continue;
 		}
 
 		if (!BasePlugin.PostInit)
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "PostInit"), "");
+			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "PostInit"), "");
 			PurgeList.push_back(i);
 			continue;
 		}
 
 		if (!BasePlugin.AuthorInfo)
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "AuthorInfo"), "");
+			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "AuthorInfo"), "");
 			PurgeList.push_back(i);
 			continue;
 		}
 
 		if (!BasePlugin.ExtendedInfo)
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "ExtendedInfo"), "");
+			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "ExtendedInfo"), "");
 			PurgeList.push_back(i);
 			continue;
 		}
 
 		if (!BasePlugin.OfficialMod)
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "OfficialMod"), "");
+			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "OfficialMod"), "");
 			PurgeList.push_back(i);
 			continue;
 		}
 
 		if (!BasePlugin.DependencyCount)
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "DependencyCount"), "");
+			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "DependencyCount"), "");
 			PurgeList.push_back(i);
 			continue;
 		}
 
 		if (!BasePlugin.GetDependency)
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "GetDependency"), "");
+			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "GetDependency"), "");
 			PurgeList.push_back(i);
 			continue;
 		}
 
 		if (!BasePlugin.SendMessageB)
 		{
-			hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "SendMessageB"), "");
+			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "SendMessageB"), "");
 			PurgeList.push_back(i);
 			continue;
 		}
@@ -204,7 +204,7 @@ LABEL_RESTART:
 	// Print info about the removed plugins so developers can debug.
 	for (auto i = PurgedList.begin(); i != PurgedList.end(); ++i)
 	{
-		hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing a dependency (%s) and has been removed.\n", i->first.c_str(), i->second.c_str()), "");
+		WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing a dependency (%s) and has been removed.\n", i->first.c_str(), i->second.c_str()), "");
 	}
 }
 
@@ -273,7 +273,7 @@ LABEL_RESTART:
 	// Print info about the removed plugins so developers can debug.
 	for (auto i = PurgedList.begin(); i != PurgedList.end(); ++i)
 	{
-		hConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) could not be verified because %s and has therefore been removed.\n", i->first.c_str(), i->second.c_str()), "");
+		WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) could not be verified because %s and has therefore been removed.\n", i->first.c_str(), i->second.c_str()), "");
 	}
 }
 
@@ -288,11 +288,11 @@ void PluginManager::PrintAuthorInfo()
 
 		if ((DWORD)AuthorName <= 1) // Preserve compatibility for old plugins.
 		{
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Loaded plugin <%s>", i->Name.c_str()), "");
+			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Loaded plugin <%s>", i->Name.c_str()), "");
 		}
 		else
 		{
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Loaded plugin <%s> by <%s>", i->Name.c_str(), AuthorName), "");
+			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Loaded plugin <%s> by <%s>", i->Name.c_str(), AuthorName), "");
 		}
 	}
 }
@@ -301,8 +301,8 @@ void PluginManager::PrintAuthorInfo()
 void PluginManager::Startup()
 {
 	// Let the user know we are loading plugins.
-	hConsole::EnqueueMessage("INFO", "", "", true);
-	hConsole::EnqueueMessage("INFO", "Plugins:", "", true);
+	WinConsole::EnqueueMessage("INFO", "", "", true);
+	WinConsole::EnqueueMessage("INFO", "Plugins:", "", true);
 
 	LoadPlugins();
 	VerifyExports();
@@ -315,8 +315,8 @@ void PluginManager::Startup()
 void PluginManager::PreInit()
 {
 	// Let the user know we are calling.
-	hConsole::EnqueueMessage("INFO", "", "", true);
-	hConsole::EnqueueMessage("INFO", "Plugins::PreInit:", "", true);
+	WinConsole::EnqueueMessage("INFO", "", "", true);
+	WinConsole::EnqueueMessage("INFO", "Plugins::PreInit:", "", true);
 
 	// Iterate through the vector and call the functionpointers.
 	for (auto i = Plugins.begin(); i != Plugins.end(); ++i)
@@ -325,14 +325,14 @@ void PluginManager::PreInit()
 		
 		if (i->PreInit() != FALSE)
 		{
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> preinit succeeded in %ld msec", i->Name.c_str(), std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Start).count()), "", true);
+			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> preinit succeeded in %ld msec", i->Name.c_str(), std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Start).count()), "", true);
 		}
 		else
 		{
 			// We do not remove the plugin for this.
 			// It can still do memory edits if it wants.
 			// And it may provide exports for other functions.
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> preinit failed", i->Name.c_str()), "", true);
+			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> preinit failed", i->Name.c_str()), "", true);
 		}
 	}
 }
@@ -341,8 +341,8 @@ void PluginManager::PreInit()
 void PluginManager::PostInit()
 {
 	// Let the user know we are calling.
-	hConsole::EnqueueMessage("INFO", "", "", true);
-	hConsole::EnqueueMessage("INFO", "Plugins::PostInit:", "", true);
+	WinConsole::EnqueueMessage("INFO", "", "", true);
+	WinConsole::EnqueueMessage("INFO", "Plugins::PostInit:", "", true);
 
 	// Iterate through the vector and call the functionpointers.
 	for (auto i = Plugins.begin(); i != Plugins.end(); ++i)
@@ -351,21 +351,21 @@ void PluginManager::PostInit()
 
 		if (i->PostInit() != FALSE)
 		{
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> postinit succeeded in %ld msec", i->Name.c_str(), std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Start).count()), "", true);
+			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> postinit succeeded in %ld msec", i->Name.c_str(), std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Start).count()), "", true);
 		}
 		else
 		{
 			// We do not remove the plugin for this.
 			// It can still do memory edits if it wants.
 			// And it may provide exports for other functions.
-			hConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> postinit failed", i->Name.c_str()), "", true);
+			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> postinit failed", i->Name.c_str()), "", true);
 		}
 	}
 
 	// Start printing our logs.
-	hConsole::EnqueueMessage("INFO", "", "", true);
-	hConsole::EnqueueMessage("INFO", "Gamelog:", "", true);
-	hConsole::StartPrinting();
+	WinConsole::EnqueueMessage("INFO", "", "", true);
+	WinConsole::EnqueueMessage("INFO", "Gamelog:", "", true);
+	//WinConsole::StartPrinting();
 }
 
 // Legacy stuff. Remove that when old plugins are updated.
@@ -394,6 +394,6 @@ extern "C"
 
 	__declspec(dllexport) void __cdecl Console_RedirectOutput(void(*callback)(const char*))
 	{
-		return hConsole::RedirectOutput(callback);
+		//return WinConsole::RedirectOutput(callback);
 	}
 }
