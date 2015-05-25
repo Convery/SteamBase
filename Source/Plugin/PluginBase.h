@@ -24,5 +24,5 @@ struct PluginBase
 	uint64_t(__stdcall * ExtendedInfo)(void);
 	uint64_t(__stdcall * DependencyCount)(void);
 	uint64_t(__stdcall * GetDependency)(int32_t Index);
-	uint64_t(__stdcall * SendMessageB)(uint64_t Message);
+	uint64_t(__stdcall * SendMessageB)(const char* Message, void* Callback);
 };

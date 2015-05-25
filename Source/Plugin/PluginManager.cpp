@@ -75,7 +75,7 @@ void PluginManager::VerifyExports()
 		BasePlugin.OfficialMod     = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "OfficialMod");
 		BasePlugin.DependencyCount = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "DependencyCount");
 		BasePlugin.GetDependency   = (uint64_t(__stdcall *)(int32_t))  GetProcAddress(PluginModules[i], "GetDependency");
-		BasePlugin.SendMessageB    = (uint64_t(__stdcall *)(uint64_t)) GetProcAddress(PluginModules[i], "SendMessageB");
+		BasePlugin.SendMessageB    = (uint64_t(__stdcall *)(const char*,void*)) GetProcAddress(PluginModules[i], "SendMessageB");
 
 		// Verify that all functions were added.
 		if (!BasePlugin.PreInit)
@@ -395,5 +395,15 @@ extern "C"
 	__declspec(dllexport) void __cdecl Console_RedirectOutput(void(*callback)(const char*))
 	{
 		//return WinConsole::RedirectOutput(callback);
+	}
+
+	__declspec(dllexport) bool __cdecl Handler_RegisterHandler(Handler_Event EventType, void * HandlerBase)
+	{
+		return HandlerManager::RegisterHandler(EventType, static_cast<PluginBase *>(HandlerBase));
+	}
+
+	__declspec(dllexport) bool __cdecl Handler_SendEvent(Handler_Event EventType, const char *Message, void * Callback)
+	{
+		return HandlerManager::SendEvent(EventType, Message, Callback);
 	}
 }
