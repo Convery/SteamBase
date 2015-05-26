@@ -514,6 +514,7 @@
     <ClCompile Include="Source\Utility\WinConsole\WinConsole.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resource.hm" />
     <None Include="Source\JSON\json_valueiterator.inl" />
     <None Include="Source\JSON\version.h.in" />
   </ItemGroup>
@@ -521,7 +522,9 @@
     <ResourceCompile Include="MainWindow.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bitmap1.bmp" />
     <Image Include="redacted.ico" />
+    <Image Include="RedactedLogo.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

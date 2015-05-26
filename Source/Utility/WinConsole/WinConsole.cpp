@@ -58,6 +58,7 @@ static HMODULE GetThisDllHandle()
 
 DWORD _stdcall WinConsole::ConsoleThread(void  *lparam)
 {
+	ThreadSafe.lock();
 	//HMODULE Module = GetModuleHandle(NULL);
 	//HACKY HACK HACK
 	HMODULE Module = GetThisDllHandle();
@@ -67,7 +68,7 @@ DWORD _stdcall WinConsole::ConsoleThread(void  *lparam)
 		(DLGPROC)DialogProc);
 
 	ShowWindow(aDiag, SW_SHOW);
-
+	ThreadSafe.unlock();
 	MSG msg;
 	while (GetMessage(&msg, 0, 0, 0)){
 		TranslateMessage(&msg);
@@ -112,12 +113,13 @@ bool WinConsole::InitializeConsole(const char *Logfilename)
 	// People using steams BigPicture mode doesn't like consoles.
 	if (!strstr(GetCommandLineA(), "-nocon"))
 	{
+		ThreadSafe.lock();
 		HANDLE td = CreateThread(NULL, NULL, ConsoleThread, NULL, NULL, NULL);
-
+		ThreadSafe.unlock();
 		//does not work
 		//HANDLE tout = CreateThread(NULL, NULL, StdOutThread, NULL, NULL, NULL);
 	}
-
+	
 	// Check if we should use a logfile.
 	if (Logfilename != nullptr)
 	{
@@ -140,7 +142,7 @@ bool WinConsole::InitializeConsole(const char *Logfilename)
 			return true;
 		}
 	}
-
+	
 	return !LogToFile;
 }
 
@@ -306,8 +308,14 @@ BOOL WinConsole::OnDlgInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	HWND hSta = GetDlgItem(hwnd, IDC_EDIT2);
 	oldEditProc = (WNDPROC)SetWindowLongPtr(hSta, GWLP_WNDPROC, (LONG_PTR)subEditProc);
 
-	HICON t = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON2));
+	HICON t = LoadIcon(GetThisDllHandle(), MAKEINTRESOURCE(IDI_ICON2));
 	SendMessageA(hwnd, WM_SETICON, ICON_BIG, (LPARAM)t);
+
+	HWND headerLogoHWND = GetDlgItem(hwnd, IDC_STATIC2);
+
+	/*LONG lStyle = GetWindowLong(hwnd, GWL_STYLE);
+	lStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU);
+	SetWindowLong(hwnd, GWL_STYLE, lStyle);*/
 
 	return TRUE;
 }

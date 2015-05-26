@@ -900,7 +900,7 @@
     <ClInclude Include="Source\Steam\ConsoleCommandHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-	    <ClInclude Include="Source\Plugin\Handler\HandlerManager.h">
+    <ClInclude Include="Source\Plugin\Handler\HandlerManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1010,7 +1010,7 @@
     <ClCompile Include="Source\Steam\ConsoleCommandHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	 <ClCompile Include="Source\Plugin\Handler\HandlerManager.cpp">
+    <ClCompile Include="Source\Plugin\Handler\HandlerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1021,6 +1021,9 @@
     <None Include="Source\JSON\version.h.in">
       <Filter>Header Files\JSON</Filter>
     </None>
+    <None Include="resource.hm">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MainWindow.rc">
@@ -1029,6 +1032,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="redacted.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bitmap1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RedactedLogo.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
