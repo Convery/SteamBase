@@ -1034,9 +1034,6 @@
     <Image Include="redacted.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="bitmap1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="RedactedLogo.bmp">
       <Filter>Resource Files</Filter>
     </Image>
