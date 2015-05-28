@@ -20,7 +20,6 @@ class WinConsole
 	static DWORD _stdcall ConsoleThread(void  *lparam);
 	static DWORD _stdcall StdOutThread(void  *lparam);
 
-	static void Print(const char* message);
 
 	static void(*PrintCallback)(const char*);
 
@@ -32,6 +31,8 @@ class WinConsole
 	static LRESULT CALLBACK subEditProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 public:
+	static void Print(const char* message); // TODO: Move that to private againand fix Com_Printf export
+
 	static bool InitializeConsole(const char *Logfilename = nullptr);
 
 	static void EnqueueMessage(char *Source, char *Message, char *Data, bool InstantPrint = false);

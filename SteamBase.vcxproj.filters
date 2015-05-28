@@ -998,12 +998,6 @@
     <ClCompile Include="Source\Utility\ByteBuffer.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Steam\Classes\RedactedRemoteStorage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Steam\ClassWrappers\SteamRemoteStorage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Utility\WinConsole\WinConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1012,6 +1006,12 @@
     </ClCompile>
     <ClCompile Include="Source\Plugin\Handler\HandlerManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedRemoteStorage.cpp">
+      <Filter>Source Files\Steam\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamRemoteStorage.cpp">
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

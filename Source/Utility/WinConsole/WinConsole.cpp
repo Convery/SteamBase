@@ -373,3 +373,33 @@ void WinConsole::RedirectOutput(void(*callback)(const char*))
 	EndDialog(aDiag, 0);
 	aDiag = nullptr;
 }
+
+#pragma region UGLY_SHIT
+extern "C" __declspec(dllexport) void Com_Printf(const char* message, ...)
+{
+	char buffer[65536] = { 0 };
+
+	va_list ap;
+	va_start(ap, message);
+	_vsnprintf_s(buffer, sizeof(buffer), _TRUNCATE, message, ap);
+	buffer[sizeof(buffer) - 1] = '\0';
+	va_end(ap);
+
+	// Clear message
+	int len = strlen(buffer);
+	if (len && buffer[len - 1] == '\n')
+	{
+		for (int i = len - 2; i >= 0; i--)
+		{
+			if (buffer[i] != ' ')
+			{
+				buffer[i + 1] = '\n';
+				buffer[i + 2] = 0;
+				break;
+			}
+		}
+	}
+
+	WinConsole::Print(message);
+}
+#pragma endregion
