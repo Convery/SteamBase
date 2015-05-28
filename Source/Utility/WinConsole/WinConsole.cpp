@@ -20,33 +20,27 @@ void(*WinConsole::PrintCallback)(const char*) = 0;
 
 LRESULT CALLBACK WinConsole::subEditProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	WORD loParam = LOWORD(wParam);
-	WORD hiParam = HIWORD(wParam);
-	switch (msg)
+	if (msg == WM_KEYDOWN && wParam == VK_RETURN)
 	{
-	case WM_KEYDOWN:
+		HWND parentDlg = GetParent(wnd);
 
-		switch (wParam)
-		{
-		case VK_RETURN:
-			HWND parentDlg = GetParent(wnd);
+		HWND edit = GetDlgItem(parentDlg, IDC_EDIT2);
 
-			HWND edit = GetDlgItem(parentDlg, IDC_EDIT2);
+		TCHAR buff[1024];
+		GetWindowText(edit, buff, 1024);
 
-			TCHAR buff[1024];
-			GetWindowText(edit, buff, 1024);
+		AppendText(parentDlg, "\n]");
+		AppendText(parentDlg, buff);
+		AppendText(parentDlg, "\n");
 
-			char *result = ConsoleCommandHandler::ExecuteCommand(buff);
-			AppendText(parentDlg, (char *)result);
-			AppendText(parentDlg, "\n");
+		ConsoleCommandHandler::ExecuteCommand(buff);
 
-			SetWindowText(edit, "");
-			break;
-		}
-	default:
-		return CallWindowProc(oldEditProc, wnd, msg, wParam, lParam);
+		SetWindowText(edit, "");
+
+		return 0;
 	}
-	return 0;
+
+	return CallWindowProc(oldEditProc, wnd, msg, wParam, lParam);
 }
 
 static HMODULE GetThisDllHandle()
@@ -95,6 +89,22 @@ DWORD _stdcall WinConsole::StdOutThread(void  *lparam)
 
 void WinConsole::Print(const char* message)
 {
+	// Clear message
+	char* buffer = (char*)message;
+	int len = strlen(buffer);
+	if (len && buffer[len - 1] == '\n')
+	{
+		for (int i = len - 2; i >= 0; i--)
+		{
+			if (buffer[i] != ' ')
+			{
+				buffer[i + 1] = '\n';
+				buffer[i + 2] = 0;
+				break;
+			}
+		}
+	}
+
 	if (WinConsole::PrintCallback)
 	{
 		WinConsole::PrintCallback(message);
@@ -310,6 +320,7 @@ BOOL WinConsole::OnDlgInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 
 	HICON t = LoadIcon(GetThisDllHandle(), MAKEINTRESOURCE(IDI_ICON2));
 	SendMessageA(hwnd, WM_SETICON, ICON_BIG, (LPARAM)t);
+	SendMessageA(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)t);
 
 	HWND headerLogoHWND = GetDlgItem(hwnd, IDC_STATIC2);
 
@@ -345,6 +356,8 @@ void WinConsole::OnDlgClose(HWND hWnd)
 {
 	EndDialog(hWnd, 0);
 	aDiag = nullptr;
+
+	ConsoleCommandHandler::ExecuteCommand("quit;");
 }
 
 void WinConsole::AppendText(const HWND &hwnd, TCHAR *newText)
@@ -358,13 +371,20 @@ void WinConsole::AppendText(const HWND &hwnd, TCHAR *newText)
 
 	// move the caret to the end of the text
 	int outLength = GetWindowTextLength(hwndOutput);
+	int oldOutLength = outLength;
+	if (outLength > 20000)
+	{
+		SetWindowText(hwndOutput, "");
+		outLength = 0;
+	}
+
 	SendMessageA(hwndOutput, EM_SETSEL, outLength, outLength);
 
 	// insert the text at the new caret position
 	SendMessageA(hwndOutput, EM_REPLACESEL, TRUE, reinterpret_cast<LPARAM>(newText));
 
-	// restore the previous selection
-	SendMessageA(hwndOutput, EM_SETSEL, StartPos, EndPos);
+	// restore the previous selection only if it's still valid
+	if (oldOutLength <= 20000) SendMessageA(hwndOutput, EM_SETSEL, StartPos, EndPos);
 }
 
 void WinConsole::RedirectOutput(void(*callback)(const char*))
@@ -385,21 +405,6 @@ extern "C" __declspec(dllexport) void Com_Printf(const char* message, ...)
 	buffer[sizeof(buffer) - 1] = '\0';
 	va_end(ap);
 
-	// Clear message
-	int len = strlen(buffer);
-	if (len && buffer[len - 1] == '\n')
-	{
-		for (int i = len - 2; i >= 0; i--)
-		{
-			if (buffer[i] != ' ')
-			{
-				buffer[i + 1] = '\n';
-				buffer[i + 2] = 0;
-				break;
-			}
-		}
-	}
-
-	WinConsole::Print(message);
+	WinConsole::Print(buffer);
 }
 #pragma endregion
