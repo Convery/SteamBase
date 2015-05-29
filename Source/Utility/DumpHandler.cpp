@@ -34,17 +34,6 @@ LPTOP_LEVEL_EXCEPTION_FILTER WINAPI DumpHandler::SetUnhandledExceptionFilter_Stu
 LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS ExceptionInfo)
 {
 	// step 1: write minidump
-	static LPEXCEPTION_POINTERS exceptionData;
-
-	exceptionData = ExceptionInfo;
-
-	// check to see if it was a simple breakpoint...
-	if (exceptionData->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT)
-	{
-		*(BYTE*)exceptionData->ExceptionRecord->ExceptionAddress = 0x90; // nop it and hope it continues
-		//DBG("got breakpointed... continuing\n");
-		return EXCEPTION_CONTINUE_EXECUTION; // I have no idea if this works
-	}
 
 	// create a temporary stack for these calls
 	DWORD* tempStack = new DWORD[16000];
@@ -65,17 +54,16 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 
 	_time64(&time);
 	ltime = _localtime64(&time);
-	strftime(filename, sizeof(filename) - 1, "redacted-%Y%m%d%H%M%S.dmp", ltime);
+	strftime(filename, sizeof(filename) - 1, "Redacted - %H:%M:%S %d-%m-%Y.dmp", ltime);
 	_snprintf(error, sizeof(error) - 1, "A minidump has been written to %s.", filename);
 
 	HANDLE hFile = CreateFile(filename, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
-		MINIDUMP_EXCEPTION_INFORMATION ex;
-		memset(&ex, 0, sizeof(ex));
+		MINIDUMP_EXCEPTION_INFORMATION ex = { 0 };
 		ex.ThreadId = GetCurrentThreadId();
-		ex.ExceptionPointers = exceptionData;
+		ex.ExceptionPointers = ExceptionInfo;
 		ex.ClientPointers = FALSE;
 
 		MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hFile, MiniDumpNormal, &ex, NULL, NULL);
@@ -89,16 +77,16 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 
 	// step 2: exit the application
 	// why was this removed?
-	if (exceptionData->ExceptionRecord->ExceptionCode == EXCEPTION_STACK_OVERFLOW)
+	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_STACK_OVERFLOW)
 	{
 		MessageBox(0, "Termination because of a stack overflow.", "ERROR", MB_ICONERROR);
-		TerminateProcess(GetCurrentProcess(), EXCEPTION_STACK_OVERFLOW);
 	}
 	else
 	{
 		MessageBox(0, hString::va("Fatal error (0x%08x) at 0x%08x.\n%s", ExceptionInfo->ExceptionRecord->ExceptionCode, ExceptionInfo->ExceptionRecord->ExceptionAddress, error), "ERROR", MB_ICONERROR);
-		TerminateProcess(GetCurrentProcess(), ExceptionInfo->ExceptionRecord->ExceptionCode);
 	}
+
+	TerminateProcess(GetCurrentProcess(), ExceptionInfo->ExceptionRecord->ExceptionCode);
 
 	__asm
 	{
