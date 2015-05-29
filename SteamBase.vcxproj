@@ -469,8 +469,10 @@
     <ClInclude Include="Source\Steam\SteamTypes\TSteamSubscriptionStats.h" />
     <ClInclude Include="Source\Steam\SteamTypes\TSteamUpdateStats.h" />
     <ClInclude Include="Source\Utility\ByteBuffer.h" />
+    <ClInclude Include="Source\Utility\DumpHandler.h" />
     <ClInclude Include="Source\Utility\FileSystem.h" />
     <ClInclude Include="Source\Utility\hConsole.h" />
+    <ClInclude Include="Source\Utility\Hooking.h" />
     <ClInclude Include="Source\Utility\hString.h" />
     <ClInclude Include="Source\Utility\WebIO.h" />
     <ClInclude Include="Source\Utility\WinConsole\WinConsole.h" />
@@ -507,8 +509,10 @@
     <ClCompile Include="Source\Steam\SteamExports.cpp" />
     <ClCompile Include="Source\Steam\SteamProxy.cpp" />
     <ClCompile Include="Source\Utility\ByteBuffer.cpp" />
+    <ClCompile Include="Source\Utility\DumpHandler.cpp" />
     <ClCompile Include="Source\Utility\FileSystem.cpp" />
     <ClCompile Include="Source\Utility\hConsole.cpp" />
+    <ClCompile Include="Source\Utility\Hooking.cpp" />
     <ClCompile Include="Source\Utility\hString.cpp" />
     <ClCompile Include="Source\Utility\WebIO.cpp" />
     <ClCompile Include="Source\Utility\WinConsole\WinConsole.cpp" />

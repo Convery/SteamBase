@@ -91,12 +91,14 @@
 
 // Utility headers.
 #pragma region UtilIncludes
+#include "Utility\Hooking.h"
 #include "Utility\hString.h"
 #include "Utility\ByteBuffer.h"
 #include "Utility\FileSystem.h"
 #include "Utility\hConsole.h"
 #include "Utility\WinConsole\WinConsole.h"
 #include "Utility\WebIO.h"
+#include "Utility\DumpHandler.h"
 
 #include "JSON\json.h"
 #pragma endregion

@@ -903,6 +903,12 @@
     <ClInclude Include="Source\Plugin\Handler\HandlerManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Utility\DumpHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility\Hooking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\External\GlobalVariables.cpp">
@@ -1012,6 +1018,12 @@
     </ClCompile>
     <ClCompile Include="Source\Steam\ClassWrappers\SteamRemoteStorage.cpp">
       <Filter>Source Files\Steam\ClassWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility\DumpHandler.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility\Hooking.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -88,6 +88,9 @@ void InitialCall()
 {
 	SteamProxy::RunClient();
 
+	// Initialize minidump handler
+	DumpHandler::Initialize();
+
 	// Create our logfile.
 	WinConsole::InitializeConsole("RedactedBase.log");
 
