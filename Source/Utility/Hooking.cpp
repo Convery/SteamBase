@@ -11,7 +11,7 @@
 
 #include "..\StdInclude.h"
 
-void Hook::Stomp::Initialize(uint32_t Place, void *HookToInstall, uint8_t ByteCount, bool useJump)
+void Hook::Stomp::Initialize(uintptr_t Place, void *HookToInstall, uint8_t ByteCount, bool useJump)
 {
 	_Place = (uint8_t *)Place;
 	_ByteCount = ByteCount < sizeof(_OriginalCode) ? ByteCount : sizeof(_OriginalCode);
@@ -32,7 +32,7 @@ void Hook::Stomp::InstallHook(void *HookToInstall)
 
 		memset(_Place, 0x90, _ByteCount);
 		_Place[0] = _Jump ? (uint8_t)0xE9 : (uint8_t)0xE8;
-		*(ptrdiff_t *)(_Place + 1) = (uint8_t *)_Hook - _Place - 5;
+		*(DWORD *)(_Place + 1) = (uint8_t *)_Hook - _Place - 5;
 
 		VirtualProtect(_Place, _ByteCount, d, &d);
 	}
@@ -46,9 +46,9 @@ void Hook::Stomp::ReleaseHook()
 
 	VirtualProtect(_Place, _ByteCount, d, &d);
 }
-void Hook::Stomp::PermanentHook(uint32_t Place, void *HookToInstall)
+void Hook::Stomp::PermanentHook(uintptr_t Place, void *HookToInstall)
 {
 	memset((uint8_t *)Place, 0x90, 5);
 	*(uint8_t *)Place = 0xE9;
-	*(ptrdiff_t *)((uint8_t *)Place + 1) = (uint8_t *)HookToInstall - (uint8_t *)Place - 5;
+	*(DWORD *)((uint8_t *)Place + 1) = (uint8_t *)HookToInstall - (uint8_t *)Place - 5;
 }

@@ -15,16 +15,16 @@ Hook::Stomp DumpHandler::SetUnhandledExceptionFilter_Hook;
 
 void DumpHandler::Initialize()
 {
-	SetUnhandledExceptionFilter(DumpHandler::CustomUnhandledExceptionFilter);
+	SetUnhandledExceptionFilter(&DumpHandler::CustomUnhandledExceptionFilter);
 
-	DumpHandler::SetUnhandledExceptionFilter_Hook.Initialize((DWORD)SetUnhandledExceptionFilter, DumpHandler::SetUnhandledExceptionFilter_Stub);
+	DumpHandler::SetUnhandledExceptionFilter_Hook.Initialize((uintptr_t)SetUnhandledExceptionFilter, DumpHandler::SetUnhandledExceptionFilter_Stub);
 	DumpHandler::SetUnhandledExceptionFilter_Hook.InstallHook();
 }
 
 LPTOP_LEVEL_EXCEPTION_FILTER WINAPI DumpHandler::SetUnhandledExceptionFilter_Stub(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter)
 {
 	DumpHandler::SetUnhandledExceptionFilter_Hook.ReleaseHook();
-	LPTOP_LEVEL_EXCEPTION_FILTER retVal = SetUnhandledExceptionFilter(DumpHandler::CustomUnhandledExceptionFilter);
+	LPTOP_LEVEL_EXCEPTION_FILTER retVal = SetUnhandledExceptionFilter(&DumpHandler::CustomUnhandledExceptionFilter);
 	DumpHandler::SetUnhandledExceptionFilter_Hook.InstallHook();
 
 	return retVal;
@@ -34,19 +34,6 @@ LPTOP_LEVEL_EXCEPTION_FILTER WINAPI DumpHandler::SetUnhandledExceptionFilter_Stu
 LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS ExceptionInfo)
 {
 	// step 1: write minidump
-
-	// create a temporary stack for these calls
-	DWORD* tempStack = new DWORD[16000];
-	static DWORD* origStack;
-
-	__asm
-	{
-		mov origStack, esp
-		mov esp, tempStack
-		add esp, 0FA00h
-		sub esp, 1000h // local stack space over here, sort of
-	}
-
 	char error[1024];
 	char filename[MAX_PATH];
 	__time64_t time;
@@ -87,13 +74,5 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 	}
 
 	TerminateProcess(GetCurrentProcess(), ExceptionInfo->ExceptionRecord->ExceptionCode);
-
-	__asm
-	{
-		mov esp, origStack
-	}
-
-	delete[] tempStack;
-
 	return 0;
 }

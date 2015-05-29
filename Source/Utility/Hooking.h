@@ -23,9 +23,9 @@ public:
 		void *_Hook;
 		bool _Jump;
 
-		void Initialize(uint32_t Place, void *HookToInstall = NULL, uint8_t ByteCount = 5, bool useJump = true);
+		void Initialize(uintptr_t Place, void *HookToInstall = NULL, uint8_t ByteCount = 5, bool useJump = true);
 		void InstallHook(void *HookToInstall = NULL);
 		void ReleaseHook();
-		static void PermanentHook(uint32_t Place, void *HookToInstall);
+		static void PermanentHook(uintptr_t Place, void *HookToInstall);
 	};
 };
