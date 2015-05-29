@@ -54,7 +54,7 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 
 	_time64(&time);
 	ltime = _localtime64(&time);
-	strftime(filename, sizeof(filename) - 1, "Redacted - %H:%M:%S %d-%m-%Y.dmp", ltime);
+	strftime(filename, sizeof(filename) - 1, "Redacted - %H-%M-%S %d.%m.%Y.dmp", ltime);
 	_snprintf(error, sizeof(error) - 1, "A minidump has been written to %s.", filename);
 
 	HANDLE hFile = CreateFile(filename, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
