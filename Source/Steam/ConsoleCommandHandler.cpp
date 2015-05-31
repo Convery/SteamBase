@@ -11,23 +11,26 @@ NO-OP for now
 
 #include "..\STDInclude.h"
 
+Cmd_Callback_t ConsoleCommandHandler::ExecuteCallback = 0;
+
 char* ConsoleCommandHandler::ExecuteCommand(char *cmd)
 {
-#pragma region UGLY_SHIT
-	// Pretty ugly and hack-y way, but it works for now :P
-	HMODULE steamAPI = GetModuleHandleA("ExtendedConsole.Red32n");
-	if (!steamAPI) return "Console plugin not loaded!";
-	FARPROC Cmd_ExecuteCommand = GetProcAddress(steamAPI, "Cmd_ExecuteCommand");
-	if (!Cmd_ExecuteCommand) return "Cmd_ExecuteCommand not exported!";
-	__asm
+	if (ConsoleCommandHandler::ExecuteCallback)
 	{
-		push 0 // Execute command asynchronously, as we run in our own thread
-		push cmd
-		call Cmd_ExecuteCommand
-		add esp, 8h
+		return ConsoleCommandHandler::ExecuteCallback(cmd);
 	}
-#pragma endregion
 
 	//TODO: handle cmd
 	return (char *)hString::va("ERROR: ", cmd, " invalid command");
+}
+
+void ConsoleCommandHandler::RegisterCallback(Cmd_Callback_t callback)
+{
+	ConsoleCommandHandler::ExecuteCallback = callback;
+	WinConsole::ActivateCommandField();
+}
+
+extern "C" __declspec(dllexport) void Cmd_RegisterCallback(Cmd_Callback_t callback)
+{
+	return ConsoleCommandHandler::RegisterCallback(callback);
 }

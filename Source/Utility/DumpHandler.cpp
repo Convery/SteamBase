@@ -17,8 +17,8 @@ void DumpHandler::Initialize()
 {
 	SetUnhandledExceptionFilter(&DumpHandler::CustomUnhandledExceptionFilter);
 
-	DumpHandler::SetUnhandledExceptionFilter_Hook.Initialize((uintptr_t)SetUnhandledExceptionFilter, DumpHandler::SetUnhandledExceptionFilter_Stub);
-	DumpHandler::SetUnhandledExceptionFilter_Hook.InstallHook();
+	//DumpHandler::SetUnhandledExceptionFilter_Hook.Initialize((uintptr_t)SetUnhandledExceptionFilter, DumpHandler::SetUnhandledExceptionFilter_Stub);
+	//DumpHandler::SetUnhandledExceptionFilter_Hook.InstallHook();
 }
 
 LPTOP_LEVEL_EXCEPTION_FILTER WINAPI DumpHandler::SetUnhandledExceptionFilter_Stub(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter)

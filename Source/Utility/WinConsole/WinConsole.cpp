@@ -16,8 +16,6 @@ std::string WinConsole::Filename;
 static HWND aDiag;
 WNDPROC WinConsole::oldEditProc;
 
-void(*WinConsole::PrintCallback)(const char*) = 0;
-
 LRESULT CALLBACK WinConsole::subEditProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	if (msg == WM_KEYDOWN && wParam == VK_RETURN)
@@ -87,6 +85,12 @@ DWORD _stdcall WinConsole::StdOutThread(void  *lparam)
 	}
 }
 
+void WinConsole::ActivateCommandField()
+{
+	HWND hSta = GetDlgItem(aDiag, IDC_EDIT2);
+	SendMessageA(hSta, EM_SETREADONLY, 0, 0);
+}
+
 void WinConsole::Print(const char* message)
 {
 	// Clear message
@@ -105,16 +109,10 @@ void WinConsole::Print(const char* message)
 		}
 	}
 
-	if (WinConsole::PrintCallback)
+	//if user manually closes console there is no reason to send events
+	if (aDiag)
 	{
-		WinConsole::PrintCallback(message);
-	}
-	else
-	{
-		//if user manually closes console there is no reason to send events
-		if (aDiag){
-			AppendText(aDiag, (char *)message);
-		}
+		AppendText(aDiag, (char *)message);
 	}
 }
 
@@ -385,13 +383,6 @@ void WinConsole::AppendText(const HWND &hwnd, TCHAR *newText)
 
 	// restore the previous selection only if it's still valid
 	if (oldOutLength <= 20000) SendMessageA(hwndOutput, EM_SETSEL, StartPos, EndPos);
-}
-
-void WinConsole::RedirectOutput(void(*callback)(const char*))
-{
-	WinConsole::PrintCallback = callback;
-	EndDialog(aDiag, 0);
-	aDiag = nullptr;
 }
 
 #pragma region UGLY_SHIT
