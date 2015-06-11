@@ -1,634 +1,725 @@
 /*
-	This project is released under the GPL 2.0 license.
-	Please do no evil.
-
-	Initial author: (https://github.com/)Convery
-	Started: 2015-03-09
-	Notes:
-		Standard buffer class for HedgehogScience data.
-		Based on DemonWares 'bdByteBuffer' class.
+This class is licensed under the MIT license.
+Author: (https://github.com/)Convery
 */
-
-#pragma once
 
 #include "..\StdInclude.h"
 
-#pragma region Enumerations
-enum BBTypes
-{
-	BB_NO_TYPE							= 0,
-	BB_BOOL_TYPE						= 1,
-	BB_SIGNED_CHAR8_TYPE				= 2,
-	BB_UNSIGNED_CHAR8_TYPE				= 3,
-	BB_WCHAR16_TYPE						= 4,
-	BB_SIGNED_INTEGER16_TYPE			= 5,
-	BB_UNSIGNED_INTEGER16_TYPE			= 6,
-	BB_SIGNED_INTEGER32_TYPE			= 7,
-	BB_UNSIGNED_INTEGER32_TYPE			= 8,
-	BB_SIGNED_INTEGER64_TYPE			= 9,
-	BB_UNSIGNED_INTEGER64_TYPE			= 10,
-	BB_RANGED_SIGNED_INTEGER32_TYPE		= 11,
-	BB_RANGED_UNSIGNED_INTEGER32_TYPE	= 12,
-	BB_FLOAT32_TYPE						= 13,
-	BB_FLOAT64_TYPE						= 14,
-	BB_RANGED_FLOAT32_TYPE				= 15,
-	BB_SIGNED_CHAR8_STRING_TYPE			= 16,
-	BB_UNSIGNED_CHAR8_STRING_TYPE		= 17,
-	BB_MBSTRING_TYPE					= 18,
-	BB_BLOB_TYPE						= 19,
-	BB_NAN_TYPE							= 20,
-	BB_FULL_TYPE						= 21,
-	BB_MAX_TYPE							= 32
-};
-#pragma endregion
-
-#pragma region Constructors
+// Initialize the internal buffer.
 ByteBuffer::ByteBuffer()
 {
-	InternalBuffer.clear();
-	BufferPosition = 0;
-}
-ByteBuffer::ByteBuffer(uint32_t Length, void *Buffer)
-{
-	InternalBuffer.clear();
-	BufferPosition = 0;
-
-	if (Buffer != nullptr)
-	{
-		InternalBuffer.append((const uint8_t *)Buffer, Length);
-	}
-	else
-	{
-		InternalBuffer.resize(Length, 0);
-	}
-}
-ByteBuffer::ByteBuffer(std::basic_string<uint8_t> *Buffer)
-{
-	InternalBuffer.clear();
-	BufferPosition = 0;
-
-	InternalBuffer.append(Buffer->data(), Buffer->size());
-}
-ByteBuffer::ByteBuffer(std::string *Buffer)
-{
-	InternalBuffer.clear();
-	BufferPosition = 0;
-
-	InternalBuffer.append((const uint8_t *)Buffer->data(), Buffer->size());
+    BufferPosition = 0;
+    SecureMode = false;
 }
 ByteBuffer::~ByteBuffer()
 {
-	for (uint32_t i = 0; i < InternalBuffer.size(); i++)
-	{
-		InternalBuffer[i] = 0;
-	}
-	InternalBuffer.clear();
-}
-#pragma endregion
+    // Clear the memory.
+    for (uint32_t i = 0; i < InternalBuffer.size(); i++)
+    {
+        InternalBuffer[i] = 0xCC;
+    }
 
-#pragma region Accessors
-uint32_t ByteBuffer::Position()
-{
-	return BufferPosition;
-}
-uint32_t ByteBuffer::Length()
-{
-	return InternalBuffer.size();
-}
-template <> char *ByteBuffer::Buffer<char>()
-{
-	return (char *)InternalBuffer.data();
-}
-template <> int8_t *ByteBuffer::Buffer<int8_t>()
-{
-	return (int8_t *)InternalBuffer.data();
-}
-template <> uint8_t *ByteBuffer::Buffer<uint8_t>()
-{
-	return (uint8_t *)InternalBuffer.data();
-}
-#pragma endregion
+    InternalBuffer.clear(); // Deallocate the buffer.
+    GetBuffer<void>();      // Clear any static memory.
 
-#pragma region Utility
-int32_t ByteBuffer::FindFirst(void *Src, uint32_t Length)
-{
-	const uint8_t *pBuffer = InternalBuffer.data();
-	for (int32_t i = 0; i < static_cast<int32_t>(min(InternalBuffer.size() - Length, INT32_MAX)); i++)
-	{
-		if (_memicmp(pBuffer + i, Src, Length) == 0)
-			return i;
-	}
-
-	return -1;
+    // Hack to get some templates generated.
+    if (false)
+    {
+        GetBuffer<char>();
+        GetBuffer<int8_t>();
+        GetBuffer<uint8_t>();
+    }
 }
-int32_t ByteBuffer::FindLast(void *Src, uint32_t Length)
+ByteBuffer::ByteBuffer(uint32_t InputLength, void *InputData) : ByteBuffer()
 {
-	const uint8_t *pBuffer = InternalBuffer.data();
-	for (int32_t i = min(InternalBuffer.size() - Length, INT32_MAX); i >= 0; --i)
-	{
-		if (_memicmp(pBuffer + i, Src, Length) == 0)
-			return i;
-	}
+    InternalBuffer.append((uint8_t *)InputData, InputLength);
+}
+ByteBuffer::ByteBuffer(std::basic_string<uint8_t> *InputData) : ByteBuffer()
+{
+    InternalBuffer.append(*InputData);
+}
+ByteBuffer::ByteBuffer(std::string *InputData) : ByteBuffer()
+{
+    InternalBuffer.append((uint8_t *)InputData->data(), InputData->size());
+}
 
-	return -1;
+// Property access.
+uint32_t ByteBuffer::GetSize()
+{
+    return InternalBuffer.size();
+}
+uint32_t ByteBuffer::GetLength()
+{
+    return InternalBuffer.size();
+}
+uint32_t ByteBuffer::GetPosition()
+{
+    return BufferPosition;
+}
+bool ByteBuffer::SetPosition(uint32_t Pos)
+{
+    BufferPosition = min(Pos, InternalBuffer.size());
+    return Pos <= InternalBuffer.size();
+}
+template <typename ReturnType>
+ReturnType *ByteBuffer::GetBuffer()
+{
+    static void *SafeBuffer = nullptr;
+    if (SafeBuffer == nullptr)
+    {
+        std::vector<int> Cake;
+        free(SafeBuffer);
+        SafeBuffer = nullptr;
+    }
+
+    if (InternalBuffer.size())
+    {
+        SafeBuffer = malloc(InternalBuffer.size());
+        if (SafeBuffer == NULL)
+        {
+            SafeBuffer = nullptr;
+            return nullptr;
+        }
+
+        if (SecureMode)
+        {
+            for (uint32_t i = 0; i < InternalBuffer.size(); i++)
+            {
+                InternalBuffer[i] ^= 0xCC;
+            }
+        }
+    }
+
+    return (ReturnType *)SafeBuffer;
+}
+
+// Utility methods.
+void ByteBuffer::PrintNext(FILE *Handle)
+{
+    std::string BlobData;
+    bool BoolData;
+    float FloatData;
+    double DoubleData;
+    int8_t sInt8;
+    uint8_t uInt8;
+
+    switch ((BBType)PeekByte())
+    {
+    case BBType::BB_BLOB_TYPE:
+        if (ReadBlob(&BlobData))
+        {
+            fprintf(Handle, "Blob of length %i:\n", BlobData.length());
+            for (uint32_t i = 0; i < BlobData.length(); i++)
+                fprintf(Handle, "%02X ", BlobData[i]);
+            fprintf(Handle, "\n");
+        }
+        break;
+
+    case BBType::BB_BOOL_TYPE:
+        if (ReadBoolean(&BoolData))
+            fprintf(Handle, "Bool: %s\n", BoolData ? "true" : "false");
+        break;
+
+    case BBType::BB_FLOAT32_TYPE:
+        if (ReadFloat32(&FloatData))
+            fprintf(Handle, "Float: %f\n", FloatData);
+        break;
+
+    case BBType::BB_FLOAT64_TYPE:
+        if (ReadFloat64(&DoubleData))
+            fprintf(Handle, "Double: %f\n", DoubleData);
+        break;
+
+    case BBType::BB_SIGNED_CHAR8_TYPE:
+        if (ReadInt8(&sInt8))
+            fprintf(Handle, "Int8: %i\n", sInt8);
+        break;
+
+    case BBType::BB_UNSIGNED_CHAR8_TYPE:
+        if (ReadUInt8(&uInt8))
+            fprintf(Handle, "uInt8: %i\n", uInt8);
+        break;
+
+    default:
+        fprintf(Handle, "Unhandled type\n");
+    }
+}
+bool ByteBuffer::ToggleSecure()
+{
+    SecureMode = !SecureMode;
+    for (uint32_t i = 0; i < InternalBuffer.size(); i++)
+        InternalBuffer[i] ^= 0xCC;
+    return SecureMode;
 }
 uint8_t ByteBuffer::PeekByte()
 {
-	uint8_t Result = 0;
+    uint8_t CurrentByte = 0;
 
-	if (Read(1, &Result))
-	{
-		BufferPosition--;
-		return Result;
-	}
-	else
-	{
-		BufferPosition--;
-		return BBTypes::BB_NO_TYPE;
-	}
-}
-bool ByteBuffer::SetPosition(uint32_t Position)
-{
-	if (Position < InternalBuffer.length())
-	{
-		BufferPosition = Position;
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    ReadUInt8(&CurrentByte, false);
+    SetPosition(GetPosition() - 1);
+
+    return CurrentByte;
 }
 void ByteBuffer::Rewind()
 {
-	BufferPosition = 0;
+    SetPosition(0);
 }
 void ByteBuffer::Clear()
 {
-	for (uint32_t i = 0; i < InternalBuffer.size(); i++)
-	{
-		InternalBuffer[i] = 0;
-	}
-	InternalBuffer.clear();
-	BufferPosition = 0;
-}
-#pragma endregion 
+    // Clear the memory.
+    for (uint32_t i = 0; i < InternalBuffer.size(); i++)
+    {
+        InternalBuffer[i] = 0xCC;
+    }
 
-#pragma region Core
-bool ByteBuffer::Read(uint32_t Count, void *Output)
-{
-	if (BufferPosition + Count > InternalBuffer.length())
-	{
-		fDBGPrint("", "%s tried to read out of bounds. Missing bytes: %i", __FUNCTION__, BufferPosition + Count - InternalBuffer.length());
-		return false;
-	}
+    InternalBuffer.clear(); // Deallocate the buffer.
+    GetBuffer<void>();      // Clear any static memory.
+    Rewind();               // Reset the position.
+}
 
-	if (Output != nullptr)
-	{
-		memcpy(Output, InternalBuffer.data() + BufferPosition, Count);
-	}
+// Core functionallity.
+bool ByteBuffer::Read(uint32_t ReadCount, void *OutBuffer)
+{
+    if (BufferPosition + ReadCount > InternalBuffer.length())
+    {
+        fprintf(stderr, "ByteBuffer::Read tried to read out of bounds. Missing bytes: %i\n", BufferPosition + ReadCount - InternalBuffer.length());
+        return false;
+    }
 
-	BufferPosition += Count;
-	return true;
-}
-bool ByteBuffer::Write(uint32_t Count, void *Input)
-{
-	if (Input != nullptr)
-	{
-		if (BufferPosition == InternalBuffer.length())
-		{
-			InternalBuffer.append((const uint8_t *)Input, Count);
-			BufferPosition += Count;
-			return true;
-		}
-		else
-		{
-			if (BufferPosition < InternalBuffer.length())
-			{
-				if (BufferPosition + Count < InternalBuffer.length())
-				{
-					for (uint32_t i = 0; i < Count; i++)
-					{
-						InternalBuffer[i] = ((const uint8_t *)Input)[i];
-						BufferPosition++;
-					}
-					return true;
-				}
-				else
-				{
-					uint32_t FreeBytes = InternalBuffer.length() - BufferPosition;
-					return	Write(FreeBytes, Input) && Write(Count - FreeBytes, (uint8_t *)Input + FreeBytes);
-				}
-			}
-			else
-			{
-				fDBGPrint("", "%s error, BufferPosition > InternalBuffer.length", __FUNCTION__);
-				return false;
-			}
-		}
-	}
-	else
-	{
-		BufferPosition += Count;
-		return true;
-	}	
-}
-bool ByteBuffer::ReadDataType(uint8_t Type)
-{
-	if (PeekByte() == Type)
-	{
-		BufferPosition++;
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-bool ByteBuffer::WriteDataType(uint8_t Type)
-{
-	return Write((uint32_t)1, &Type);
-}
-#pragma endregion
+    if (OutBuffer != nullptr)
+    {
+        memcpy(OutBuffer, InternalBuffer.data() + BufferPosition, ReadCount);
+    }
 
-#pragma region CoreRead
-template <> bool ByteBuffer::Read<bool>(bool *Output, bool Typecheck)
-{
-	if (!Typecheck || ReadDataType(BBTypes::BB_BOOL_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
+    BufferPosition += ReadCount;
+    return true;
 }
-template <> bool ByteBuffer::Read<int8_t>(int8_t *Output, bool Typecheck)
+bool ByteBuffer::Write(uint32_t WriteCount, void *InBuffer)
 {
-	if (!Typecheck || ReadDataType(BBTypes::BB_SIGNED_CHAR8_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
+    if (InBuffer != nullptr)
+    {
+        if (BufferPosition == InternalBuffer.length())
+        {
+            InternalBuffer.append((const uint8_t *)InBuffer, WriteCount);
+            BufferPosition += WriteCount;
+            return true;
+        }
+        else
+        {
+            if (BufferPosition < InternalBuffer.length())
+            {
+                if (BufferPosition + WriteCount < InternalBuffer.length())
+                {
+                    for (uint32_t i = 0; i < WriteCount; i++)
+                    {
+                        InternalBuffer[i] = ((const uint8_t *)InBuffer)[i];
+                        BufferPosition++;
+                    }
+                    return true;
+                }
+                else
+                {
+                    uint32_t FreeBytes = InternalBuffer.length() - BufferPosition;
+                    return Write(FreeBytes, InBuffer) && Write(WriteCount - FreeBytes, (uint8_t *)InBuffer + FreeBytes);
+                }
+            }
+            else
+            {
+                fprintf(stderr, "ByteBuffer::Write, BufferPosition > InternalBuffer.length");
+                return false;
+            }
+        }
+    }
+    else
+    {
+        BufferPosition += WriteCount;
+        return true;
+    }
 }
-template <> bool ByteBuffer::Read<uint8_t>(uint8_t *Output, bool Typecheck) 
+bool ByteBuffer::ReadDatatype(BBType Type)
 {
-	if (!Typecheck || ReadDataType(BBTypes::BB_UNSIGNED_CHAR8_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
+    if (PeekByte() == (uint8_t)Type)
+    {
+        BufferPosition++;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
-template <> bool ByteBuffer::Read<int16_t>(int16_t *Output, bool Typecheck)
+bool ByteBuffer::WriteDatatype(BBType Type)
 {
-	if (!Typecheck || ReadDataType(BBTypes::BB_SIGNED_INTEGER16_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
+    return Write(1, &Type);
 }
-template <> bool ByteBuffer::Read<uint16_t>(uint16_t *Output, bool Typecheck)
-{
-	if (!Typecheck || ReadDataType(BBTypes::BB_UNSIGNED_INTEGER16_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Read<int32_t>(int32_t *Output, bool Typecheck)
-{
-	if (!Typecheck || ReadDataType(BBTypes::BB_SIGNED_INTEGER32_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Read<uint32_t>(uint32_t *Output, bool Typecheck)
-{
-	if (!Typecheck || ReadDataType(BBTypes::BB_UNSIGNED_INTEGER32_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Read<int64_t>(int64_t *Output, bool Typecheck)
-{
-	if (!Typecheck || ReadDataType(BBTypes::BB_SIGNED_INTEGER64_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Read<uint64_t>(uint64_t *Output, bool Typecheck)
-{
-	if (!Typecheck || ReadDataType(BBTypes::BB_UNSIGNED_INTEGER64_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Read<float>(float *Output, bool Typecheck)
-{
-	if (!Typecheck || ReadDataType(BBTypes::BB_FLOAT32_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Read<double>(double *Output, bool Typecheck)
-{
-	if (!Typecheck || ReadDataType(BBTypes::BB_FLOAT64_TYPE))
-		return Read((uint32_t)sizeof(*Output), Output);
-	else
-		return false;
-}
-#pragma endregion
 
-#pragma region CoreWrite
-template <> bool ByteBuffer::Write<bool>(bool Input, bool Typecheck)
+// Read methods, typecheck reads a byte prefix from data.
+bool ByteBuffer::ReadBlob(std::string *Output, bool Typecheck)
 {
-	if (!Typecheck || WriteDataType(BBTypes::BB_BOOL_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<int8_t>(int8_t Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_SIGNED_CHAR8_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<uint8_t>(uint8_t Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_UNSIGNED_CHAR8_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<int16_t>(int16_t Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_SIGNED_INTEGER16_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<uint16_t>(uint16_t Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_UNSIGNED_INTEGER16_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<int32_t>(int32_t Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_SIGNED_INTEGER32_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<uint32_t>(uint32_t Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_UNSIGNED_INTEGER32_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<int64_t>(int64_t Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_SIGNED_INTEGER64_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<uint64_t>(uint64_t Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_UNSIGNED_INTEGER64_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<float>(float Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_FLOAT32_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-template <> bool ByteBuffer::Write<double>(double Input, bool Typecheck)
-{
-	if (!Typecheck || WriteDataType(BBTypes::BB_FLOAT64_TYPE))
-		return Write((uint32_t)sizeof(Input), &Input);
-	else
-		return false;
-}
-#pragma endregion
+    uint32_t BlobLength = 0;
 
-#pragma region LegacyReadMethods
+    if (Typecheck && !ReadDatatype(BBType::BB_BLOB_TYPE))
+        return false;
+
+    if (!ReadUInt32(&BlobLength))
+        return false;
+
+    if (BufferPosition + BlobLength > InternalBuffer.size())
+    {
+        fprintf(stderr, "ByteBuffer::ReadBlob, blob (%lli) is larger than the bytebuffer (%lli), check your endians!", BufferPosition + BlobLength, InternalBuffer.size());
+        return false;
+    }
+
+    for (uint32_t i = BufferPosition; i < BufferPosition + BlobLength; i++)
+    {
+        Output->push_back(InternalBuffer[i]);
+    }
+    BufferPosition += BlobLength;
+
+    return true;
+}
+bool ByteBuffer::ReadBlob(std::basic_string<uint8_t> *Output, bool Typecheck)
+{
+    uint32_t BlobLength = 0;
+
+    if (Typecheck && !ReadDatatype(BBType::BB_BLOB_TYPE))
+        return false;
+
+    if (!ReadUInt32(&BlobLength))
+        return false;
+
+    if (BufferPosition + BlobLength > InternalBuffer.size())
+    {
+        fprintf(stderr, "ByteBuffer::ReadBlob, blob (%lli) is larger than the bytebuffer (%lli), check your endians!", BufferPosition + BlobLength, InternalBuffer.size());
+        return false;
+    }
+
+    for (uint32_t i = BufferPosition; i < BufferPosition + BlobLength; i++)
+    {
+        Output->push_back(InternalBuffer[i]);
+    }
+    BufferPosition += BlobLength;
+
+    return true;
+}
+bool ByteBuffer::ReadBlob(uint32_t DataLength, void *DataBuffer, bool Typecheck)
+{
+    uint32_t BlobLength = 0;
+
+    if (Typecheck && !ReadDatatype(BBType::BB_BLOB_TYPE))
+        return false;
+
+    if (!ReadUInt32(&BlobLength))
+        return false;
+
+    if (BufferPosition + BlobLength > InternalBuffer.size())
+    {
+        fprintf(stderr, "ByteBuffer::ReadBlob, blob (%lli) is larger than the bytebuffer (%lli), check your endians!", BufferPosition + BlobLength, InternalBuffer.size());
+        return false;
+    }
+
+    if (BufferPosition + BlobLength > DataLength)
+    {
+        fprintf(stderr, "ByteBuffer::ReadBlob, blob (%lli) is larger than the result buffer (%lli), check your endians!", BlobLength, DataLength);
+    }
+
+    memcpy(DataBuffer, InternalBuffer.data() + BufferPosition, min(BlobLength, DataLength));
+    BufferPosition += min(BufferPosition + BlobLength, DataLength);
+
+    return true;
+}
+std::basic_string<uint8_t> ByteBuffer::ReadBlob(bool Typecheck)
+{
+    std::basic_string<uint8_t> Result;
+
+    if (!ReadBlob(&Result, Typecheck))
+    {
+        Result.clear();
+    }
+
+    return Result;
+}
 bool ByteBuffer::ReadBoolean(bool *Output, bool Typecheck)
-{ 
-	return Read<bool>(Output, Typecheck);
+{
+    if (!Typecheck || ReadDatatype(BBType::BB_BOOL_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
+}
+bool ByteBuffer::ReadBoolean(bool Typecheck)
+{
+    bool Result;
+
+    if (!ReadBoolean(&Result, Typecheck))
+    {
+        Result = false;
+    }
+
+    return Result;
 }
 bool ByteBuffer::ReadInt8(int8_t *Output, bool Typecheck)
 {
-	return Read<int8_t>(Output, Typecheck);
+    if (!Typecheck || ReadDatatype(BBType::BB_SIGNED_CHAR8_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
 }
-bool ByteBuffer::ReadUInt8(uint8_t *Output, bool Typecheck)
+int8_t ByteBuffer::ReadInt8(bool Typecheck)
 {
-	return Read<uint8_t>(Output, Typecheck);
+    int8_t Result;
+
+    if (!ReadInt8(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
 }
 bool ByteBuffer::ReadInt16(int16_t *Output, bool Typecheck)
 {
-	return Read<int16_t>(Output, Typecheck);
+    if (!Typecheck || ReadDatatype(BBType::BB_SIGNED_INTEGER16_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
 }
-bool ByteBuffer::ReadUInt16(uint16_t *Output, bool Typecheck)
+int16_t ByteBuffer::ReadInt16(bool Typecheck)
 {
-	return Read<uint16_t>(Output, Typecheck);
+    int16_t Result;
+
+    if (!ReadInt16(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
 }
 bool ByteBuffer::ReadInt32(int32_t *Output, bool Typecheck)
 {
-	return Read<int32_t>(Output, Typecheck);
+    if (!Typecheck || ReadDatatype(BBType::BB_SIGNED_INTEGER32_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
 }
-bool ByteBuffer::ReadUInt32(uint32_t *Output, bool Typecheck)
+int32_t ByteBuffer::ReadInt32(bool Typecheck)
 {
-	return Read<uint32_t>(Output, Typecheck);
+    int32_t Result;
+
+    if (!ReadInt32(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
 }
 bool ByteBuffer::ReadInt64(int64_t *Output, bool Typecheck)
 {
-	return Read<int64_t>(Output, Typecheck);
+    if (!Typecheck || ReadDatatype(BBType::BB_SIGNED_INTEGER64_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
+}
+int64_t ByteBuffer::ReadInt64(bool Typecheck)
+{
+    int64_t Result;
+
+    if (!ReadInt64(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
+}
+bool ByteBuffer::ReadUInt8(uint8_t *Output, bool Typecheck)
+{
+    if (!Typecheck || ReadDatatype(BBType::BB_UNSIGNED_CHAR8_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
+}
+uint8_t ByteBuffer::ReadUInt8(bool Typecheck)
+{
+    uint8_t Result;
+
+    if (!ReadUInt8(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
+}
+bool ByteBuffer::ReadUInt16(uint16_t *Output, bool Typecheck)
+{
+    if (!Typecheck || ReadDatatype(BBType::BB_UNSIGNED_INTEGER16_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
+}
+uint16_t ByteBuffer::ReadUInt16(bool Typecheck)
+{
+    uint16_t Result;
+
+    if (!ReadUInt16(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
+}
+bool ByteBuffer::ReadUInt32(uint32_t *Output, bool Typecheck)
+{
+    if (!Typecheck || ReadDatatype(BBType::BB_UNSIGNED_INTEGER32_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
+}
+uint32_t ByteBuffer::ReadUInt32(bool Typecheck)
+{
+    uint32_t Result;
+
+    if (!ReadUInt32(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
 }
 bool ByteBuffer::ReadUInt64(uint64_t *Output, bool Typecheck)
 {
-	return Read<uint64_t>(Output, Typecheck);
+    if (!Typecheck || ReadDatatype(BBType::BB_UNSIGNED_INTEGER64_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
+}
+uint64_t ByteBuffer::ReadUInt64(bool Typecheck)
+{
+    uint64_t Result;
+
+    if (!ReadUInt64(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
 }
 bool ByteBuffer::ReadFloat32(float *Output, bool Typecheck)
 {
-	return Read<float>(Output, Typecheck);
+    if (!Typecheck || ReadDatatype(BBType::BB_FLOAT32_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
+}
+float ByteBuffer::ReadFloat32(bool Typecheck)
+{
+    float Result;
+
+    if (!ReadFloat32(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
 }
 bool ByteBuffer::ReadFloat64(double *Output, bool Typecheck)
 {
-	return Read<double>(Output, Typecheck);
+    if (!Typecheck || ReadDatatype(BBType::BB_FLOAT64_TYPE))
+        return Read(sizeof(*Output), Output);
+    else
+        return false;
 }
+double ByteBuffer::ReadFloat64(bool Typecheck)
+{
+    double Result;
 
+    if (!ReadFloat64(&Result, Typecheck))
+    {
+        Result = -1;
+    }
+
+    return Result;
+}
 bool ByteBuffer::ReadString(std::string &Output, bool Typecheck)
-{ 
-	uint32_t StringLength = 0;
-
-	if (Typecheck && !ReadDataType((uint8_t)BBTypes::BB_SIGNED_CHAR8_STRING_TYPE))
-		return false;
-
-	StringLength = strlen((char *)InternalBuffer.data() + BufferPosition) + 1;
-	Output.append((char *)InternalBuffer.data() + BufferPosition, StringLength);
-
-	BufferPosition += StringLength;
-	return true;
-}
-bool ByteBuffer::ReadBlob(std::string *Output)
-{ 
-	uint32_t BlobLength = 0;
-
-	if (!ReadDataType((uint8_t)BBTypes::BB_BLOB_TYPE) || !Read<uint32_t>(&BlobLength))
-		return false;
-
-	if (BufferPosition + BlobLength > InternalBuffer.size())
-	{
-		fDBGPrint("", "%s - Blob (%lli) is larger than the buffer (%lli), check the endians.", __FUNCTION__, BufferPosition + BlobLength, InternalBuffer.size());
-		__debugbreak();
-		return false;
-	}
-	
-	for (uint32_t i = BufferPosition; i < BufferPosition + BlobLength; i++)
-	{
-		Output->push_back(InternalBuffer[i]);
-	}
-	BufferPosition += BlobLength;
-
-	return true;
-}
-bool ByteBuffer::ReadBlob(std::basic_string<uint8_t> *Output)
 {
-	uint32_t BlobLength = 0;
+    uint32_t StringLength = 0;
 
-	if (!ReadDataType((uint8_t)BBTypes::BB_BLOB_TYPE) || !Read<uint32_t>(&BlobLength))
-		return false;
+    if (Typecheck && !ReadDatatype(BBType::BB_SIGNED_CHAR8_STRING_TYPE))
+        return false;
 
-	if (BufferPosition + BlobLength > InternalBuffer.size())
-	{
-		fDBGPrint("", "%s - Blob (%lli) is larger than the buffer (%lli), check the endians.", __FUNCTION__, BufferPosition + BlobLength, InternalBuffer.size());
-		__debugbreak();
-		return false;
-	}
+    StringLength = strlen((char *)InternalBuffer.data() + BufferPosition) + 1;
+    Output.append((char *)InternalBuffer.data() + BufferPosition, StringLength);
 
-	for (uint32_t i = BufferPosition; i < BufferPosition + BlobLength; i++)
-	{
-		Output->push_back(InternalBuffer[i]);
-	}
-	BufferPosition += BlobLength;
-
-	return true;
+    BufferPosition += StringLength;
+    return true;
 }
-bool ByteBuffer::ReadArrayStart(uint8_t ExpectedType, uint32_t *ElementCount, uint32_t *ElementSize)
+std::string ByteBuffer::ReadString(bool Typecheck)
 {
-	uint8_t StoredType = 0;
-	uint32_t ArraySize = 0;
+    std::string Result;
 
-	// Get the array type.
-	if (!Read<uint8_t>(&StoredType, false))
-	{
-		fDBGPrint("", "%s - No array header.", __FUNCTION__);
-		if (ElementSize != nullptr)
-			*ElementCount = 0;
-		return false;
-	}
+    if (!ReadString(Result, Typecheck))
+    {
+        Result.clear();
+    }
 
-	// Check against the type we want.
-	if (StoredType - 100 != ExpectedType)
-	{
-		fDBGPrint("", "%s - Expected type %d but read type %d.", __FUNCTION__, ExpectedType, (StoredType - 100));
-		return false;
-	}
-
-	// Total size.
-	if (!Read<uint32_t>(&ArraySize))
-	{
-		if (ElementSize != nullptr)
-			*ElementCount = 0;
-		return false;
-	}
-
-	// Split over X elements.
-	if (!Read<uint32_t>(ElementCount, false))
-	{
-		if (ElementSize != nullptr)
-			*ElementCount = 0;
-		return false;
-	}
-
-	if (ElementSize != nullptr)
-		*ElementSize = ArraySize / *ElementCount;
-	return true;
+    return Result;
 }
-#pragma endregion
+bool ByteBuffer::ReadArrayStart(BBType ExpectedType, uint32_t *ElementCount, uint32_t *ElementSize)
+{
+    uint8_t StoredType = 0;
+    uint32_t ArraySize = 0;
 
-#pragma region LegacyWriteMethods
+    // Get the array type.
+    if (!ReadUInt8(&StoredType, false))
+    {
+        fprintf(stderr, "ByteBuffer::ReadArrayStart - No array header.");
+        if (ElementSize != nullptr)
+            *ElementCount = 0;
+        return false;
+    }
+
+    // Check against the type we want.
+    if (StoredType - 100 != (uint8_t)ExpectedType)
+    {
+        fprintf(stderr, "ByteBuffer::ReadArrayStart - Expected type %d but read type %d.", ExpectedType, (StoredType - 100));
+        return false;
+    }
+
+    // Total size.
+    if (!ReadUInt32(&ArraySize))
+    {
+        if (ElementSize != nullptr)
+            *ElementCount = 0;
+        return false;
+    }
+
+    // Split over X elements.
+    if (!ReadUInt32(ElementCount, false))
+    {
+        if (ElementSize != nullptr)
+            *ElementCount = 0;
+        return false;
+    }
+
+    if (ElementSize != nullptr)
+        *ElementSize = ArraySize / *ElementCount;
+
+    return true;
+}
+bool ByteBuffer::ReadArrayStart(uint32_t ExpectedType, uint32_t *ElementCount, uint32_t *ElementSize)
+{
+    return ReadArrayStart((BBType)ExpectedType, ElementCount, ElementSize);
+}
+
+// Write methods, typecheck adds a byte prefix to data.
+bool ByteBuffer::WriteBlob(std::string *Input, bool Typecheck)
+{
+    if ((Typecheck && !WriteDatatype(BBType::BB_BLOB_TYPE)) || !WriteUInt32(Input->length()))
+        return false;
+    else
+        return Write(Input->length(), (void *)Input->data());
+}
+bool ByteBuffer::WriteBlob(std::basic_string<uint8_t> *Input, bool Typecheck)
+{
+    if ((Typecheck && !WriteDatatype(BBType::BB_BLOB_TYPE)) || !WriteUInt32(Input->length()))
+        return false;
+    else
+        return Write(Input->length(), (void *)Input->data());
+}
+bool ByteBuffer::WriteBlob(uint32_t DataLength, void *DataBuffer, bool Typecheck)
+{
+    if ((Typecheck && !WriteDatatype(BBType::BB_BLOB_TYPE)) || !WriteUInt32(DataLength))
+        return false;
+    else
+        return Write(DataLength, DataBuffer);
+}
 bool ByteBuffer::WriteBoolean(bool Input, bool Typecheck)
 {
-	return Write<bool>(Input, Typecheck);
+    if (!Typecheck || WriteDatatype(BBType::BB_BOOL_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
 }
 bool ByteBuffer::WriteInt8(int8_t Input, bool Typecheck)
 {
-	return Write<int8_t>(Input, Typecheck);
-}
-bool ByteBuffer::WriteUInt8(uint8_t Input, bool Typecheck)
-{
-	return Write<uint8_t>(Input, Typecheck);
+    if (!Typecheck || WriteDatatype(BBType::BB_SIGNED_CHAR8_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
 }
 bool ByteBuffer::WriteInt16(int16_t Input, bool Typecheck)
 {
-	return Write<int16_t>(Input, Typecheck);
-}
-bool ByteBuffer::WriteUInt16(uint16_t Input, bool Typecheck)
-{
-	return Write<uint16_t>(Input, Typecheck);
+    if (!Typecheck || WriteDatatype(BBType::BB_SIGNED_INTEGER16_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
 }
 bool ByteBuffer::WriteInt32(int32_t Input, bool Typecheck)
 {
-	return Write<int32_t>(Input, Typecheck);
-}
-bool ByteBuffer::WriteUInt32(uint32_t Input, bool Typecheck)
-{
-	return Write<uint32_t>(Input, Typecheck);
+    if (!Typecheck || WriteDatatype(BBType::BB_SIGNED_INTEGER32_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
 }
 bool ByteBuffer::WriteInt64(int64_t Input, bool Typecheck)
 {
-	return Write<int64_t>(Input, Typecheck);
+    if (!Typecheck || WriteDatatype(BBType::BB_SIGNED_INTEGER64_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
 }
-bool ByteBuffer::WriteUInt64(uint64_t Input, bool Typecheck)
+bool ByteBuffer::WriteUInt8(uint8_t Input, bool Typecheck)
 {
-	return Write<uint64_t>(Input, Typecheck);
+    if (!Typecheck || WriteDatatype(BBType::BB_UNSIGNED_CHAR8_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
+}
+bool ByteBuffer::WriteUInt16(uint16_t Input, bool Typecheck)
+{
+    if (!Typecheck || WriteDatatype(BBType::BB_UNSIGNED_INTEGER16_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
+}
+bool ByteBuffer::WriteUInt32(uint32_t Input, bool Typecheck){
+    if (!Typecheck || WriteDatatype(BBType::BB_UNSIGNED_INTEGER32_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
+}
+bool ByteBuffer::WriteUInt64(uint64_t Input, bool Typecheck){
+    if (!Typecheck || WriteDatatype(BBType::BB_UNSIGNED_INTEGER64_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
 }
 bool ByteBuffer::WriteFloat32(float Input, bool Typecheck)
 {
-	return Write<float>(Input, Typecheck);
+    if (!Typecheck || WriteDatatype(BBType::BB_FLOAT32_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
 }
 bool ByteBuffer::WriteFloat64(double Input, bool Typecheck)
 {
-	return Write<double>(Input, Typecheck);
+    if (!Typecheck || WriteDatatype(BBType::BB_FLOAT64_TYPE))
+        return Write(sizeof(Input), &Input);
+    else
+        return false;
 }
-
 bool ByteBuffer::WriteString(std::string &Input, bool Typecheck)
-{ 
-	if (Typecheck && !WriteDataType(BBTypes::BB_SIGNED_CHAR8_STRING_TYPE))
-		return false;
-	
-	return Write((uint32_t)Input.length() + 1, (void *)Input.c_str());
-}
-bool ByteBuffer::WriteBlob(std::string *Input)
-{ 
-	if (!WriteDataType(BBTypes::BB_BLOB_TYPE) || !WriteUInt32(Input->length()))
-		return false;
-	else
-		return Write((uint32_t)Input->length(), (void *)Input->data());
-}
-bool ByteBuffer::WriteBlob(std::basic_string<uint8_t> *Input)
 {
-	if (!WriteDataType(BBTypes::BB_BLOB_TYPE) || !WriteUInt32(Input->length()))
-		return false;
-	else
-		return Write((uint32_t)Input->length(), (void *)Input->data());
+    if (Typecheck && !WriteDatatype(BBType::BB_SIGNED_CHAR8_STRING_TYPE))
+        return false;
+
+    return Write(Input.length() + 1, (void *)Input.c_str());
 }
-bool ByteBuffer::WriteArrayStart(uint8_t Type, uint32_t ElementCount, uint32_t ElementSize)
+bool ByteBuffer::WriteArrayStart(BBType Type, uint32_t ElementCount, uint32_t ElementSize)
 {
-	// Type is BBType + 100.
-	return Write<uint8_t>(Type + 100, false)
-		&& Write<uint32_t>(ElementSize * ElementCount)
-		&& Write<uint32_t>(ElementCount, false);
+    return WriteArrayStart(Type, ElementCount, ElementSize);
 }
-#pragma endregion
+bool ByteBuffer::WriteArrayStart(uint32_t Type, uint32_t ElementCount, uint32_t ElementSize)
+{
+    // Type is BBType + 100.
+    return WriteUInt8(Type + 100, false)
+        && WriteUInt32(ElementSize * ElementCount)
+        && WriteUInt32(ElementCount, false);
+}
