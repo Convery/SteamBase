@@ -65,9 +65,8 @@ template <typename ReturnType>
 ReturnType *ByteBuffer::GetBuffer()
 {
     static void *SafeBuffer = nullptr;
-    if (SafeBuffer == nullptr)
+    if (SafeBuffer != nullptr)
     {
-        std::vector<int> Cake;
         free(SafeBuffer);
         SafeBuffer = nullptr;
     }
@@ -80,13 +79,18 @@ ReturnType *ByteBuffer::GetBuffer()
             SafeBuffer = nullptr;
             return nullptr;
         }
-
-        if (SecureMode)
+        else
         {
-            for (uint32_t i = 0; i < InternalBuffer.size(); i++)
+            if (SecureMode)
             {
-                InternalBuffer[i] ^= 0xCC;
+                for (uint32_t i = 0; i < InternalBuffer.size(); i++)
+                {
+                    InternalBuffer[i] ^= 0xCC;
+                }
             }
+
+            SecureZeroMemory(SafeBuffer, InternalBuffer.size());
+            memcpy(SafeBuffer, InternalBuffer.data(), InternalBuffer.size());
         }
     }
 
