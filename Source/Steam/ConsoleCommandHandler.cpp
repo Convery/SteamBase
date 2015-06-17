@@ -21,7 +21,7 @@ char* ConsoleCommandHandler::ExecuteCommand(char *cmd)
 	}
 
 	//TODO: handle cmd
-	return (char *)hString::va("ERROR: ", cmd, " invalid command");
+	return (char *)hString::va("ERROR: '%s' invalid command", cmd);
 }
 
 void ConsoleCommandHandler::RegisterCallback(Cmd_Callback_t callback)

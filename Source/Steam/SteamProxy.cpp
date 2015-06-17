@@ -378,10 +378,12 @@ uint32_t SteamProxy::GetDLCCount()
 
 bool SteamProxy::IsDlcInstalled(uint32_t appID)
 {
-// 	if (SteamProxy::ISteamApps)
-// 	{
-// 		return SteamProxy::ISteamApps->BIsDlcInstalled(appID);
-// 	}
+	bool isInstalled = SteamProxy::IsSubscribedApp(appID);
 
-	return SteamProxy::IsSubscribedApp(appID);
+	if (SteamProxy::ISteamApps)
+	{
+		isInstalled = isInstalled || SteamProxy::ISteamApps->BIsDlcInstalled(appID);
+	}
+
+	return isInstalled;
 }
