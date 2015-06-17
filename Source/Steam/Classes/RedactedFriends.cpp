@@ -29,19 +29,31 @@ EPersonaState RedactedFriends::GetPersonaState()
 int32_t RedactedFriends::GetFriendCount(int32_t iFriendFlags)
 {
 	PrintCurrentFunction();
-	int32_t friendsCount = Nodes::ClientNode::GetFriendCount(iFriendFlags);
-	DBGPrint("Received %i friendsCount", friendsCount);
-	return friendsCount;
+	if (!Nodes::ClientNode::isSNodeConnected){
+		STEAMPROXY_CALL(ISteamFriends, GetFriendCount, iFriendFlags);
+	}else{
+		int32_t friendsCount = Nodes::ClientNode::GetFriendCount(iFriendFlags);
+		return friendsCount;
+	}
 }
 CSteamID RedactedFriends::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
 {
 	//PrintCurrentFunction(); // Spams the console
-	STEAMPROXY_CALL(ISteamFriends, GetFriendByIndex, iFriend, iFriendFlags);
+	if (!Nodes::ClientNode::isSNodeConnected){
+		STEAMPROXY_CALL(ISteamFriends, GetFriendByIndex, iFriend, iFriendFlags);
+	}else{
+		uint64_t steamId = Nodes::ClientNode::GetFriendByIndex(iFriend, iFriendFlags);
+		return CSteamID(steamId);
+	}
 }
 EFriendRelationship RedactedFriends::GetFriendRelationship(CSteamID steamIDFriend)
 {
 	PrintCurrentFunction();
-	STEAMPROXY_CALL(ISteamFriends, GetFriendRelationship, steamIDFriend);
+	if (!Nodes::ClientNode::isSNodeConnected){
+		STEAMPROXY_CALL(ISteamFriends, GetFriendRelationship, steamIDFriend);
+	}else{
+		return EFriendRelationship::k_EFriendRelationshipFriend;
+	}
 }
 
 EPersonaState RedactedFriends::GetFriendPersonaState(CSteamID steamIDFriend)

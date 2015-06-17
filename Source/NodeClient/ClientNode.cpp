@@ -127,4 +127,35 @@ namespace Nodes
 		}
 		return friendsCount;
 	}
+
+	uint64_t ClientNode::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags){
+		if (!isSNodeConnected){
+			return 0x1100001DEADC0DE;
+		}
+		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
+		Network::NetworkPacket *packet = CreateNetworkPacket(HNFriendAtIndexRequest, 0, nullptr);
+		packet->DataLength = sizeof(int32_t);
+		int32_t index = iFriend;
+		packet->DataBuffer = &index;
+		packet->Serialize(&packetBuffer);
+		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
+
+		uint64_t steamID = 0;
+		time_t t1 = time(0);
+		while (true){
+			if (difftime(time(0), t1) > waitTimeout){
+				break;
+			}
+			std::unordered_map<uint32_t, Network::NetworkPacket*>::const_iterator find = pendingData.find(packet->SequenceID);
+
+			if (find == pendingData.end()){
+				continue;
+			}
+			else{
+				Network::NetworkPacket* friendsResponse = find->second;
+				steamID = *((uint64_t *)friendsResponse->DataBuffer);
+			}
+		}
+		return steamID;
+	}
 }
