@@ -68,14 +68,14 @@ void PluginManager::VerifyExports()
 		BasePlugin.Name = PluginNames[i];
 
 		// Fill the struct with function pointers.
-		BasePlugin.PreInit         = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "PreInit");
-		BasePlugin.PostInit        = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "PostInit");
-		BasePlugin.AuthorInfo      = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "AuthorInfo");
-		BasePlugin.ExtendedInfo    = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "ExtendedInfo");
-		BasePlugin.OfficialMod     = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "OfficialMod");
-		BasePlugin.DependencyCount = (uint64_t(__stdcall *)(void))     GetProcAddress(PluginModules[i], "DependencyCount");
-		BasePlugin.GetDependency   = (uint64_t(__stdcall *)(int32_t))  GetProcAddress(PluginModules[i], "GetDependency");
-		BasePlugin.SendMessageB    = (uint64_t(__stdcall *)(const char*,void*)) GetProcAddress(PluginModules[i], "SendMessageB");
+		BasePlugin.PreInit         = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "PreInit");
+		BasePlugin.PostInit        = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "PostInit");
+		BasePlugin.AuthorInfo      = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "AuthorInfo");
+		BasePlugin.ExtendedInfo    = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "ExtendedInfo");
+		BasePlugin.OfficialMod     = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "OfficialMod");
+		BasePlugin.DependencyCount = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "DependencyCount");
+		BasePlugin.GetDependency   = (uint64_t(PLUGIN_CONVENTION *)(int32_t))            GetProcAddress(PluginModules[i], "GetDependency");
+		BasePlugin.SendMessageB    = (uint64_t(PLUGIN_CONVENTION *)(const char*, void*)) GetProcAddress(PluginModules[i], "SendMessageB");
 
 		// Verify that all functions were added.
 		if (!BasePlugin.PreInit)

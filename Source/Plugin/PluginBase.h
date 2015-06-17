@@ -10,6 +10,8 @@
 
 #pragma once
 
+#define PLUGIN_CONVENTION __cdecl
+
 struct PluginBase
 {
 	// General info.
@@ -17,12 +19,12 @@ struct PluginBase
 	std::string Name;
 
 	// Standard methods.
-	uint64_t(__stdcall * PreInit)(void);
-	uint64_t(__stdcall * PostInit)(void);
-	uint64_t(__stdcall * AuthorInfo)(void);
-	uint64_t(__stdcall * OfficialMod)(void);
-	uint64_t(__stdcall * ExtendedInfo)(void);
-	uint64_t(__stdcall * DependencyCount)(void);
-	uint64_t(__stdcall * GetDependency)(int32_t Index);
-	uint64_t(__stdcall * SendMessageB)(const char* Message, void* Callback);
+	uint64_t(PLUGIN_CONVENTION * PreInit)(void);
+	uint64_t(PLUGIN_CONVENTION * PostInit)(void);
+	uint64_t(PLUGIN_CONVENTION * AuthorInfo)(void);
+	uint64_t(PLUGIN_CONVENTION * OfficialMod)(void);
+	uint64_t(PLUGIN_CONVENTION * ExtendedInfo)(void);
+	uint64_t(PLUGIN_CONVENTION * DependencyCount)(void);
+	uint64_t(PLUGIN_CONVENTION * GetDependency)(int32_t Index);
+	uint64_t(PLUGIN_CONVENTION * SendMessageB)(const char* Message, void* Callback);
 };
