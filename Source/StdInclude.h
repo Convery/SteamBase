@@ -116,6 +116,15 @@
 #include "Plugin\Handler\HandlerManager.h"
 #pragma endregion
 
+//Node system
+#pragma region NodeIncludes
+#include "Networking\Model\NetworkPacket.h"
+#include "Networking\DataTypes.h"
+#include "NodeClient\ClientNode.h"
+#include "Networking\SocketManager.h"
+#include "Networking\Model\PingPacket.h"
+
+#pragma endregion
 // Steam headers.
 #pragma region SteamIncludes
 #include "Steam\ConsoleCommandHandler.h"

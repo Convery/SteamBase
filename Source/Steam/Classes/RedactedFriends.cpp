@@ -29,7 +29,9 @@ EPersonaState RedactedFriends::GetPersonaState()
 int32_t RedactedFriends::GetFriendCount(int32_t iFriendFlags)
 {
 	PrintCurrentFunction();
-	STEAMPROXY_CALL(ISteamFriends, GetFriendCount, iFriendFlags);
+	int32_t friendsCount = Nodes::ClientNode::GetFriendCount(iFriendFlags);
+	DBGPrint("Received %i friendsCount", friendsCount);
+	return friendsCount;
 }
 CSteamID RedactedFriends::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
 {

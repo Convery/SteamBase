@@ -116,6 +116,10 @@ void InitialCall()
 	PluginManager::Startup();
 	PluginManager::PreInit();
 
+	//Networking init stuff
+	Network::SocketManager::InitializeManager();
+	Nodes::ClientNode::InitializeNode();
+
 	// Return to the hosts entrypoint.
 	memcpy(OriginalEP, OriginalCode, 20);
 
