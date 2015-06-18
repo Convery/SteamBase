@@ -33,6 +33,9 @@ LPTOP_LEVEL_EXCEPTION_FILTER WINAPI DumpHandler::SetUnhandledExceptionFilter_Stu
 // Credit to NTAuthority
 LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS ExceptionInfo)
 {
+	// Ignore breakpoints.
+	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT) return EXCEPTION_CONTINUE_EXECUTION;
+
 	// step 1: write minidump
 	char error[1024];
 	char filename[MAX_PATH];
