@@ -148,7 +148,6 @@ namespace Nodes
 				friendsCount = friendCount.friendsCount;
 
 				pendingData.erase(find);
-				delete bf;
 				delete packet;
 
 				return friendsCount;
@@ -206,7 +205,7 @@ namespace Nodes
 				steamID = friendIndex.friendSteamID;
 
 				pendingData.erase(find);
-				delete bf;
+
 				delete packet;
 				return steamID;
 			}
