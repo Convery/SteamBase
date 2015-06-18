@@ -718,7 +718,7 @@ bool ByteBuffer::WriteString(std::string &Input, bool Typecheck)
 }
 bool ByteBuffer::WriteArrayStart(BBType Type, uint32_t ElementCount, uint32_t ElementSize)
 {
-    return WriteArrayStart(Type, ElementCount, ElementSize);
+	return WriteArrayStart((uint32_t)Type, ElementCount, ElementSize);
 }
 bool ByteBuffer::WriteArrayStart(uint32_t Type, uint32_t ElementCount, uint32_t ElementSize)
 {
