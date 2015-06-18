@@ -33,9 +33,7 @@ namespace Network
         }
         void Deserialize(ByteBuffer *InBuffer)
         {
-            int16_t *evtType = (int16_t *)malloc(sizeof(int16_t));
-            InBuffer->ReadInt16(evtType);
-            eventType = (EventType)*evtType;
+			InBuffer->ReadInt16((int16_t*)&eventType);
             InBuffer->ReadUInt32(&ApplicationID);
             InBuffer->ReadUInt32(&SequenceID);
             InBuffer->ReadUInt32(&TimeStamp);
