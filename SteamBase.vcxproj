@@ -199,8 +199,8 @@
     <ClInclude Include="Source\JSON\version.h" />
     <ClInclude Include="Source\JSON\writer.h" />
     <ClInclude Include="Source\Networking\DataTypes.h" />
-    <ClInclude Include="Source\Networking\Model\NetworkPacket.h" />
-    <ClInclude Include="Source\Networking\Model\PingPacket.h" />
+    <ClInclude Include="Source\Networking\Model\ISerializable.h" />
+    <ClInclude Include="Source\Networking\Model\NetworkDataTypes.h" />
     <ClInclude Include="Source\Networking\SocketManager.h" />
     <ClInclude Include="Source\NodeClient\ClientNode.h" />
     <ClInclude Include="Source\Plugin\Handler\HandlerManager.h" />
@@ -488,8 +488,6 @@
     <ClCompile Include="Source\JSON\json_reader.cpp" />
     <ClCompile Include="Source\JSON\json_value.cpp" />
     <ClCompile Include="Source\JSON\json_writer.cpp" />
-    <ClCompile Include="Source\Networking\Model\NetworkPacket.cpp" />
-    <ClCompile Include="Source\Networking\Model\PingPacket.cpp" />
     <ClCompile Include="Source\Networking\SocketManager.cpp" />
     <ClCompile Include="Source\NodeClient\ClientNode.cpp" />
     <ClCompile Include="Source\Plugin\Handler\HandlerManager.cpp" />

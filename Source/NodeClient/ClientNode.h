@@ -5,7 +5,7 @@ namespace Nodes
 		static hAddress serverNode;
 		
 		static uint32_t sequenceID;
-		static std::unordered_map<uint32_t, Network::NetworkPacket*> pendingData;
+		static std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>> pendingData;
 		static HANDLE sNodeDiscoveryThread;
 		static HANDLE sPacketReceiverThread;
 		static std::mutex mutex;
@@ -17,9 +17,9 @@ namespace Nodes
 		static bool isSNodeConnected;
 
 		static bool InitializeNode();
-		static Network::NetworkPacket* CreateNetworkPacket(EventType eventType, uint32_t DataLength, void* DataBuffer);
+		static void SetNetworkData(Network::NetworkPacket *inPacket, EventType eventType); 
 		static uint32_t GetSequence();
 		static int32_t GetFriendCount(int32_t iFriendFlags);
-		static uint64_t ClientNode::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags);
+		static uint64_t GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags);
 	};
 }
