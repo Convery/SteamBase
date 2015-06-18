@@ -118,11 +118,11 @@
 
 //Node system
 #pragma region NodeIncludes
-#include "Networking\Model\NetworkPacket.h"
+#include "Networking\Model\ISerializable.h"
+#include "Networking\Model\NetworkDataTypes.h"
 #include "Networking\DataTypes.h"
 #include "NodeClient\ClientNode.h"
 #include "Networking\SocketManager.h"
-#include "Networking\Model\PingPacket.h"
 
 #pragma endregion
 // Steam headers.
