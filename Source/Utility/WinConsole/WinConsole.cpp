@@ -172,7 +172,7 @@ void WinConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool In
 	memset(Dta, ' ', 6);
 
 	// Create the timestamp.
-	strcpy_s(Time, 7, hString::va("%u", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Global::StartupPoint).count()));
+    snprintf(Time, 7, "%u", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Global::StartupPoint).count());
 
 	// Truncate the args.
 	if (Source)  memcpy(Src, Source, 4);

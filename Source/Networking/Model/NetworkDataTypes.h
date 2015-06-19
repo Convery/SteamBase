@@ -14,15 +14,15 @@ typedef enum
 
 namespace Network
 {
-	class NetworkPacket : public Network::ISerializable
+    class NetworkPacket : public Network::ISerializable
     {
     public:
-        
+
         uint32_t ApplicationID;
         uint32_t SequenceID;
         EventType eventType;
         uint32_t	TimeStamp;
-        
+
         void Serialize(ByteBuffer *OutBuffer)
         {
             //EventType first so we can peak at packets
@@ -33,27 +33,27 @@ namespace Network
         }
         void Deserialize(ByteBuffer *InBuffer)
         {
-			InBuffer->ReadInt16((int16_t*)&eventType);
+            InBuffer->ReadInt16((int16_t*)&eventType);
             InBuffer->ReadUInt32(&ApplicationID);
             InBuffer->ReadUInt32(&SequenceID);
             InBuffer->ReadUInt32(&TimeStamp);
         }
     };
-    
+
     class PingPacket : public NetworkPacket
     {
     public:
-        
+
         uint64_t ClientID;
         uint32_t SessionID;
         bool isAuthenticated = false;
         bool isAnonymous = false;
         std::string username;
-        
+
         void Serialize(ByteBuffer *OutBuffer)
         {
             NetworkPacket::Serialize(OutBuffer);
-            
+
             OutBuffer->WriteUInt64(ClientID);
             OutBuffer->WriteUInt32(SessionID);
             OutBuffer->WriteBoolean(isAuthenticated);
@@ -63,7 +63,7 @@ namespace Network
         void Deserialize(ByteBuffer *InBuffer)
         {
             NetworkPacket::Deserialize(InBuffer);
-            
+
             InBuffer->ReadUInt64(&ClientID);
             InBuffer->ReadUInt32(&SessionID);
             InBuffer->ReadBoolean(&isAuthenticated);
@@ -72,43 +72,43 @@ namespace Network
         }
     };
 
-    
+
     class FriendCountPacket : public NetworkPacket
     {
     public:
-        
+
         uint32_t friendsCount;
-        
+
         void Serialize(ByteBuffer *OutBuffer)
         {
             NetworkPacket::Serialize(OutBuffer);
-            
+
             OutBuffer->WriteUInt32(friendsCount);
         }
         void Deserialize(ByteBuffer *InBuffer)
         {
             NetworkPacket::Deserialize(InBuffer);
-            
+
             InBuffer->ReadUInt32(&friendsCount);
         }
     };
-    
+
     class FriendAtIndex : public NetworkPacket
     {
     public:
-        
+
         uint64_t friendSteamID;
-        
+
         void Serialize(ByteBuffer *OutBuffer)
         {
             NetworkPacket::Serialize(OutBuffer);
-            
+
             OutBuffer->WriteUInt64(friendSteamID);
         }
         void Deserialize(ByteBuffer *InBuffer)
         {
             NetworkPacket::Deserialize(InBuffer);
-            
+
             InBuffer->ReadUInt64(&friendSteamID);
         }
     };
