@@ -25,33 +25,31 @@ namespace Nodes
 		uint16_t port = 20000;
 		Network::SocketManager::Create_UDP(&port, false);
 
-		char *recvBuffer = (char *)malloc(sizeof(char) * 1024);
-		while (true){
+		char recvBuffer[1024] = { 0 };
+		while (true)
+		{
 			DBGPrint("Searching for sNode");
 
-			Network::PingPacket *pingPacket = new Network::PingPacket();
-			pingPacket->ClientID = Global::Steam_UserID;
-			pingPacket->isAnonymous = true;
-			pingPacket->isAuthenticated = false;
-			pingPacket->SessionID = rand();
-			pingPacket->username = Global::Steam_Username;
-			SetNetworkData(pingPacket, HNPingRequest);
+			Network::PingPacket pingPacket;
+			pingPacket.ClientID = Global::Steam_UserID;
+			pingPacket.isAnonymous = true;
+			pingPacket.isAuthenticated = false;
+			pingPacket.SessionID = rand();
+			pingPacket.username = Global::Steam_Username;
+			SetNetworkData(&pingPacket, HNPingRequest);
 
 			ByteBuffer pingBuffer = ByteBuffer::ByteBuffer();
-			pingPacket->Serialize(&pingBuffer);
+			pingPacket.Serialize(&pingBuffer);
 
 			Network::SocketManager::Send_UDPBroadcast(31337, pingBuffer.GetLength(), pingBuffer.GetBuffer<void>());
 
-			delete pingPacket;
-
 			int len = Network::SocketManager::Receive_UDP(port, 1024, recvBuffer, &serverNode);
-			if (len > 0){
+			if (len > 0)
+			{
 				serverNode.Port = 31337;
 				DBGPrint("Found sNode, stopping...");
 				isSNodeConnected = true;
 				sPacketReceiverThread = CreateThread(NULL, NULL, NodePacketReceiver, NULL, NULL, NULL);
-
-				free(recvBuffer);
 				break;
 			}
 			Sleep(2000);
@@ -71,21 +69,24 @@ namespace Nodes
 	{
 		uint16_t port = 20000;
 
-		char *recvBuffer = (char *)malloc(sizeof(char) * 1024);
+		char recvBuffer[1024] = { 0 };
 		hAddress sender = hAddress::hAddress();
-		while (true){
 
+		while (true)
+		{
 			int32_t len = Network::SocketManager::Receive_UDP(port, 1024, recvBuffer, &sender);
-			if (len > 0){
+			if (len > 0)
+			{
 
 				ByteBuffer *packetBuffer = new ByteBuffer(len, (void*)recvBuffer);
-				Network::NetworkPacket *packet = new Network::NetworkPacket();
-				packet->Deserialize(packetBuffer);
+				Network::NetworkPacket packet;
+				packet.Deserialize(packetBuffer);
+
 				mutex.lock();
-				pendingData[packet->SequenceID] = std::shared_ptr<ByteBuffer>(packetBuffer);
-				delete packet;
+				pendingData[packet.SequenceID] = std::shared_ptr<ByteBuffer>(packetBuffer);
 				mutex.unlock();
 			}
+
 			Sleep(100);
 		}
 
@@ -98,7 +99,8 @@ namespace Nodes
 		return true;
 	}
 
-	uint32_t ClientNode::GetSequence(){
+	uint32_t ClientNode::GetSequence()
+	{
 		mutex.lock();
 		++sequenceID;
 		mutex.unlock();
@@ -107,38 +109,49 @@ namespace Nodes
 
 	int32_t ClientNode::GetFriendCount(int32_t iFriendFlags)
 	{
-		if (!isSNodeConnected){
+		if (!isSNodeConnected)
+		{
 			return 0;
 		}
-		Network::NetworkPacket *packet = new Network::NetworkPacket();
 
-		SetNetworkData(packet, HNFriendCountRequest);
+		Network::NetworkPacket packet;
+		SetNetworkData(&packet, HNFriendCountRequest);
 
 		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
-		packet->Serialize(&packetBuffer);
+		packet.Serialize(&packetBuffer);
+
 		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
 
 		int32_t friendsCount = 0;
 		time_t t1 = time(0);
-		while (true){
-			if (difftime(time(0), t1) > waitTimeout){
+
+		while (true)
+		{
+			if (difftime(time(0), t1) > waitTimeout)
+			{
 				break;
 			}
+
 			mutex.lock();
-			std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>>::const_iterator find = pendingData.find(packet->SequenceID);
+			std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>>::const_iterator find = pendingData.find(packet.SequenceID);
 			mutex.unlock();
 
-			if (find == pendingData.end()){
+			if (find == pendingData.end())
+			{
 				continue;
-			}else{
+			}
+			else
+			{
 				std::shared_ptr<ByteBuffer> packetData = find->second;
-				
-				if (packetData == NULL){
+
+				if (packetData == NULL)
+				{
 					return 0;
 				}
 
 				ByteBuffer *bf = packetData.get();
-				if (packetData->GetPosition() > 0){
+				if (packetData->GetPosition() > 0)
+				{
 					packetData->Rewind();
 				}
 
@@ -148,27 +161,26 @@ namespace Nodes
 				friendsCount = friendCount.friendsCount;
 
 				pendingData.erase(find);
-				delete packet;
 
 				return friendsCount;
 			}
 		}
 
-		delete packet;
-
 		return friendsCount;
 	}
 
-	uint64_t ClientNode::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags){
-		if (!isSNodeConnected){
+	uint64_t ClientNode::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+	{
+		if (!isSNodeConnected)
+		{
 			return 0x1100001DEADC0DE;
 		}
-		Network::NetworkPacket *packet = new Network::NetworkPacket();
+		Network::NetworkPacket packet;
 
-		SetNetworkData(packet, HNFriendAtIndexRequest);
+		SetNetworkData(&packet, HNFriendAtIndexRequest);
 
 		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
-		packet->Serialize(&packetBuffer);
+		packet.Serialize(&packetBuffer);
 
 		packetBuffer.WriteInt32(iFriend);
 
@@ -176,19 +188,24 @@ namespace Nodes
 
 		uint64_t steamID = 0;
 		time_t t1 = time(0);
-		while (true){
-			if (difftime(time(0), t1) > waitTimeout){
+
+		while (true)
+		{
+			if (difftime(time(0), t1) > waitTimeout)
+			{
 				break;
 			}
 
 			mutex.lock();
-			std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>>::const_iterator find = pendingData.find(packet->SequenceID);
+			std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>>::const_iterator find = pendingData.find(packet.SequenceID);
 			mutex.unlock();
 
-			if (find == pendingData.end()){
+			if (find == pendingData.end())
+			{
 				continue;
 			}
-			else{
+			else
+			{
 				std::shared_ptr<ByteBuffer> packetData = find->second;
 
 				if (packetData == NULL){
@@ -196,7 +213,8 @@ namespace Nodes
 				}
 
 				ByteBuffer *bf = packetData.get();
-				if (packetData->GetPosition() > 0){
+				if (packetData->GetPosition() > 0)
+				{
 					packetData->Rewind();
 				}
 
@@ -206,12 +224,9 @@ namespace Nodes
 
 				pendingData.erase(find);
 
-				delete packet;
 				return steamID;
 			}
 		}
-
-		delete packet;
 
 		return steamID;
 	}
