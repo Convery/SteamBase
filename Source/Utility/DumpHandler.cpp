@@ -21,6 +21,9 @@ void DumpHandler::Initialize()
 
 	DumpHandler::SetUnhandledExceptionFilter_Hook.Initialize((uintptr_t)SetUnhandledExceptionFilter, DumpHandler::SetUnhandledExceptionFilter_Stub);
 	DumpHandler::SetUnhandledExceptionFilter_Hook.InstallHook();
+
+	// Replace timeGetTime, as the dump handler seems to crash there, even though it's not an exception.
+	if (!Hook::IAT::WriteIATAddress("winmm.dll", "timeGetTime", (uint64_t)GetModuleHandle(NULL), DumpHandler::SafeTimeGetTime)) MessageBox(0, 0, 0, 0);
 }
 
 LPTOP_LEVEL_EXCEPTION_FILTER WINAPI DumpHandler::SetUnhandledExceptionFilter_Stub(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter)
@@ -37,7 +40,6 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 {
 	// Ignore breakpoints.
 	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT) return EXCEPTION_CONTINUE_EXECUTION;
-	if (ExceptionInfo->ExceptionRecord->ExceptionAddress == timeGetTime) return EXCEPTION_CONTINUE_EXECUTION; // Weird crash on timeGetTime. This seems to fix it.
 
 	// step 1: write minidump
 	char error[1024];
@@ -76,9 +78,27 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 	}
 	else
 	{
-		MessageBox(0, hString::va("Fatal error (0x%08x) at 0x%08x.\n%s", ExceptionInfo->ExceptionRecord->ExceptionCode, ExceptionInfo->ExceptionRecord->ExceptionAddress, error), "ERROR", MB_ICONERROR);
+		if (MessageBox(0, hString::va("Fatal error (0x%08x) at 0x%08x.\n%s\nClick OK to continue the execution.", ExceptionInfo->ExceptionRecord->ExceptionCode, ExceptionInfo->ExceptionRecord->ExceptionAddress, error), "ERROR", MB_ICONERROR | MB_OKCANCEL) == IDOK)
+		{
+			return EXCEPTION_CONTINUE_EXECUTION;
+		}
 	}
 
 	TerminateProcess(GetCurrentProcess(), ExceptionInfo->ExceptionRecord->ExceptionCode);
 	return 0;
+}
+
+DWORD WINAPI DumpHandler::SafeTimeGetTime()
+{
+	DWORD time = 0;
+
+	try
+	{
+		time = timeGetTime();
+	}
+	catch (DWORD e)
+	{
+		OutputDebugStringA("TimeGetTime exception caught. Ignoring!");
+	}
+	return time;
 }

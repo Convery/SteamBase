@@ -28,4 +28,11 @@ public:
 		void ReleaseHook();
 		static void PermanentHook(uintptr_t Place, void *HookToInstall);
 	};
+
+	class IAT
+	{
+	public:
+		static size_t GetIATAddress(const char* ModuleName, const char* FunctionName, uint64_t ImgBase);
+		static size_t WriteIATAddress(const char* ModuleName, const char* FunctionName, uint64_t ImgBase, void *NewProc);
+	};
 };
