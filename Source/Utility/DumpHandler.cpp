@@ -78,7 +78,7 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 	}
 	else
 	{
-		if (MessageBox(0, hString::va("Fatal error (0x%08x) at 0x%08x.\n%s\nClick OK to continue the execution.", ExceptionInfo->ExceptionRecord->ExceptionCode, ExceptionInfo->ExceptionRecord->ExceptionAddress, error), "ERROR", MB_ICONERROR | MB_OKCANCEL) == IDOK)
+		if (MessageBox(0, hString::va("Fatal error (0x%08x) at 0x%08x.\n%s\nClick CANCEL to continue the execution.", ExceptionInfo->ExceptionRecord->ExceptionCode, ExceptionInfo->ExceptionRecord->ExceptionAddress, error), "ERROR", MB_ICONERROR | MB_OKCANCEL) == IDCANCEL)
 		{
 			return EXCEPTION_CONTINUE_EXECUTION;
 		}
@@ -101,6 +101,8 @@ DWORD WINAPI DumpHandler::SafeTimeGetTime()
 	{
 		OutputDebugStringA("TimeGetTime exception caught. Ignoring!");
 	}
+
+	return time;
 	*/
 
 	// This might cause unpredictable behavior,
