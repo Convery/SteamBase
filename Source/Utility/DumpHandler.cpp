@@ -23,7 +23,7 @@ void DumpHandler::Initialize()
 	DumpHandler::SetUnhandledExceptionFilter_Hook.InstallHook();
 
 	// Replace timeGetTime, as the dump handler seems to crash there, even though it's not an exception.
-	if (!Hook::IAT::WriteIATAddress("winmm.dll", "timeGetTime", (uint64_t)GetModuleHandle(NULL), DumpHandler::SafeTimeGetTime)) MessageBox(0, 0, 0, 0);
+	Hook::IAT::WriteIATAddress("winmm.dll", "timeGetTime", (uint64_t)GetModuleHandle(NULL), DumpHandler::SafeTimeGetTime);
 }
 
 LPTOP_LEVEL_EXCEPTION_FILTER WINAPI DumpHandler::SetUnhandledExceptionFilter_Stub(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter)
@@ -90,6 +90,7 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 
 DWORD WINAPI DumpHandler::SafeTimeGetTime()
 {
+	/*
 	DWORD time = 0;
 
 	try
@@ -100,5 +101,10 @@ DWORD WINAPI DumpHandler::SafeTimeGetTime()
 	{
 		OutputDebugStringA("TimeGetTime exception caught. Ignoring!");
 	}
-	return time;
+	*/
+
+	// This might cause unpredictable behavior,
+	// as the precision of GetTickCount is irregular,
+	// compared to timeGetTime.
+	return GetTickCount();
 }
