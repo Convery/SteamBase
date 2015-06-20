@@ -11,6 +11,8 @@ Thanks to NTAuthority for his minidump base
 
 #include "..\StdInclude.h"
 
+#pragma comment(lib, "Winmm.lib")
+
 Hook::Stomp DumpHandler::SetUnhandledExceptionFilter_Hook;
 
 void DumpHandler::Initialize()
@@ -35,6 +37,7 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 {
 	// Ignore breakpoints.
 	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT) return EXCEPTION_CONTINUE_EXECUTION;
+	if (ExceptionInfo->ExceptionRecord->ExceptionAddress == timeGetTime) return EXCEPTION_CONTINUE_EXECUTION; // Weird crash on timeGetTime. This seems to fix it.
 
 	// step 1: write minidump
 	char error[1024];
