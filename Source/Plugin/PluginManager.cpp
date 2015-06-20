@@ -397,9 +397,9 @@ extern "C"
 		//return WinConsole::RedirectOutput(callback);
 	}
 
-	__declspec(dllexport) void __cdecl Handler_RelayMessage(void* inBuffer, void* outBuffer, int flags)
+	__declspec(dllexport) void __cdecl Handler_RelayMessage(void* inBuffer, uint32_t inLen, void* outBuffer, uint32_t *outLen, int flags)
 	{
-		DBGPrint("got inbuffer %d", inBuffer);
-		ByteBuffer *inBufferCast = (ByteBuffer *)inBuffer;
+		ByteBuffer *inByteBuffer = new ByteBuffer(inLen, inBuffer);
+		HandlerManager::SendEvent(inByteBuffer, outBuffer, outLen, flags);
 	}
 }

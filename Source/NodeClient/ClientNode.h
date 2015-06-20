@@ -21,5 +21,7 @@ namespace Nodes
 		static uint32_t GetSequence();
 		static int32_t GetFriendCount(int32_t iFriendFlags);
 		static uint64_t GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags);
+		static uint64_t CreateSession(ByteBuffer *buffer, int32_t iFriendFlags);
+		static void UpdateSession(ByteBuffer *Buffer, int32_t iFriendFlags);
 	};
 }

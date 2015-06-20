@@ -8,5 +8,5 @@ class HandlerManager
 {
 
 public:
-	static void SendEvent(ByteBuffer *inBuffer, ByteBuffer *outBuffer);
+	static void SendEvent(ByteBuffer *inBuffer, void* outBuffer, uint32_t* outLen, int flags);
 };

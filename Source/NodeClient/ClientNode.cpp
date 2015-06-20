@@ -230,4 +230,94 @@ namespace Nodes
 
 		return steamID;
 	}
+
+	uint64_t ClientNode::CreateSession(ByteBuffer *Buffer, int32_t iFriendFlags)
+	{
+		if (!isSNodeConnected)
+		{
+			return 0x1100001DEADC0DE;
+		}
+		Network::NetworkPacket packet;
+
+		std::string HostAddress;
+		Buffer->ReadBlob(&HostAddress);
+		uint32_t Gametype = Buffer->ReadUInt32();
+		uint32_t MaxPlayers = Buffer->ReadUInt32();
+
+		SetNetworkData(&packet, HNCreateSessionRequest);
+
+		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
+		packet.Serialize(&packetBuffer);
+		
+		packetBuffer.WriteString(HostAddress);
+		packetBuffer.WriteUInt32(Gametype);
+		packetBuffer.WriteUInt32(MaxPlayers);
+
+		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
+
+		uint64_t sessionID = 0;
+		time_t t1 = time(0);
+
+		while (true)
+		{
+			if (difftime(time(0), t1) > waitTimeout)
+			{
+				break;
+			}
+
+			mutex.lock();
+			std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>>::const_iterator find = pendingData.find(packet.SequenceID);
+			mutex.unlock();
+
+			if (find == pendingData.end())
+			{
+				continue;
+			}
+			else
+			{
+				DBGPrint("received create session response");
+				std::shared_ptr<ByteBuffer> packetData = find->second;
+
+				if (packetData == NULL){
+					return 0;
+				}
+
+				ByteBuffer *bf = packetData.get();
+				if (packetData->GetPosition() > 0)
+				{
+					packetData->Rewind();
+				}
+
+				Network::NetworkPacket friendIndex = Network::NetworkPacket();
+				friendIndex.Deserialize(bf);
+
+				sessionID = bf->ReadUInt64();
+
+				pendingData.erase(find);
+
+				return sessionID;
+			}
+		}
+
+		return sessionID;
+	}
+
+	void ClientNode::UpdateSession(ByteBuffer *Buffer, int32_t iFriendFlags)
+	{
+		if (!isSNodeConnected)
+		{
+			return;
+		}
+		Network::NetworkPacket packet;
+		SetNetworkData(&packet, HNCreateSessionRequest);
+
+		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
+		packet.Serialize(&packetBuffer);
+
+		packetBuffer.WriteUInt64(Buffer->ReadUInt64());
+		packetBuffer.WriteBlob(&Buffer->ReadBlob());
+
+		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
+	}
+
 }
