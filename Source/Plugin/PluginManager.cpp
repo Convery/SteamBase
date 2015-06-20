@@ -397,13 +397,9 @@ extern "C"
 		//return WinConsole::RedirectOutput(callback);
 	}
 
-	__declspec(dllexport) bool __cdecl Handler_RegisterHandler(Handler_Event EventType, void * HandlerBase)
+	__declspec(dllexport) void __cdecl Handler_RelayMessage(void* inBuffer, void* outBuffer, int flags)
 	{
-		return HandlerManager::RegisterHandler(EventType, static_cast<PluginBase *>(HandlerBase));
-	}
-
-	__declspec(dllexport) bool __cdecl Handler_SendEvent(Handler_Event EventType, const char *Message, void * Callback)
-	{
-		return HandlerManager::SendEvent(EventType, Message, Callback);
+		DBGPrint("got inbuffer %d", inBuffer);
+		ByteBuffer *inBufferCast = (ByteBuffer *)inBuffer;
 	}
 }

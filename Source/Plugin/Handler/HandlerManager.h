@@ -6,9 +6,7 @@ typedef enum Handler_Event
 
 class HandlerManager
 {
-	static std::unordered_map<Handler_Event, PluginBase *> Instances;
 
 public:
-	static bool RegisterHandler(Handler_Event EventType, PluginBase* HandlerBase);
-	static bool SendEvent(Handler_Event EventType, const char *Message, void * Callback);
+	static void SendEvent(ByteBuffer *inBuffer, ByteBuffer *outBuffer);
 };
