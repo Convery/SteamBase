@@ -246,7 +246,7 @@ namespace Nodes
 
 		SetNetworkData(&packet, HNCreateSessionRequest);
 
-		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
+		ByteBuffer packetBuffer;
 		packet.Serialize(&packetBuffer);
 		
 		packetBuffer.WriteString(HostAddress);
@@ -266,7 +266,7 @@ namespace Nodes
 			}
 
 			mutex.lock();
-			std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>>::const_iterator find = pendingData.find(packet.SequenceID);
+			auto find = pendingData.find(packet.SequenceID);
 			mutex.unlock();
 
 			if (find == pendingData.end())
@@ -315,7 +315,9 @@ namespace Nodes
 		packet.Serialize(&packetBuffer);
 
 		packetBuffer.WriteUInt64(Buffer->ReadUInt64());
-		packetBuffer.WriteBlob(&Buffer->ReadBlob());
+
+		auto blob = Buffer->ReadBlob();
+		packetBuffer.WriteBlob(&blob);
 
 		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
 	}
@@ -329,7 +331,7 @@ namespace Nodes
 		Network::NetworkPacket packet;
 		SetNetworkData(&packet, HNDeleteSessionRequest);
 
-		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
+		ByteBuffer packetBuffer;
 		packet.Serialize(&packetBuffer);
 
 		packetBuffer.WriteUInt64(Buffer->ReadUInt64());
@@ -374,9 +376,7 @@ namespace Nodes
 				DBGPrint("received find session response");
 				std::shared_ptr<ByteBuffer> packetData = find->second;
 
-				if (packetData == NULL){
-					return;
-				}
+				if (packetData == NULL) return;
 
 				ByteBuffer *bf = packetData.get();
 				if (packetData->GetPosition() > 0)
@@ -384,18 +384,22 @@ namespace Nodes
 					packetData->Rewind();
 				}
 
-				Network::NetworkPacket packet = Network::NetworkPacket();
+				Network::NetworkPacket packet;
 				packet.Deserialize(bf);
 
-				ByteBuffer outByteBuffer = ByteBuffer();
+				ByteBuffer outByteBuffer;
 				uint32_t lobbies = bf->ReadUInt32();
-				for (int i = 0; i < lobbies; i++){
-					outByteBuffer.WriteBlob(&bf->ReadBlob());
-				}
-				void* readBuffer = outByteBuffer.GetBuffer<void>();
-				memcpy(outBuffer, readBuffer, outByteBuffer.GetLength());
-				*outLen = outByteBuffer.GetLength();
+				outByteBuffer.WriteUInt32(lobbies);
 
+				for (uint32_t i = 0; i < lobbies; i++)
+				{
+					auto blob = bf->ReadBlob();
+					outByteBuffer.WriteBlob(&blob);
+				}
+
+				void* readBuffer = outByteBuffer.GetBuffer<void>();
+				memcpy(outBuffer, readBuffer, min(outByteBuffer.GetLength(), 1024));
+				*outLen = outByteBuffer.GetLength();
 				return;
 			}
 		}

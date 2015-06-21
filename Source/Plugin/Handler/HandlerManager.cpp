@@ -10,7 +10,7 @@ void HandlerManager::SendEvent(ByteBuffer *inBuffer, void* outBuffer, uint32_t* 
 		//createLobby
 		case 1:{
 			uint64_t sessionId = Nodes::ClientNode::CreateSession(inBuffer, 0);
-			ByteBuffer out = ByteBuffer();
+			ByteBuffer out;
 			out.WriteUInt64(sessionId);
 			out.Rewind();
 			void* readBuffer = out.GetBuffer<void>();
