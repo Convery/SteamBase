@@ -386,7 +386,7 @@ void WinConsole::AppendText(const HWND &hwnd, TCHAR *newText)
 }
 
 #pragma region UGLY_SHIT
-extern "C" __declspec(dllexport) void Com_Printf(const char* message, ...)
+extern "C" __declspec(dllexport) void Com_Printf(int channel, const char* message, ...)
 {
 	char buffer[65536] = { 0 };
 
@@ -396,6 +396,16 @@ extern "C" __declspec(dllexport) void Com_Printf(const char* message, ...)
 	buffer[sizeof(buffer) - 1] = '\0';
 	va_end(ap);
 
-	WinConsole::Print(buffer);
+	switch (channel)
+	{
+	case 1:
+		WinConsole::Print(buffer);
+		break;
+
+	default:
+		DBGPrint("%s", buffer);
+		break;
+	}
+	
 }
 #pragma endregion

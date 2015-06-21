@@ -15,8 +15,6 @@ bool hConsole::LogToFile;
 std::queue<std::string> hConsole::MessageQueue;
 std::string hConsole::Filename;
 
-void(*hConsole::PrintCallback)(const char*) = 0;
-
 DWORD _stdcall hConsole::PrintThread(void *)
 {
 	while (true)
@@ -37,15 +35,8 @@ DWORD _stdcall hConsole::PrintThread(void *)
 
 void hConsole::Print(const char* message)
 {
-	if (hConsole::PrintCallback)
-	{
-		hConsole::PrintCallback(message);
-	}
-	else
-	{
-		OutputDebugStringA(message);
-		printf(message);
-	}
+	OutputDebugStringA(message);
+	printf(message);
 }
 
 bool hConsole::InitializeConsole(const char *Logfilename)
@@ -279,12 +270,4 @@ void hConsole::EnqueueFragmented(uint32_t FragmentCount, char *Source, char **Me
 	}	
 
 	ThreadSafe.unlock();
-}
-
-void hConsole::RedirectOutput(void(*callback)(const char*))
-{
-	hConsole::PrintCallback = callback;
-	ShowWindow(GetConsoleWindow(), SW_HIDE);
-	DestroyWindow(GetConsoleWindow());
-	FreeConsole();
 }

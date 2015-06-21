@@ -392,11 +392,6 @@ extern "C"
 		return TRUE;
 	}
 
-	__declspec(dllexport) void __cdecl Console_RedirectOutput(void(*callback)(const char*))
-	{
-		//return WinConsole::RedirectOutput(callback);
-	}
-
 	__declspec(dllexport) void __cdecl Handler_RelayMessage(void* inBuffer, uint32_t inLen, void* outBuffer, uint32_t *outLen, int flags)
 	{
 		ByteBuffer *inByteBuffer = new ByteBuffer(inLen, inBuffer);
