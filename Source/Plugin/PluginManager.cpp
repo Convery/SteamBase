@@ -394,7 +394,7 @@ extern "C"
 
 	__declspec(dllexport) void __cdecl Handler_RelayMessage(void* inBuffer, uint32_t inLen, void* outBuffer, uint32_t *outLen, int flags)
 	{
-		ByteBuffer *inByteBuffer = new ByteBuffer(inLen, inBuffer);
-		HandlerManager::SendEvent(inByteBuffer, outBuffer, outLen, flags);
+		ByteBuffer inByteBuffer(inLen, inBuffer); // In case HandlerManager::SendEvent doesn't work asynchronously, we can safly allocate that on the stack.
+		HandlerManager::SendEvent(&inByteBuffer, outBuffer, outLen, flags);
 	}
 }
