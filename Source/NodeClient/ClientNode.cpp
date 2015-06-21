@@ -309,7 +309,7 @@ namespace Nodes
 			return;
 		}
 		Network::NetworkPacket packet;
-		SetNetworkData(&packet, HNCreateSessionRequest);
+		SetNetworkData(&packet, HNUpdateSessionRequest);
 
 		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
 		packet.Serialize(&packetBuffer);
@@ -318,6 +318,87 @@ namespace Nodes
 		packetBuffer.WriteBlob(&Buffer->ReadBlob());
 
 		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
+	}
+
+	void ClientNode::DeleteSession(ByteBuffer *Buffer, int32_t iFriendFlags)
+	{
+		if (!isSNodeConnected)
+		{
+			return;
+		}
+		Network::NetworkPacket packet;
+		SetNetworkData(&packet, HNDeleteSessionRequest);
+
+		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
+		packet.Serialize(&packetBuffer);
+
+		packetBuffer.WriteUInt64(Buffer->ReadUInt64());
+
+		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
+	}
+
+	void ClientNode::FindSessions(ByteBuffer *Buffer, int32_t iFriendFlags, void* outBuffer, uint32_t* outLen)
+	{
+		if (!isSNodeConnected)
+		{
+			return;
+		}
+		Network::NetworkPacket packet;
+		SetNetworkData(&packet, HNFindSessionsRequest);
+
+		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
+		packet.Serialize(&packetBuffer);
+
+		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
+
+		uint64_t sessionID = 0;
+		time_t t1 = time(0);
+
+		while (true)
+		{
+			if (difftime(time(0), t1) > waitTimeout)
+			{
+				break;
+			}
+
+			mutex.lock();
+			std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>>::const_iterator find = pendingData.find(packet.SequenceID);
+			mutex.unlock();
+
+			if (find == pendingData.end())
+			{
+				continue;
+			}
+			else
+			{
+				DBGPrint("received find session response");
+				std::shared_ptr<ByteBuffer> packetData = find->second;
+
+				if (packetData == NULL){
+					return;
+				}
+
+				ByteBuffer *bf = packetData.get();
+				if (packetData->GetPosition() > 0)
+				{
+					packetData->Rewind();
+				}
+
+				Network::NetworkPacket packet = Network::NetworkPacket();
+				packet.Deserialize(bf);
+
+				ByteBuffer outByteBuffer = ByteBuffer();
+				uint32_t lobbies = bf->ReadUInt32();
+				for (int i = 0; i < lobbies; i++){
+					outByteBuffer.WriteBlob(&bf->ReadBlob());
+				}
+				void* readBuffer = outByteBuffer.GetBuffer<void>();
+				memcpy(outBuffer, readBuffer, outByteBuffer.GetLength());
+				*outLen = outByteBuffer.GetLength();
+
+				return;
+			}
+		}
 	}
 
 }

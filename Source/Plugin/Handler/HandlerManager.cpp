@@ -20,5 +20,11 @@ void HandlerManager::SendEvent(ByteBuffer *inBuffer, void* outBuffer, uint32_t* 
 		case 2:{
 			Nodes::ClientNode::UpdateSession(inBuffer, 0);
 		}
+		case 3:{
+			Nodes::ClientNode::FindSessions(inBuffer, 0, outBuffer, outLen);
+		}
+		case 4:{
+			Nodes::ClientNode::DeleteSession(inBuffer, 0);
+		}
 	}
 }
