@@ -27,6 +27,13 @@ static void UnprotectModule(HMODULE Module)
 	VirtualProtect((void *)Module, Size, PAGE_EXECUTE_READWRITE, &OriginalProtection);
 }
 
+static PBYTE GetEntryPoint(HMODULE Module)
+{
+	PIMAGE_DOS_HEADER DOSHeader = (PIMAGE_DOS_HEADER)Module;
+	PIMAGE_NT_HEADERS NTHeader = (PIMAGE_NT_HEADERS)((DWORD_PTR)Module + DOSHeader->e_lfanew);
+	return (PBYTE)((DWORD_PTR)Module + NTHeader->OptionalHeader.AddressOfEntryPoint);
+}
+
 // Find the EP, set access and replace it.
 void SafeInit()
 {
@@ -34,13 +41,10 @@ void SafeInit()
 
 	if (Module)
 	{
-		PIMAGE_DOS_HEADER DOSHeader = (PIMAGE_DOS_HEADER)Module;
-		PIMAGE_NT_HEADERS NTHeader = (PIMAGE_NT_HEADERS)((DWORD_PTR)Module + DOSHeader->e_lfanew);
-
 		UnprotectModule(Module);
 
 		// Backup.
-		PBYTE EP = (PBYTE)((DWORD_PTR)Module + NTHeader->OptionalHeader.AddressOfEntryPoint);
+		PBYTE EP = GetEntryPoint(Module);
 		OriginalEP = EP;
 		memcpy(OriginalCode, EP, 20);
 		memset(EP, 0x90, 20);
@@ -67,7 +71,6 @@ BOOL __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 	{
 		// Patch the entrypoint.
 		SafeInit();
-
 	}
 
 	return TRUE;
@@ -86,6 +89,9 @@ static void ReadSettings(const char *Filename)
 // The replacement for the games EP.
 void InitialCall()
 {
+	// Return to the hosts entrypoint.
+	memcpy(OriginalEP, OriginalCode, 20);
+
 	SteamProxy::RunClient();
 
 	// Initialize minidump handler
@@ -120,8 +126,7 @@ void InitialCall()
 	Network::SocketManager::InitializeManager();
 	Nodes::ClientNode::InitializeNode();
 
-	// Return to the hosts entrypoint.
-	memcpy(OriginalEP, OriginalCode, 20);
+	OriginalEP = GetEntryPoint(GetModuleHandle(NULL));
 
 #ifdef _WIN64
 	// x64 needs some stack alignment.
