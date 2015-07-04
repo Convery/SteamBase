@@ -16,15 +16,19 @@ void HandlerManager::SendEvent(ByteBuffer *inBuffer, void* outBuffer, uint32_t* 
 			void* readBuffer = out.GetBuffer<void>();
 			memcpy(outBuffer, readBuffer, out.GetLength());
 			*outLen = out.GetLength();
+			break;
 		}
 		case 2:{
 			Nodes::ClientNode::UpdateSession(inBuffer, 0);
+			break;
 		}
 		case 3:{
 			Nodes::ClientNode::FindSessions(inBuffer, 0, outBuffer, outLen);
+			break;
 		}
 		case 4:{
 			Nodes::ClientNode::DeleteSession(inBuffer, 0);
+			break;
 		}
 	}
 }
