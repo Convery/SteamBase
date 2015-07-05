@@ -40,6 +40,7 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 {
 	// Ignore breakpoints.
 	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT) return EXCEPTION_CONTINUE_EXECUTION;
+	if (ExceptionInfo->ExceptionRecord->ExceptionAddress == (void*)0x7729B9B0) return EXCEPTION_CONTINUE_EXECUTION; // Ugly, but seems to work
 
 	// step 1: write minidump
 	char error[1024];
