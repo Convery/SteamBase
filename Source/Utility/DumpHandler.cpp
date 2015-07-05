@@ -23,7 +23,7 @@ void DumpHandler::Initialize()
 	DumpHandler::SetUnhandledExceptionFilter_Hook.InstallHook();
 
 	// Replace timeGetTime, as the dump handler seems to crash there, even though it's not an exception.
-	Hook::IAT::WriteIATAddress("winmm.dll", "timeGetTime", (uint64_t)GetModuleHandle(NULL), DumpHandler::SafeTimeGetTime);
+	//Hook::IAT::WriteIATAddress("winmm.dll", "timeGetTime", (uint64_t)GetModuleHandle(NULL), DumpHandler::SafeTimeGetTime);
 }
 
 LPTOP_LEVEL_EXCEPTION_FILTER WINAPI DumpHandler::SetUnhandledExceptionFilter_Stub(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter)
