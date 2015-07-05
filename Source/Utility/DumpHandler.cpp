@@ -23,7 +23,7 @@ void DumpHandler::Initialize()
 	DumpHandler::SetUnhandledExceptionFilter_Hook.InstallHook();
 
 	// Replace timeGetTime, as the dump handler seems to crash there, even though it's not an exception.
-	//Hook::IAT::WriteIATAddress("winmm.dll", "timeGetTime", (uint64_t)GetModuleHandle(NULL), DumpHandler::SafeTimeGetTime);
+	Hook::IAT::WriteIATAddress("winmm.dll", "timeGetTime", (uint64_t)GetModuleHandle(NULL), DumpHandler::SafeTimeGetTime);
 }
 
 LPTOP_LEVEL_EXCEPTION_FILTER WINAPI DumpHandler::SetUnhandledExceptionFilter_Stub(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter)
@@ -42,6 +42,7 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT) return EXCEPTION_CONTINUE_EXECUTION;
 
 	// Try skipping exceptions
+	/* Disable that, it seems unsafe
 	if ((ExceptionInfo->ExceptionRecord->ExceptionFlags & EXCEPTION_NONCONTINUABLE) != EXCEPTION_NONCONTINUABLE)
 	{
 		OutputDebugStringA(hString::va("New exception at 0x%X, try ignoring it...", ExceptionInfo->ExceptionRecord->ExceptionAddress));
@@ -52,6 +53,7 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 	{
 		OutputDebugStringA("Ignoring failed. Handling it now...");
 	}
+	*/
 
 	// step 1: write minidump
 	char error[1024];
@@ -100,5 +102,6 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 
 DWORD WINAPI DumpHandler::SafeTimeGetTime()
 {
-	return GetTickCount();
+	return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Global::StartupPoint).count();
+	//return GetTickCount();
 }
