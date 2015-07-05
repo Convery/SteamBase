@@ -303,13 +303,11 @@ bool SteamProxy::DoUserChecks()
 		return false;
 	}
 
-	/* Don't prevent VAC banned players from playing. Only log their status for the anticheat.
 	if (SteamProxy::IsVACBanned())
 	{
 		MessageBox(0, hString::va("You are VAC banned from '%s'", SteamProxy::AppName), "Error", MB_ICONERROR);
 		return false;
 	}
-	*/
 
 	return true;
 }
@@ -331,6 +329,7 @@ bool SteamProxy::IsSubscribedApp(uint32_t appID)
 
 bool SteamProxy::IsVACBanned()
 {
+	return false; // Don't prevent VAC banned players from playing. Only log their status for the anticheat.
 	return SteamProxy::IsVACBanned(Global::Steam_AppID);
 }
 
