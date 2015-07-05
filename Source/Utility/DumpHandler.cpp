@@ -41,21 +41,15 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 	// Ignore breakpoints.
 	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT) return EXCEPTION_CONTINUE_EXECUTION;
 
-	static DWORD lastExceptionTime = 0;
-	static PVOID lastExceptionAddr = 0;
-
-	if (GetTickCount() - lastExceptionTime > 5 || lastExceptionAddr != ExceptionInfo->ExceptionRecord->ExceptionAddress)
+	// Try skipping exceptions
+	if ((ExceptionInfo->ExceptionRecord->ExceptionFlags & EXCEPTION_NONCONTINUABLE) != EXCEPTION_NONCONTINUABLE)
 	{
 		OutputDebugStringA(hString::va("New exception at 0x%X, try ignoring it...", ExceptionInfo->ExceptionRecord->ExceptionAddress));
-
-		lastExceptionAddr = ExceptionInfo->ExceptionRecord->ExceptionAddress;
-		lastExceptionTime = GetTickCount();
+		ExceptionInfo->ExceptionRecord->ExceptionFlags |= EXCEPTION_NONCONTINUABLE;
 		return EXCEPTION_CONTINUE_EXECUTION;
 	}
 	else
 	{
-		lastExceptionAddr = ExceptionInfo->ExceptionRecord->ExceptionAddress;
-		lastExceptionTime = GetTickCount();
 		OutputDebugStringA("Ignoring failed. Handling it now...");
 	}
 
