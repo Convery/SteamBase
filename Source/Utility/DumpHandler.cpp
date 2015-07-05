@@ -40,7 +40,24 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 {
 	// Ignore breakpoints.
 	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT) return EXCEPTION_CONTINUE_EXECUTION;
-	if (!(ExceptionInfo->ExceptionRecord->ExceptionFlags & EXCEPTION_NONCONTINUABLE)) return EXCEPTION_CONTINUE_EXECUTION;
+
+	static DWORD lastExceptionTime = 0;
+	static PVOID lastExceptionAddr = 0;
+
+	if (GetTickCount() - lastExceptionTime > 5 || lastExceptionAddr != ExceptionInfo->ExceptionRecord->ExceptionAddress)
+	{
+		OutputDebugStringA(hString::va("New exception at 0x%X, try ignoring it...", ExceptionInfo->ExceptionRecord->ExceptionAddress));
+
+		lastExceptionAddr = ExceptionInfo->ExceptionRecord->ExceptionAddress;
+		lastExceptionTime = GetTickCount();
+		return EXCEPTION_CONTINUE_EXECUTION;
+	}
+	else
+	{
+		lastExceptionAddr = ExceptionInfo->ExceptionRecord->ExceptionAddress;
+		lastExceptionTime = GetTickCount();
+		OutputDebugStringA("Ignoring failed. Handling it now...");
+	}
 
 	// step 1: write minidump
 	char error[1024];
@@ -79,35 +96,15 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 	}
 	else
 	{
-		if (MessageBox(0, hString::va("Fatal error (0x%08x) at 0x%08x.\n%s\nClick CANCEL to continue the execution.", ExceptionInfo->ExceptionRecord->ExceptionCode, ExceptionInfo->ExceptionRecord->ExceptionAddress, error), "ERROR", MB_ICONERROR | MB_OKCANCEL) == IDCANCEL)
-		{
-			return EXCEPTION_CONTINUE_EXECUTION;
-		}
+		MessageBox(0, hString::va("Fatal error (0x%08x) at 0x%08x.\n%s", ExceptionInfo->ExceptionRecord->ExceptionCode, ExceptionInfo->ExceptionRecord->ExceptionAddress, error), "ERROR", MB_ICONERROR);
 	}
 
 	TerminateProcess(GetCurrentProcess(), ExceptionInfo->ExceptionRecord->ExceptionCode);
 	return 0;
 }
 
+
 DWORD WINAPI DumpHandler::SafeTimeGetTime()
 {
-	/*
-	DWORD time = 0;
-
-	try
-	{
-		time = timeGetTime();
-	}
-	catch (DWORD e)
-	{
-		OutputDebugStringA("TimeGetTime exception caught. Ignoring!");
-	}
-
-	return time;
-	*/
-
-	// This might cause unpredictable behavior,
-	// as the precision of GetTickCount is irregular,
-	// compared to timeGetTime.
 	return GetTickCount();
 }
