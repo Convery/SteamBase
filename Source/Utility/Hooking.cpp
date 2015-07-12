@@ -152,17 +152,17 @@ size_t Hook::IAT::WriteIATAddress(const char* ModuleName, const char* FunctionNa
 
 						if (GetProcAddress(origHandle, (LPCSTR)ordinalNumber) == origProc)
 						{
-							oldValue = (uint32_t)(((PIMAGE_THUNK_DATA)((uint32_t)ImportDesc->FirstThunk + c*sizeof(IMAGE_THUNK_DATA) + (uint32_t)ImgBase))->u1.Function);
-							((PIMAGE_THUNK_DATA)((uint32_t)ImportDesc->FirstThunk + c*sizeof(IMAGE_THUNK_DATA) + (uint32_t)ImgBase))->u1.Function = (uint32_t)NewProc;
+							oldValue = (uint32_t)(((PIMAGE_THUNK_DATA)((size_t)ImportDesc->FirstThunk + c*sizeof(IMAGE_THUNK_DATA) + (size_t)ImgBase))->u1.Function);
+							((PIMAGE_THUNK_DATA)((size_t)ImportDesc->FirstThunk + c*sizeof(IMAGE_THUNK_DATA) + (size_t)ImgBase))->u1.Function = (size_t)NewProc;
 							return oldValue;
 						}
 					}
 					else
 					{
-						if (!_stricmp((char*)(((PIMAGE_IMPORT_BY_NAME)((uint32_t)ThunkData->u1.AddressOfData + (uint32_t)ImgBase))->Name), FunctionName))
+						if (!_stricmp((char*)(((PIMAGE_IMPORT_BY_NAME)((size_t)ThunkData->u1.AddressOfData + (size_t)ImgBase))->Name), FunctionName))
 						{
-							oldValue = (uint32_t)(((PIMAGE_THUNK_DATA)((uint32_t)ImportDesc->FirstThunk + c*sizeof(IMAGE_THUNK_DATA) + (uint32_t)ImgBase))->u1.Function);
-							((PIMAGE_THUNK_DATA)((uint32_t)ImportDesc->FirstThunk + c*sizeof(IMAGE_THUNK_DATA) + (uint32_t)ImgBase))->u1.Function = (uint32_t)NewProc;
+							oldValue = (size_t)(((PIMAGE_THUNK_DATA)((size_t)ImportDesc->FirstThunk + c*sizeof(IMAGE_THUNK_DATA) + (size_t)ImgBase))->u1.Function);
+							((PIMAGE_THUNK_DATA)((size_t)ImportDesc->FirstThunk + c*sizeof(IMAGE_THUNK_DATA) + (size_t)ImgBase))->u1.Function = (size_t)NewProc;
 							return oldValue;
 						}
 					}
