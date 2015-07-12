@@ -182,7 +182,7 @@ void *InterfaceManager::GetInterface(SteamInterface_t interfaceID)
 }
 void *InterfaceManager::CreateInterface(SteamInterface_t interfaceID)
 {
-	DBGPrint("InterfaceManager: Creating Steam interface '%s' (%d)", InterfaceManager::SteamInterfaces[interfaceID], interfaceID);
+	DBGPrint("InterfaceManager: Creating '%s' (%d)", InterfaceManager::SteamInterfaces[interfaceID], interfaceID);
 
 	switch (interfaceID)
 	{

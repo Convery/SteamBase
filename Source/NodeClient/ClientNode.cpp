@@ -25,11 +25,11 @@ namespace Nodes
 		uint16_t port = 20000;
 		Network::SocketManager::Create_UDP(&port, false);
 
+		DBGPrint("Searching for sNode");
+
 		char recvBuffer[1024] = { 0 };
 		while (true)
 		{
-			DBGPrint("Searching for sNode");
-
 			Network::PingPacket pingPacket;
 			pingPacket.ClientID = Global::Steam_UserID;
 			pingPacket.isAnonymous = true;
