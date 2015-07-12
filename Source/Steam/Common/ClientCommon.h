@@ -45,11 +45,11 @@ class ISteamUnifiedMessages;
 class ISteamController;
 class ISteamUGC;
 class ISteamAppList;
-class ISteamVideo;
 class ISteamMusic;
 class ISteamMusicRemote;
 class ISteamHTMLSurface;
 class ISteamInventory;
+class ISteamVideo;
 
 
 #define CLIENTENGINE_INTERFACE_VERSION "CLIENTENGINE_INTERFACE_VERSION004"
