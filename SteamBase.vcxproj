@@ -203,7 +203,6 @@
     <ClInclude Include="Source\Networking\Model\NetworkDataTypes.h" />
     <ClInclude Include="Source\Networking\SocketManager.h" />
     <ClInclude Include="Source\NodeClient\ClientNode.h" />
-    <ClInclude Include="Source\Plugin\Handler\HandlerManager.h" />
     <ClInclude Include="Source\Plugin\PluginBase.h" />
     <ClInclude Include="Source\Plugin\PluginManager.h" />
     <ClInclude Include="Source\StdInclude.h" />
@@ -484,13 +483,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\DllMain.cpp" />
+    <ClCompile Include="Source\External\GlobalExports.cpp" />
     <ClCompile Include="Source\External\GlobalVariables.cpp" />
     <ClCompile Include="Source\JSON\json_reader.cpp" />
     <ClCompile Include="Source\JSON\json_value.cpp" />
     <ClCompile Include="Source\JSON\json_writer.cpp" />
     <ClCompile Include="Source\Networking\SocketManager.cpp" />
     <ClCompile Include="Source\NodeClient\ClientNode.cpp" />
-    <ClCompile Include="Source\Plugin\Handler\HandlerManager.cpp" />
     <ClCompile Include="Source\Plugin\PluginManager.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedApps.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedFriends.cpp" />
