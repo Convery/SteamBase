@@ -20,6 +20,7 @@ namespace Nodes
 		static void SetNetworkData(Network::NetworkPacket *inPacket, EventType eventType); 
 		static uint32_t GetSequence();
 		static int32_t GetFriendCount(int32_t iFriendFlags);
+		static std::string GetFriendName(uint64_t FriendID);
 		static uint64_t GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags);
 		static uint64_t CreateSession(ByteBuffer *buffer, int32_t iFriendFlags);
 		static void UpdateSession(ByteBuffer *Buffer, int32_t iFriendFlags);

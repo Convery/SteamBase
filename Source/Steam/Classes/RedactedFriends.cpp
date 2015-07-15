@@ -59,12 +59,23 @@ EFriendRelationship RedactedFriends::GetFriendRelationship(CSteamID steamIDFrien
 EPersonaState RedactedFriends::GetFriendPersonaState(CSteamID steamIDFriend)
 {
 	//PrintCurrentFunction(); // Spams the console
-	STEAMPROXY_CALL(ISteamFriends, GetFriendPersonaState, steamIDFriend);
+	if (!Nodes::ClientNode::isSNodeConnected){
+		STEAMPROXY_CALL(ISteamFriends, GetFriendPersonaState, steamIDFriend);
+	}
+	else{
+		return EPersonaState::k_EPersonaStateOnline;
+	}
 }
 const char *RedactedFriends::GetFriendPersonaName(CSteamID steamIDFriend)
 {
 	//PrintCurrentFunction(); // Spams the console
-	STEAMPROXY_CALL(ISteamFriends, GetFriendPersonaName, steamIDFriend);
+	if (!Nodes::ClientNode::isSNodeConnected){
+		STEAMPROXY_CALL(ISteamFriends, GetFriendPersonaName, steamIDFriend);
+	}
+	else{
+		std::string name = Nodes::ClientNode::GetFriendName(steamIDFriend.ConvertToUint64());
+		return strdup(name.c_str());
+	}
 }
 
 bool RedactedFriends::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo)

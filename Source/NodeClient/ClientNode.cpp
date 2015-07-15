@@ -231,6 +231,67 @@ namespace Nodes
 		return steamID;
 	}
 
+	std::string ClientNode::GetFriendName(uint64_t FriendID)
+	{
+		if (!isSNodeConnected)
+		{
+			return "";
+		}
+		Network::NetworkPacket packet;
+
+		SetNetworkData(&packet, HNFriendNameRequest);
+
+		ByteBuffer packetBuffer = ByteBuffer::ByteBuffer();
+		packet.Serialize(&packetBuffer);
+
+		packetBuffer.WriteUInt64(FriendID);
+
+		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
+
+		time_t t1 = time(0);
+
+		while (true)
+		{
+			if (difftime(time(0), t1) > waitTimeout)
+			{
+				break;
+			}
+
+			mutex.lock();
+			std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>>::const_iterator find = pendingData.find(packet.SequenceID);
+			mutex.unlock();
+
+			if (find == pendingData.end())
+			{
+				continue;
+			}
+			else
+			{
+				std::shared_ptr<ByteBuffer> packetData = find->second;
+
+				if (packetData == NULL){
+					return 0;
+				}
+
+				ByteBuffer *bf = packetData.get();
+				if (packetData->GetPosition() > 0)
+				{
+					packetData->Rewind();
+				}
+
+				Network::NetworkPacket friendIndex = Network::NetworkPacket();
+				friendIndex.Deserialize(bf);
+				std::string name = bf->ReadString();
+
+				pendingData.erase(find);
+
+				return name;
+			}
+		}
+
+		return "";
+	}
+
 	uint64_t ClientNode::CreateSession(ByteBuffer *Buffer, int32_t iFriendFlags)
 	{
 		if (!isSNodeConnected)

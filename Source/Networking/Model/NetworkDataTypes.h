@@ -17,7 +17,9 @@ typedef enum
 	HNFindSessionsRequest = 13,
 	HNFindSessionsResponse = 14,
 	HNDeleteSessionRequest = 15,
-	HNDeleteSessionResponse = 16
+	HNDeleteSessionResponse = 16,
+	HNFriendNameRequest = 17,
+	HNFriendNameResponse = 18,
 } EventType;
 
 namespace Network
