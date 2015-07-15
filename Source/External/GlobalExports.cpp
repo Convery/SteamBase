@@ -32,6 +32,11 @@ extern "C"
 			memcpy(Buffer, &Global::Steam_UserID + 4, 4);
 	}
 
+	API uint64_t __cdecl Steam_GetFullXUID()
+	{
+		return Global::Steam_UserID;
+	}
+
 	// Global::System
 	API int32_t __cdecl System_GetOfflineMode()
 	{
