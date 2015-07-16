@@ -18,7 +18,7 @@ namespace Global
 	std::string		Game_Commandline;
 
 	// Steam information.
-	char			Steam_Username[16]{};
+	char			Steam_Username[64]{};
 	char			Steam_Language[16]{};
 	uint64_t		Steam_UserID = 0;
 	bool			Steam_Offline = true;

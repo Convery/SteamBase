@@ -79,10 +79,10 @@ BOOL __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 // Read our settings from a file.
 static void ReadSettings(const char *Filename)
 {
-	GetPrivateProfileStringA("Steam", "Username", "redacted", Global::Steam_Username, 16, Filename);
-	GetPrivateProfileStringA("Steam", "Language", "english", Global::Steam_Language, 16, Filename);
+	GetPrivateProfileStringA("Steam", "Username", "redacted", Global::Steam_Username, sizeof(Global::Steam_Username), Filename);
+	GetPrivateProfileStringA("Steam", "Language", "english",  Global::Steam_Language, sizeof(Global::Steam_Language), Filename);
 	
-	Global::Steam_Offline = GetPrivateProfileIntA("System", "OfflineMode", 1, Filename) == TRUE;
+	Global::Steam_Offline   = GetPrivateProfileIntA("System", "OfflineMode",   1, Filename) == TRUE;
 	Global::Steam_Dedicated = GetPrivateProfileIntA("System", "DedicatedMode", 0, Filename) == TRUE;
 }
 
