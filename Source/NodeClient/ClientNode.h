@@ -22,9 +22,5 @@ namespace Nodes
 		static int32_t GetFriendCount(int32_t iFriendFlags);
 		static std::string GetFriendName(uint64_t FriendID);
 		static uint64_t GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags);
-		static uint64_t CreateSession(ByteBuffer *buffer, int32_t iFriendFlags);
-		static void UpdateSession(ByteBuffer *Buffer, int32_t iFriendFlags);
-		static void DeleteSession(ByteBuffer *Buffer, int32_t iFriendFlags);
-		static void FindSessions(ByteBuffer *Buffer, int32_t iFriendFlags, void* outBuffer, uint32_t* outLen);
 	};
 }
