@@ -49,7 +49,7 @@ int RedactedUser::InitiateGameConnection(void *pAuthBlob, int cbMaxAuthBlob, CSt
 
 	return cbMaxAuthBlob;
 }
-void RedactedUser::TerminateGameConnection(uint32_t unIPServer, uint16_t usPortServer)
+void RedactedUser::TerminateGameConnection(uint32 unIPServer, uint16 usPortServer)
 {
 	PrintCurrentFunction();
 }

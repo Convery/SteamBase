@@ -18,7 +18,7 @@ namespace Global
 	extern std::string	Game_Commandline;
 
 	// Steam information.
-	extern char			Steam_Username[16];
+	extern char			Steam_Username[64];
 	extern char			Steam_Language[16];
 	extern uint64_t		Steam_UserID;
 	extern bool			Steam_Offline;
