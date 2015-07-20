@@ -113,15 +113,11 @@
 #pragma region PluginIncludes
 #include "Plugin\PluginBase.h"
 #include "Plugin\PluginManager.h"
-#include "Plugin\Handler\HandlerManager.h"
 #pragma endregion
 
 //Node system
 #pragma region NodeIncludes
-#include "Networking\Model\ISerializable.h"
-#include "Networking\Model\NetworkDataTypes.h"
 #include "Networking\DataTypes.h"
-#include "NodeClient\ClientNode.h"
 #include "Networking\SocketManager.h"
 
 #pragma endregion

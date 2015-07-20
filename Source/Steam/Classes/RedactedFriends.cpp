@@ -29,31 +29,17 @@ EPersonaState RedactedFriends::GetPersonaState()
 int32_t RedactedFriends::GetFriendCount(int32_t iFriendFlags)
 {
 	PrintCurrentFunction();
-	if (!Nodes::ClientNode::isSNodeConnected){
-		STEAMPROXY_CALL(ISteamFriends, GetFriendCount, iFriendFlags);
-	}else{
-		int32_t friendsCount = Nodes::ClientNode::GetFriendCount(iFriendFlags);
-		return friendsCount;
-	}
+	STEAMPROXY_CALL(ISteamFriends, GetFriendCount, iFriendFlags);
 }
 CSteamID RedactedFriends::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
 {
 	//PrintCurrentFunction(); // Spams the console
-	if (!Nodes::ClientNode::isSNodeConnected){
-		STEAMPROXY_CALL(ISteamFriends, GetFriendByIndex, iFriend, iFriendFlags);
-	}else{
-		uint64_t steamId = Nodes::ClientNode::GetFriendByIndex(iFriend, iFriendFlags);
-		return CSteamID(steamId);
-	}
+	STEAMPROXY_CALL(ISteamFriends, GetFriendByIndex, iFriend, iFriendFlags);
 }
 EFriendRelationship RedactedFriends::GetFriendRelationship(CSteamID steamIDFriend)
 {
 	PrintCurrentFunction();
-	if (!Nodes::ClientNode::isSNodeConnected){
-		STEAMPROXY_CALL(ISteamFriends, GetFriendRelationship, steamIDFriend);
-	}else{
-		return EFriendRelationship::k_EFriendRelationshipFriend;
-	}
+	STEAMPROXY_CALL(ISteamFriends, GetFriendRelationship, steamIDFriend);
 }
 
 EPersonaState RedactedFriends::GetFriendPersonaState(CSteamID steamIDFriend)

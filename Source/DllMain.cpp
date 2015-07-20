@@ -123,8 +123,8 @@ void InitialCall()
 	PluginManager::PreInit();
 
 	//Networking init stuff
-	Network::SocketManager::InitializeManager();
-	Nodes::ClientNode::InitializeNode();
+	//not used for now, but we keep the manager
+	//Network::SocketManager::InitializeManager();
 
 	OriginalEP = GetEntryPoint(GetModuleHandle(NULL));
 

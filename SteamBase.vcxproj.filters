@@ -900,28 +900,16 @@
     <ClInclude Include="Source\Steam\ConsoleCommandHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Plugin\Handler\HandlerManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Utility\DumpHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utility\Hooking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\NodeClient\ClientNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Networking\DataTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Networking\SocketManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Networking\Model\NetworkDataTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Networking\Model\ISerializable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1025,9 +1013,6 @@
     <ClCompile Include="Source\Steam\ConsoleCommandHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Plugin\Handler\HandlerManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Steam\Classes\RedactedRemoteStorage.cpp">
       <Filter>Source Files\Steam\Classes</Filter>
     </ClCompile>
@@ -1040,10 +1025,10 @@
     <ClCompile Include="Source\Utility\Hooking.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\NodeClient\ClientNode.cpp">
+    <ClCompile Include="Source\Networking\SocketManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Networking\SocketManager.cpp">
+    <ClCompile Include="Source\External\GlobalExports.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
