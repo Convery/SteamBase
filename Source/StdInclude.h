@@ -19,7 +19,7 @@
 #define PERF_DEBUG			// Performance logging.
 
 // Piracy prevention as mandated by ATVI.
-#define NO_PIRACY
+//#define NO_PIRACY
 
 // Debug functionallity.
 #if !defined(NET_DEBUG) && !defined(FS_DEBUG) && !defined(PERF_DEBUG)
@@ -30,6 +30,8 @@
 #define DBGPrint(fmt, ...) WinConsole::EnqueueMessage("DBG", (char *)hString::va(fmt, ##__VA_ARGS__), "", true) 
 #define ERRPrint(fmt, ...) WinConsole::EnqueueMessage("ERR", (char *)hString::va(fmt, ##__VA_ARGS__), "", true)
 #endif
+
+#define HardDebugBreak() MessageBoxA(0, __FUNCTION__, 0, 0);
 
 // Useful for logging.
 #define PrintCurrentFunction()	WinConsole::EnqueueMessage("INFO", __FUNCTION__, "", false)
@@ -115,6 +117,8 @@
 #include "Plugin\PluginManager.h"
 #pragma endregion
 
+//Proto
+#include "protobuf\friends.pb.h"
 //Node system
 #pragma region NodeIncludes
 #include "Networking\Model\ISerializable.h"

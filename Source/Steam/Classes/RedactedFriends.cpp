@@ -36,6 +36,7 @@ int32_t RedactedFriends::GetFriendCount(int32_t iFriendFlags)
 		return friendsCount;
 	}
 }
+
 CSteamID RedactedFriends::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
 {
 	//PrintCurrentFunction(); // Spams the console
@@ -46,6 +47,7 @@ CSteamID RedactedFriends::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags
 		return CSteamID(steamId);
 	}
 }
+
 EFriendRelationship RedactedFriends::GetFriendRelationship(CSteamID steamIDFriend)
 {
 	PrintCurrentFunction();

@@ -921,6 +921,9 @@
     <ClInclude Include="Source\Networking\Model\ISerializable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\protobuf\friends.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\External\GlobalVariables.cpp">
@@ -1041,6 +1044,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\External\GlobalExports.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\protobuf\friends.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

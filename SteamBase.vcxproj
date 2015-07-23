@@ -69,6 +69,8 @@
     <OutDir>Bin\$(Configuration)\</OutDir>
     <IntDir>Bin\Temporary\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>steam_api</TargetName>
+    <IncludePath>$(ICIncludeDir);$(SolutionDir)\Dependencies\Includes_x86;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ICLibDir);$(SolutionDir)\Dependencies\Libraries_x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>steam_api64</TargetName>
@@ -97,6 +99,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>if "$(COMPUTERNAME)" == "MAURICE-PC" (
@@ -205,6 +208,7 @@
     <ClInclude Include="Source\NodeClient\ClientNode.h" />
     <ClInclude Include="Source\Plugin\PluginBase.h" />
     <ClInclude Include="Source\Plugin\PluginManager.h" />
+    <ClInclude Include="Source\protobuf\friends.pb.h" />
     <ClInclude Include="Source\StdInclude.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedApps.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedFriends.h" />
@@ -491,6 +495,7 @@
     <ClCompile Include="Source\Networking\SocketManager.cpp" />
     <ClCompile Include="Source\NodeClient\ClientNode.cpp" />
     <ClCompile Include="Source\Plugin\PluginManager.cpp" />
+    <ClCompile Include="Source\protobuf\friends.pb.cc" />
     <ClCompile Include="Source\Steam\Classes\RedactedApps.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedFriends.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedGameServer.cpp" />

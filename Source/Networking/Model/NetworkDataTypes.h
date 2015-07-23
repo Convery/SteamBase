@@ -20,6 +20,8 @@ typedef enum
 	HNDeleteSessionResponse = 16,
 	HNFriendNameRequest = 17,
 	HNFriendNameResponse = 18,
+	HNFriendsProtoRequest = 21,
+	HNFriendsProtoResponse = 22,
 } EventType;
 
 namespace Network
@@ -57,7 +59,6 @@ namespace Network
     {
     public:
 
-        uint64_t ClientID;
         uint32_t SessionID;
         bool isAuthenticated = false;
         bool isAnonymous = false;
@@ -67,7 +68,6 @@ namespace Network
         {
             NetworkPacket::Serialize(OutBuffer);
 
-            OutBuffer->WriteUInt64(ClientID);
             OutBuffer->WriteUInt32(SessionID);
             OutBuffer->WriteBoolean(isAuthenticated);
             OutBuffer->WriteBoolean(isAnonymous);
@@ -77,7 +77,6 @@ namespace Network
         {
             NetworkPacket::Deserialize(InBuffer);
 
-            InBuffer->ReadUInt64(&ClientID);
             InBuffer->ReadUInt32(&SessionID);
             InBuffer->ReadBoolean(&isAuthenticated);
             InBuffer->ReadBoolean(&isAnonymous);
