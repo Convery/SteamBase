@@ -60,6 +60,7 @@ namespace Nodes
 
 	void ClientNode::SetNetworkData(Network::NetworkPacket *inPacket, EventType eventType){
 		inPacket->ApplicationID = Global::Steam_AppID;
+		inPacket->ClientID = Global::Steam_UserID;
 		inPacket->eventType = eventType;
 		inPacket->SequenceID = GetSequence();
 		inPacket->TimeStamp = time(NULL);

@@ -24,31 +24,34 @@ typedef enum
 
 namespace Network
 {
-    class NetworkPacket : public Network::ISerializable
-    {
-    public:
+	class NetworkPacket : public Network::ISerializable
+	{
+	public:
 
-        uint32_t ApplicationID;
-        uint32_t SequenceID;
-        EventType eventType;
-        uint32_t	TimeStamp;
+		uint32_t ApplicationID;
+		uint64_t ClientID;
+		uint32_t SequenceID;
+		int16_t eventType;
+		uint32_t	TimeStamp;
 
-        void Serialize(ByteBuffer *OutBuffer)
-        {
-            //EventType first so we can peak at packets
-            OutBuffer->WriteInt16(eventType);
-            OutBuffer->WriteUInt32(ApplicationID);
-            OutBuffer->WriteUInt32(SequenceID);
-            OutBuffer->WriteUInt32(TimeStamp);
-        }
-        void Deserialize(ByteBuffer *InBuffer)
-        {
-            InBuffer->ReadInt16((int16_t*)&eventType);
-            InBuffer->ReadUInt32(&ApplicationID);
-            InBuffer->ReadUInt32(&SequenceID);
-            InBuffer->ReadUInt32(&TimeStamp);
-        }
-    };
+		void Serialize(ByteBuffer *OutBuffer)
+		{
+			//EventType first so we can peak at packets
+			OutBuffer->WriteInt16(eventType);
+			OutBuffer->WriteUInt32(ApplicationID);
+			OutBuffer->WriteUInt64(ClientID);
+			OutBuffer->WriteUInt32(SequenceID);
+			OutBuffer->WriteUInt32(TimeStamp);
+		}
+		void Deserialize(ByteBuffer *InBuffer)
+		{
+			InBuffer->ReadInt16(&eventType);
+			InBuffer->ReadUInt32(&ApplicationID);
+			InBuffer->ReadUInt64(&ClientID);
+			InBuffer->ReadUInt32(&SequenceID);
+			InBuffer->ReadUInt32(&TimeStamp);
+		}
+	};
 
     class PingPacket : public NetworkPacket
     {
