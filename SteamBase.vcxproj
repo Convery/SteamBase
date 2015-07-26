@@ -475,6 +475,7 @@
     <ClInclude Include="Source\Utility\hConsole.h" />
     <ClInclude Include="Source\Utility\Hooking.h" />
     <ClInclude Include="Source\Utility\hString.h" />
+    <ClInclude Include="Source\Utility\Updater.h" />
     <ClInclude Include="Source\Utility\WebIO.h" />
     <ClInclude Include="Source\Utility\WinConsole\WinConsole.h" />
   </ItemGroup>
@@ -516,6 +517,7 @@
     <ClCompile Include="Source\Utility\hConsole.cpp" />
     <ClCompile Include="Source\Utility\Hooking.cpp" />
     <ClCompile Include="Source\Utility\hString.cpp" />
+    <ClCompile Include="Source\Utility\Updater.cpp" />
     <ClCompile Include="Source\Utility\WebIO.cpp" />
     <ClCompile Include="Source\Utility\WinConsole\WinConsole.cpp" />
   </ItemGroup>

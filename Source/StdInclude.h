@@ -99,6 +99,7 @@
 #include "Utility\WinConsole\WinConsole.h"
 #include "Utility\WebIO.h"
 #include "Utility\DumpHandler.h"
+#include "Utility\Updater.h"
 
 #include "JSON\json.h"
 #pragma endregion
