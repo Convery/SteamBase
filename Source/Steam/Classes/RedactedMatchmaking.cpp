@@ -97,40 +97,38 @@ SteamAPICall_t RedactedMatchmaking::CreateLobby(ELobbyType eLobbyType, int cMaxM
 {
 	PrintCurrentFunction();
 
-	
-	SteamAPICall_t result = SteamCallback::RegisterCall();
+	SteamAPICall_t callID = NULL;
+	LobbyCreated_t *Response = nullptr;
+	CSteamID ID = CSteamID(1337132, 0x40000, k_EUniversePublic, k_EAccountTypeChat);
 
-	/* example callback use case
-	LobbyCreated_t* retvals = (LobbyCreated_t*)malloc(sizeof(LobbyCreated_t));
-	
-	//generate lobby and persist
-	CSteamID id = CSteamID(1111111, 0x40000, k_EUniversePublic, k_EAccountTypeChat);
+	callID = SteamCallback::RegisterCall();
+	Response = static_cast<LobbyCreated_t*>(malloc(sizeof(LobbyCreated_t)));
 
-	retvals->m_eResult = k_EResultOK;
-	retvals->m_ulSteamIDLobby = id.ConvertToUint64();
+	Response->m_eResult = k_EResultOK;
+	Response->m_ulSteamIDLobby = ID.ConvertToUint64();
 
-	SteamCallback::ReturnCall(retvals, sizeof(LobbyCreated_t), LobbyCreated_t::k_iCallback, result);
-	//create a callback for the join for the lobby owner
-	JoinLobby(id);
-	
-	*/
-	
-	return result;
+	SteamCallback::ReturnCall(Response, sizeof(LobbyCreated_t), Response->k_iCallback, callID);
+	JoinLobby(ID);
+
+	return callID;
 }
 
 SteamAPICall_t RedactedMatchmaking::JoinLobby(CSteamID steamIDLobby)
 {
 	PrintCurrentFunction();
-	SteamAPICall_t result = SteamCallback::RegisterCall();
-	/* example callback use case
-	LobbyEnter_t* retvals = (LobbyEnter_t*)malloc(sizeof(LobbyEnter_t));
-	retvals->m_bLocked = false;
-	retvals->m_EChatRoomEnterResponse = k_EChatRoomEnterResponseSuccess;
-	retvals->m_rgfChatPermissions = k_EChatPermissionEveryoneDefault;
-	retvals->m_ulSteamIDLobby = steamIDLobby.ConvertToUint64();
+	uint64_t callID = NULL;
+	LobbyEnter_t *Response = nullptr;
 
-	SteamCallback::ReturnCall(retvals, sizeof(LobbyEnter_t), LobbyEnter_t::k_iCallback, result);*/
-	return result;
+	callID = SteamCallback::RegisterCall();
+	Response = static_cast<LobbyEnter_t*>(malloc(sizeof(LobbyEnter_t)));
+
+	Response->m_bLocked = false;
+	Response->m_EChatRoomEnterResponse = k_EChatRoomEnterResponseSuccess;
+	Response->m_rgfChatPermissions = (EChatPermission)0xFFFFFFFF;
+	Response->m_ulSteamIDLobby = steamIDLobby.ConvertToUint64();
+
+	SteamCallback::ReturnCall(Response, sizeof(LobbyEnter_t), Response->k_iCallback, callID);
+	return callID;
 }
 
 void RedactedMatchmaking::LeaveLobby(CSteamID steamIDLobby)
@@ -156,12 +154,12 @@ bool RedactedMatchmaking::InviteUserToLobby(CSteamID steamIDLobby, CSteamID stea
 
 int RedactedMatchmaking::GetNumLobbyMembers(CSteamID steamIDLobby)
 {
-	PrintCurrentFunction();
+	//PrintCurrentFunction();
 	return 1;
 }
 CSteamID RedactedMatchmaking::GetLobbyMemberByIndex(CSteamID steamIDLobby, int iMember)
 {
-	PrintCurrentFunction();
+	//PrintCurrentFunction();
 	return SteamProxy::GetUserID();
 }
 const char *RedactedMatchmaking::GetLobbyData(CSteamID steamIDLobby, const char *pchKey)
@@ -266,7 +264,7 @@ bool RedactedMatchmaking::SetLobbyJoinable(CSteamID steamIDLobby, bool bLobbyJoi
 
 CSteamID RedactedMatchmaking::GetLobbyOwner(CSteamID steamIDLobby)
 {
-	PrintCurrentFunction();
+	//PrintCurrentFunction();
 	return SteamProxy::GetUserID();
 }
 bool RedactedMatchmaking::SetLobbyOwner(CSteamID steamIDLobby, CSteamID steamIDNewOwner)

@@ -362,6 +362,7 @@ CSteamID SteamProxy::GetUserID()
 	if (SteamProxy::ISteamUser)
 	{
 		id = SteamProxy::ISteamUser->GetSteamID();
+		Global::Steam_UserID = id.ConvertToUint64();
 	}
 
 	return id;

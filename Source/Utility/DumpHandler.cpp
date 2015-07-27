@@ -17,6 +17,10 @@ Hook::Stomp DumpHandler::SetUnhandledExceptionFilter_Hook;
 
 void DumpHandler::Initialize()
 {
+#ifdef _WIN64
+	return;
+#endif
+
 	SetUnhandledExceptionFilter(&DumpHandler::CustomUnhandledExceptionFilter);
 
 	DumpHandler::SetUnhandledExceptionFilter_Hook.Initialize((uintptr_t)SetUnhandledExceptionFilter, DumpHandler::SetUnhandledExceptionFilter_Stub);
