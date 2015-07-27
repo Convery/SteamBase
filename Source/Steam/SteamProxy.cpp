@@ -56,6 +56,8 @@ ISteamUtils007*                 SteamProxy::ISteamUtils               = 0;
 
 bool SteamProxy::Inititalize()
 {
+	Global::Steam_UserID = CSteamID(1337, k_unSteamUserWebInstance, k_EUniverseInternal, k_EAccountTypeIndividual).ConvertToUint64();
+
 	SteamProxy::LoadOverlay();
 
 	if (SteamProxy::CreateInterfaces())
