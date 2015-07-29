@@ -94,7 +94,7 @@ static bool ReadInterfaces()
 	}
 
 	remove(INTERFACE_VERSION_FILE);
-	MessageBox(0, "Failed to parse interfaces from 'steam_api.json", "Error", MB_ICONERROR);
+	MessageBox(0, "Failed to parse interfaces from '" INTERFACE_VERSION_FILE "'", "Error", MB_ICONERROR);
 	return false;
 }
 
