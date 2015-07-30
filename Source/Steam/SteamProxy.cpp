@@ -101,14 +101,14 @@ void SteamProxy::LoadOverlay()
 
 	if (!SteamProxy::SteamOverlay)
 	{
-		SteamProxy::SteamOverlay = LoadLibraryA(GAMEOVERLAY_LIB);
+		SteamProxy::SteamOverlay = LoadLibraryA(hString::va("%s\\%s", SteamProxy::SteamPath, GAMEOVERLAY_LIB));
 	}
 }
 
 bool SteamProxy::CreateClient()
 {
 	SteamProxy::SteamClient = GetModuleHandleA(STEAMCLIENT_LIB);
-	if (!SteamProxy::SteamClient) SteamProxy::SteamClient = LoadLibraryA(STEAMCLIENT_LIB);
+	if (!SteamProxy::SteamClient) SteamProxy::SteamClient = LoadLibraryA(hString::va("%s\\%s", SteamProxy::SteamPath, STEAMCLIENT_LIB));
 	STEAMPROXY_ASSERT(SteamClient)
 
 	SteamProxy::ClientFactory = (CreateInterfaceFn)GetProcAddress(SteamProxy::SteamClient, "CreateInterface");
