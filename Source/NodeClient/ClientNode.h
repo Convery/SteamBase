@@ -8,8 +8,10 @@ namespace Nodes
 		static std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>> pendingData;
 		static HANDLE sNodeDiscoveryThread;
 		static HANDLE sPacketReceiverThread;
+		static HANDLE sFriendThread;
 		static std::mutex mutex;
 		static HedgeNodeProto::SteamFriendsResult* result;
+		static time_t lastPing;
 
 		static DWORD _stdcall NodeDiscoverySender(void  *lparam);
 		static DWORD _stdcall NodePacketReceiver(void  *lparam);

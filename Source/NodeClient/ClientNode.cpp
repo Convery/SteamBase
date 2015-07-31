@@ -17,9 +17,11 @@ namespace Nodes
 	bool ClientNode::isSNodeConnected = false;
 	HANDLE ClientNode::sNodeDiscoveryThread;
 	HANDLE ClientNode::sPacketReceiverThread;
+	HANDLE ClientNode::sFriendThread;
 	std::mutex ClientNode::mutex;
 	std::unordered_map<uint32_t, std::shared_ptr<ByteBuffer>> ClientNode::pendingData;
 	HedgeNodeProto::SteamFriendsResult* ClientNode::result;
+	time_t ClientNode::lastPing;
 
 	DWORD _stdcall ClientNode::NodeDiscoverySender(void  *lparam)
 	{
@@ -50,7 +52,7 @@ namespace Nodes
 				DBGPrint("Found sNode, stopping...");
 				isSNodeConnected = true;
 				sPacketReceiverThread = CreateThread(NULL, NULL, NodePacketReceiver, NULL, NULL, NULL);
-				CreateThread(NULL, NULL, FriendDiscoveryThread, NULL, NULL, NULL);
+				sFriendThread = CreateThread(NULL, NULL, FriendDiscoveryThread, NULL, NULL, NULL);
 				break;
 			}
 			Sleep(2000);
@@ -76,6 +78,14 @@ namespace Nodes
 
 		while (true)
 		{
+			if (difftime(time(0), lastPing) > 10)
+			{
+				DBGPrint("Lost connection to node, looking again...");
+				sNodeDiscoveryThread = CreateThread(NULL, NULL, NodeDiscoverySender, NULL, NULL, NULL);
+				TerminateThread(sFriendThread, 0);
+				CloseHandle(sFriendThread);
+				break;
+			}
 			int32_t len = Network::SocketManager::Receive_UDP(port, 1024, recvBuffer, &sender);
 			if (len > 0)
 			{
@@ -84,9 +94,14 @@ namespace Nodes
 				Network::NetworkPacket packet;
 				packet.Deserialize(packetBuffer);
 
-				mutex.lock();
-				pendingData[packet.SequenceID] = std::shared_ptr<ByteBuffer>(packetBuffer);
-				mutex.unlock();
+				if (packet.eventType == HNPingResponse){
+					lastPing = time(0);
+				}
+				else{
+					mutex.lock();
+					pendingData[packet.SequenceID] = std::shared_ptr<ByteBuffer>(packetBuffer);
+					mutex.unlock();
+				}
 			}
 
 			Sleep(100);
