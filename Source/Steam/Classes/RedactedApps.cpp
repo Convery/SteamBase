@@ -68,7 +68,7 @@ bool RedactedApps::IsDlcInstalled(uint32_t DLCID)
 
 	// Read the DLC path from the game ini.
 	GetPrivateProfileStringA("DLC", hString::va("%i", DLCID), "404", FilePath, 256, hString::va("%s.ini", Global::Game_BinaryName));
-	return FileSystem::FileExists(FilePath);
+	return (!strcmp(FilePath, "404") || FileSystem::FileExists(FilePath));
 #endif
 }
 uint32_t RedactedApps::GetEarliestPurchaseUnixTime(uint32_t AppID)

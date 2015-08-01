@@ -77,7 +77,7 @@ bool RedactedGameServer::BSecure()
 CSteamID RedactedGameServer::GetSteamID()
 {
 	PrintCurrentFunction();
-	return CSteamID((uint64_t)0x01400000DEADC0DE);
+	return CSteamID(Global::Steam_UserID);
 }
 bool RedactedGameServer::WasRestartRequested()
 {
@@ -146,7 +146,7 @@ int RedactedGameServer::SendUserConnectAndAuthenticate(uint32 unIPClient, const 
 CSteamID RedactedGameServer::CreateUnauthenticatedUserConnection()
 {
 	PrintCurrentFunction();
-	return CSteamID((uint64_t)0x01400000DEADC0DE);
+	return CSteamID(Global::Steam_UserID);
 }
 void RedactedGameServer::SendUserDisconnect(CSteamID steamIDUser)
 {

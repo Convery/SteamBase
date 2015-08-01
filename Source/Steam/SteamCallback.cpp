@@ -56,7 +56,7 @@ uint64_t SteamCallback::RegisterCall()
 	LeaveCriticalSection(&ThreadSafe);
 	return _CallID;
 }
-void SteamCallback::ReturnCall(void *data, int size, int type, uint64_t call)
+void SteamCallback::ReturnCall(void* data, int32_t size, int32_t type, uint64_t call)
 {
 	SteamAPIResult_t result;
 
