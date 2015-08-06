@@ -22,6 +22,8 @@ typedef enum
 	HNFriendNameResponse = 18,
 	HNFriendsProtoRequest = 21,
 	HNFriendsProtoResponse = 22,
+	HNInvitedToGame = 23,
+	HNInviteFriendToGameRequest = 24,
 } EventType;
 
 namespace Network

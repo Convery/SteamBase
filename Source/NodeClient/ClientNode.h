@@ -23,6 +23,8 @@ namespace Nodes
 		static bool InitializeNode();
 		static void SetNetworkData(Network::NetworkPacket *inPacket, EventType eventType); 
 		static uint32_t GetSequence();
+		static void InviteReceived(uint64_t lobbyID, uint64_t inviteeID);
+		static void InviteToGame(uint64_t From, uint64_t lobbyID);
 		static int32_t GetFriendCount(int32_t iFriendFlags);
 		static void GetFriends();
 		static std::string GetFriendName(uint64_t FriendID);

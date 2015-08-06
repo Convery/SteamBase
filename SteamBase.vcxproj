@@ -76,6 +76,8 @@
     <TargetName>steam_api64</TargetName>
     <IntDir>Bin\Temporary\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>Bin\$(Configuration)\</OutDir>
+    <IncludePath>$(SolutionDir)\Dependencies\Includes_x64;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Dependencies\Libraries_x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetName>steam_api</TargetName>
@@ -123,6 +125,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>if "$(COMPUTERNAME)" == "MAURICE-PC" (

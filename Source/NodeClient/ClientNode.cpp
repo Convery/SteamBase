@@ -78,14 +78,14 @@ namespace Nodes
 
 		while (true)
 		{
-			if (difftime(time(0), lastPing) > 10)
+			/*if (difftime(time(0), lastPing) > 10)
 			{
 				DBGPrint("Lost connection to node, looking again...");
 				sNodeDiscoveryThread = CreateThread(NULL, NULL, NodeDiscoverySender, NULL, NULL, NULL);
 				TerminateThread(sFriendThread, 0);
 				CloseHandle(sFriendThread);
 				break;
-			}
+			}*/
 			int32_t len = Network::SocketManager::Receive_UDP(port, 1024, recvBuffer, &sender);
 			if (len > 0)
 			{
@@ -94,7 +94,13 @@ namespace Nodes
 				Network::NetworkPacket packet;
 				packet.Deserialize(packetBuffer);
 
-				if (packet.eventType == HNPingResponse){
+				if (packet.eventType == HNInvitedToGame){
+					uint64_t from = 0;
+					uint64_t lobbyID = 0;
+					packetBuffer->ReadUInt64(&from);
+					packetBuffer->ReadUInt64(&lobbyID);
+					InviteReceived(lobbyID, from);
+				}else if (packet.eventType == HNPingResponse){
 					lastPing = time(0);
 				}
 				else{
@@ -108,6 +114,34 @@ namespace Nodes
 		}
 
 		return 0;
+	}
+
+	void ClientNode::InviteReceived(uint64_t lobbyID, uint64_t inviteeID){
+		SteamAPICall_t result = SteamCallback::RegisterCall();
+		LobbyInvite_t* retvals = (LobbyInvite_t*)malloc(sizeof(LobbyInvite_t));
+		retvals->m_ulSteamIDUser = CSteamID(inviteeID);
+		retvals->m_ulSteamIDLobby = CSteamID(lobbyID);
+		retvals->m_ulGameID = CGameID(209660);
+
+		SteamCallback::ReturnCall(retvals, sizeof(LobbyInvite_t), LobbyInvite_t::k_iCallback, result);
+	}
+
+	void ClientNode::InviteToGame(uint64_t From, uint64_t lobbyID)
+	{
+		if (!isSNodeConnected)
+		{
+			return;
+		}
+		Network::NetworkPacket packet;
+		SetNetworkData(&packet, HNInviteFriendToGameRequest);
+
+		ByteBuffer packetBuffer;
+		packet.Serialize(&packetBuffer);
+
+		packetBuffer.WriteUInt64(From);
+		packetBuffer.WriteUInt64(lobbyID);
+
+		Network::SocketManager::Send_UDP(&serverNode, packetBuffer.GetLength(), packetBuffer.GetBuffer<void>());
 	}
 
 	bool ClientNode::InitializeNode(){

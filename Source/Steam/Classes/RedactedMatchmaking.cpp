@@ -149,6 +149,7 @@ void RedactedMatchmaking::LeaveLobby(CSteamID steamIDLobby)
 bool RedactedMatchmaking::InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee)
 {
 	PrintCurrentFunction();
+	Nodes::ClientNode::InviteToGame(steamIDInvitee.ConvertToUint64(), steamIDLobby.ConvertToUint64());
 	return true;
 }
 
