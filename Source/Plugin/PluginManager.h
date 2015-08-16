@@ -28,4 +28,5 @@ public:
 	static void Startup();
 	static void PreInit();
 	static void PostInit();
+	static void Uninit();
 };

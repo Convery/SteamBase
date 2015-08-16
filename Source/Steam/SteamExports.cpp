@@ -237,6 +237,7 @@ extern "C"
 	API void __cdecl SteamAPI_Shutdown()
 	{
 		PrintCurrentFunction();
+		PluginManager::Uninit();
 		ExitProcess(0); // For now, until CEG errors are resolved.
 	}
 

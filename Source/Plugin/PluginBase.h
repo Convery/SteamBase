@@ -19,6 +19,7 @@ struct PluginBase
 	std::string Name;
 
 	// Standard methods.
+	uint64_t(PLUGIN_CONVENTION * Uninit)(void);
 	uint64_t(PLUGIN_CONVENTION * PreInit)(void);
 	uint64_t(PLUGIN_CONVENTION * PostInit)(void);
 	uint64_t(PLUGIN_CONVENTION * AuthorInfo)(void);

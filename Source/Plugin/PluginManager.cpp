@@ -68,6 +68,7 @@ void PluginManager::VerifyExports()
 		BasePlugin.Name = PluginNames[i];
 
 		// Fill the struct with function pointers.
+		BasePlugin.Uninit          = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "Uninit");
 		BasePlugin.PreInit         = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "PreInit");
 		BasePlugin.PostInit        = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "PostInit");
 		BasePlugin.AuthorInfo      = (uint64_t(PLUGIN_CONVENTION *)(void))               GetProcAddress(PluginModules[i], "AuthorInfo");
@@ -133,6 +134,14 @@ void PluginManager::VerifyExports()
 			PurgeList.push_back(i);
 			continue;
 		}
+
+		// Don't verify uninit, as it's optional
+// 		if (!BasePlugin.Uninit)
+// 		{
+// 			WinConsole::EnqueueMessage("ERR", (char *)hString::va("Plugin (%s) is missing an export (%s) and will be removed.\n", BasePlugin.Name.c_str(), "Uninit"), "");
+// 			PurgeList.push_back(i);
+// 			continue;
+// 		}
 
 		// Add the plugin to the vector.
 		Plugins.push_back(BasePlugin);
@@ -366,6 +375,32 @@ void PluginManager::PostInit()
 	WinConsole::EnqueueMessage("INFO", "", "", true);
 	WinConsole::EnqueueMessage("INFO", "Gamelog:", "", true);
 	//WinConsole::StartPrinting();
+}
+
+// Call the uninit function for uninitialization.
+void PluginManager::Uninit()
+{
+	// Let the user know we are calling.
+	WinConsole::EnqueueMessage("INFO", "", "", true);
+	WinConsole::EnqueueMessage("INFO", "Plugins::Uninit:", "", true);
+
+	// Iterate through the vector and call the functionpointers.
+	for (auto i = Plugins.begin(); i != Plugins.end(); ++i)
+	{
+		auto Start = std::chrono::high_resolution_clock::now();
+
+		if (i->Uninit && i->Uninit() != FALSE)
+		{
+			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> uninit succeeded in %ld msec", i->Name.c_str(), std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - Start).count()), "", true);
+		}
+		else
+		{
+			// We do not remove the plugin for this.
+			// It can still do memory edits if it wants.
+			// And it may provide exports for other functions.
+			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> uninit failed", i->Name.c_str()), "", true);
+		}
+	}
 }
 
 // Legacy stuff. Remove that when old plugins are updated.
