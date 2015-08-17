@@ -35,4 +35,6 @@ public:
 		static size_t GetIATAddress(const char* ModuleName, const char* FunctionName, uint64_t ImgBase);
 		static size_t WriteIATAddress(const char* ModuleName, const char* FunctionName, uint64_t ImgBase, void *NewProc);
 	};
+
+	static void FlushCache();
 };

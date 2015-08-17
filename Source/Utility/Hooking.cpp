@@ -174,3 +174,14 @@ size_t Hook::IAT::WriteIATAddress(const char* ModuleName, const char* FunctionNa
 
 	return 0;
 }
+
+void Hook::FlushCache()
+{
+	HMODULE Module = GetModuleHandle(NULL);
+
+	PIMAGE_DOS_HEADER DOSHeader = (PIMAGE_DOS_HEADER)Module;
+	PIMAGE_NT_HEADERS NTHeader = (PIMAGE_NT_HEADERS)((DWORD_PTR)Module + DOSHeader->e_lfanew);
+	SIZE_T Size = NTHeader->OptionalHeader.SizeOfImage;
+
+	FlushInstructionCache(GetCurrentProcess(), Module, Size);
+}

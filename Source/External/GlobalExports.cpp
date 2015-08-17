@@ -37,6 +37,11 @@ extern "C"
 		return Global::Steam_UserID;
 	}
 
+	API const char* __cdecl Steam_GetSteamUsername()
+	{
+		return SteamProxy::GetUsername();
+	};
+
 	// Global::System
 	API int32_t __cdecl System_GetOfflineMode()
 	{

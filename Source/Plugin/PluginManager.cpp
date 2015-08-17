@@ -344,6 +344,8 @@ void PluginManager::PreInit()
 			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> preinit failed", i->Name.c_str()), "", true);
 		}
 	}
+
+	Hook::FlushCache();
 }
 
 // Call the postinit function for memory modification.
@@ -370,6 +372,8 @@ void PluginManager::PostInit()
 			WinConsole::EnqueueMessage("INFO", (char *)hString::va("Plugin <%s> postinit failed", i->Name.c_str()), "", true);
 		}
 	}
+
+	Hook::FlushCache();
 
 	// Start printing our logs.
 	WinConsole::EnqueueMessage("INFO", "", "", true);
