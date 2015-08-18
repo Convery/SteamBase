@@ -56,7 +56,7 @@ ISteamUtils007*                 SteamProxy::ISteamUtils               = 0;
 
 bool SteamProxy::Inititalize()
 {
-	Global::Steam_UserID = CSteamID(1337, k_unSteamUserWebInstance, k_EUniverseInternal, k_EAccountTypeIndividual).ConvertToUint64();
+	SteamProxy::GenerateID();
 
 	SteamProxy::LoadOverlay();
 
@@ -78,6 +78,31 @@ bool SteamProxy::Inititalize()
 
 	ERRPrint("SteamProxy: Initialization failed");
 	return false;
+}
+
+void SteamProxy::GenerateID()
+{
+	DATA_BLOB DataIn;
+	DATA_BLOB DataOut;
+	unsigned int hash, i;
+
+	DataIn.pbData = (BYTE *)"AAAAAAAAAA";
+	DataIn.cbData = 10;
+	CryptProtectData(&DataIn, NULL, NULL, NULL, NULL, CRYPTPROTECT_LOCAL_MACHINE, &DataOut);
+
+	// gives us 230 bytes but apparently only the first 52 or so are deterministic
+	for (hash = i = 0; i < 52; ++i)
+	{
+		hash += ((char*)DataOut.pbData)[i];
+		hash += (hash << 10);
+		hash ^= (hash >> 6);
+	}
+
+	hash += (hash << 3);
+	hash ^= (hash >> 11);
+	hash += (hash << 15);
+
+	Global::Steam_UserID = CSteamID(hash, k_unSteamUserWebInstance, k_EUniverseInternal, k_EAccountTypeIndividual).ConvertToUint64();
 }
 
 void SteamProxy::SetSteamDirectory()

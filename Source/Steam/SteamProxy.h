@@ -9,6 +9,9 @@
 		Steam communication class.
 */
 
+#include <wincrypt.h>
+#pragma comment(lib, "Crypt32.lib")
+
 #define MOD_TITLE "Redacted"
 
 #ifdef _WIN64
@@ -140,4 +143,6 @@ class SteamProxy
 
 		static void StartMod();
 		static void StartGame();
+
+		static void GenerateID();
 };

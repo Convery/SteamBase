@@ -19,7 +19,7 @@
 #define PERF_DEBUG			// Performance logging.
 
 // Piracy prevention as mandated by ATVI.
-#define NO_PIRACY
+//#define NO_PIRACY
 
 // Debug functionallity.
 #if !defined(NET_DEBUG) && !defined(FS_DEBUG) && !defined(PERF_DEBUG)
@@ -87,6 +87,7 @@
 #include <chrono>
 #include <thread>
 #include <direct.h>
+
 #pragma endregion
 
 // Utility headers.
