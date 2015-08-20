@@ -11,6 +11,10 @@
 
 #include "..\StdInclude.h"
 
+std::mutex SteamProxy::CallMutex;
+std::unordered_map<int32, void*> SteamProxy::Callbacks;
+std::vector<SteamProxy::CallContainer> SteamProxy::Calls;
+
 char SteamProxy::SteamPath[MAX_PATH] = { 0 };
 char SteamProxy::AppName[MAX_PATH * 2] = { 0 };
 
@@ -18,12 +22,16 @@ HMODULE SteamProxy::SteamClient = 0;
 HMODULE SteamProxy::SteamOverlay = 0;
 
 CreateInterfaceFn SteamProxy::ClientFactory = 0;
+SteamBGetCallbackFn SteamProxy::SteamBGetCallback = 0;
+SteamFreeLastCallbackFn SteamProxy::SteamFreeLastCallback = 0;
+SteamGetAPICallResultFn SteamProxy::SteamGetAPICallResult = 0;
 HSteamPipe SteamProxy::Pipe = 0;
 HSteamUser SteamProxy::GlobalUser = 0;
 
-IClientEngine* SteamProxy::ClientEngine = 0;
-IClientUser*   SteamProxy::ClientUser   = 0;
-IClientApps*   SteamProxy::ClientApps   = 0;
+IClientEngine*  SteamProxy::ClientEngine  = 0;
+IClientUser*    SteamProxy::ClientUser    = 0;
+IClientApps*    SteamProxy::ClientApps    = 0;
+IClientFriends* SteamProxy::ClientFriends = 0;
 
 ISteamAppList001*               SteamProxy::ISteamAppList             = 0;
 ISteamApps007*                  SteamProxy::ISteamApps                = 0;
@@ -139,6 +147,15 @@ bool SteamProxy::CreateClient()
 	SteamProxy::ClientFactory = (CreateInterfaceFn)GetProcAddress(SteamProxy::SteamClient, "CreateInterface");
 	STEAMPROXY_ASSERT(ClientFactory)
 
+	SteamProxy::SteamBGetCallback = (SteamBGetCallbackFn)GetProcAddress(SteamProxy::SteamClient, "Steam_BGetCallback");
+	STEAMPROXY_ASSERT(SteamBGetCallback)
+
+	SteamProxy::SteamFreeLastCallback = (SteamFreeLastCallbackFn)GetProcAddress(SteamProxy::SteamClient, "Steam_FreeLastCallback");
+	STEAMPROXY_ASSERT(SteamFreeLastCallback)
+
+	SteamProxy::SteamGetAPICallResult = (SteamGetAPICallResultFn)GetProcAddress(SteamProxy::SteamClient, "Steam_GetAPICallResult");
+	STEAMPROXY_ASSERT(SteamGetAPICallResult)
+
 	SteamProxy::ClientEngine = (IClientEngine*)SteamProxy::ClientFactory(CLIENTENGINE_INTERFACE_VERSION, NULL);
 	STEAMPROXY_ASSERT(ClientEngine)
 
@@ -156,6 +173,9 @@ bool SteamProxy::CreateClient()
 
 	SteamProxy::ClientApps = SteamProxy::ClientEngine->GetIClientApps(SteamProxy::GlobalUser, SteamProxy::Pipe, CLIENTAPPS_INTERFACE_VERSION);
 	STEAMPROXY_ASSERT(ClientApps)
+
+	SteamProxy::ClientFriends = SteamProxy::ClientEngine->GetIClientFriends(SteamProxy::GlobalUser, SteamProxy::Pipe, CLIENTFRIENDS_INTERFACE_VERSION);
+	STEAMPROXY_ASSERT(ClientFriends)
 
 	return true;
 }
@@ -183,7 +203,6 @@ bool SteamProxy::CreateInterfaces()
 	STEAMPROXY_CREATEINTERFACE(ISteamUser,               ISteamUser017,               GetISteamUser,               STEAMUSER_INTERFACE_VERSION_017)
 	STEAMPROXY_CREATEINTERFACE(ISteamUserStats,          ISteamUserStats011,          GetISteamUserStats,          STEAMUSERSTATS_INTERFACE_VERSION_011)
 	STEAMPROXY_CREATEINTERFACE_NO_USER(ISteamUtils,      ISteamUtils007,              GetISteamUtils,              STEAMUTILS_INTERFACE_VERSION_007)
-
 	return true;
 }
 
@@ -314,6 +333,112 @@ void SteamProxy::RunClient()
 		}
 
 		exit(0);
+	}
+}
+
+void SteamProxy::RegisterCall(int32 callId, uint32 size, SteamAPICall_t call)
+{
+	SteamProxy::CallContainer contianer;
+
+	contianer.call = call;
+	contianer.dataSize = size;
+	contianer.callId = callId;
+	contianer.handled = false;
+
+	SteamProxy::CallMutex.lock();
+	SteamProxy::Calls.push_back(contianer);
+	SteamProxy::CallMutex.unlock();
+}
+
+void SteamProxy::UnregisterCalls()
+{
+	SteamProxy::CallMutex.lock();
+
+	std::vector<SteamProxy::CallContainer> tempVector;
+
+	for (auto &call : SteamProxy::Calls)
+	{
+		if (!call.handled)
+		{
+			tempVector.push_back(call);
+		}
+	}
+
+	SteamProxy::Calls = tempVector;
+
+	SteamProxy::CallMutex.unlock();
+}
+
+void SteamProxy::RegisterCallback(int32 callId, void* callback)
+{
+	SteamProxy::Callbacks[callId] = callback;
+}
+
+void SteamProxy::UnregisterCallback(int32 callId)
+{
+	SteamProxy::Callbacks.erase(callId);
+}
+
+void SteamProxy::RunFrame()
+{
+	if (SteamProxy::ISteamUtils)
+	{
+		SteamProxy::ISteamUtils->RunFrame();
+	}
+
+	CallbackMsg_t message;
+	while (SteamProxy::SteamBGetCallback(SteamProxy::Pipe, &message))
+	{
+		DBGPrint("SteamProxy: Callback dispatched: %d %s", message.m_iCallback, SteamCallback::GetCallbackName(message.m_iCallback));
+		SteamProxy::RunCallback(message.m_iCallback, message.m_pubParam);
+		SteamProxy::SteamFreeLastCallback(SteamProxy::Pipe);
+	}
+
+	if (SteamProxy::ISteamUtils)
+	{
+		SteamProxy::CallMutex.lock();
+
+		for (auto &call : SteamProxy::Calls)
+		{
+			bool failed = false;
+			if (SteamProxy::ISteamUtils->IsAPICallCompleted(call.call, &failed))
+			{
+				DBGPrint("SteamProxy: Handling call: %llX of type %d", call.call, call.callId);
+				call.handled = true;
+
+				if (failed)
+				{
+					auto error = SteamProxy::ISteamUtils->GetAPICallFailureReason(call.call);
+					DBGPrint("SteamProxy: API call failed: %X Handle: %llX", error, call.call);
+					continue;
+				}
+
+				char* buffer = new char[call.dataSize];
+				SteamProxy::ISteamUtils->GetAPICallResult(call.call, buffer, call.dataSize, call.callId, &failed);
+
+				if (failed)
+				{
+					auto error = SteamProxy::ISteamUtils->GetAPICallFailureReason(call.call);
+					DBGPrint("SteamProxy: GetAPICallResult failed: %X Handle: %llX", error, call.call);
+					continue;
+				}
+
+				SteamProxy::RunCallback(call.callId, buffer);
+				delete[] buffer;
+			}
+		}
+
+		SteamProxy::CallMutex.unlock();
+	}
+
+	SteamProxy::UnregisterCalls();
+}
+
+void SteamProxy::RunCallback(int32 callId, void* data)
+{
+	if (SteamProxy::Callbacks.find(callId) != SteamProxy::Callbacks.end())
+	{
+		((Callback)SteamProxy::Callbacks[callId])(data);
 	}
 }
 

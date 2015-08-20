@@ -560,10 +560,9 @@ struct SetPersonaNameResponse_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 47 };
 
-	bool m_bUnk1;
-	bool m_bUnk2;
-	
-	EResult m_eResult;
+	bool m_bSuccess; // true if name change succeeded completely.
+	bool m_bLocalSuccess; // true if name change was retained locally.  (We might not have been able to communicate with Steam)
+	EResult m_result; // detailed result code
 };
 
 

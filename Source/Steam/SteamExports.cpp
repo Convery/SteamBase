@@ -215,6 +215,7 @@ extern "C"
 	API void __cdecl SteamAPI_RunCallbacks()
 	{
 		SteamCallback::RunCallbacks();
+		SteamProxy::RunFrame();
 	}
 	API void __cdecl SteamAPI_RegisterCallResult(void *Result, uint64_t APICall)
 	{

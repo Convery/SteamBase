@@ -68,6 +68,8 @@ if(SteamProxy::_interface)                                    \
 class SteamProxy
 {
 	public:
+		typedef void(__cdecl* Callback)(void*);
+
 		static bool Inititalize();
 
 		static void RunClient();
@@ -88,6 +90,14 @@ class SteamProxy
 		static void SetOverlayNotificationPosition(ENotificationPosition eNotificationPosition);
 		static bool IsOverlayEnabled();
 		static bool BOverlayNeedsPresent();
+
+		// Callback stuff
+		static void RunFrame();
+		static void RegisterCallback(int32 callId, void* callback);
+		static void UnregisterCallback(int32 callId);
+
+		static void RegisterCall(int32 callId, uint32 size, SteamAPICall_t call);
+#define RegisterRawCall(id, call) RegisterCall(id::k_iCallback, sizeof(id), call)
 
 		// SteamInterface objects
 		static ISteamAppList001*             ISteamAppList;
@@ -120,6 +130,19 @@ class SteamProxy
 		static ISteamUtils007*               ISteamUtils;
 
 	private:
+
+		struct CallContainer
+		{
+			SteamAPICall_t call;
+			bool handled;
+			int32 callId;
+			uint32 dataSize;
+		};
+
+		static std::mutex CallMutex;
+		static std::vector<CallContainer> Calls;
+		static std::unordered_map<int32, void*> Callbacks;
+
 		static char SteamPath[MAX_PATH];
 		static char AppName[MAX_PATH * 2];
 
@@ -127,12 +150,16 @@ class SteamProxy
 		static HMODULE SteamOverlay;
 
 		static CreateInterfaceFn ClientFactory;
+		static SteamBGetCallbackFn SteamBGetCallback;
+		static SteamFreeLastCallbackFn SteamFreeLastCallback;
+		static SteamGetAPICallResultFn SteamGetAPICallResult;
 		static HSteamPipe Pipe;
 		static HSteamUser GlobalUser;
 
-		static IClientEngine* ClientEngine;
-		static IClientUser*   ClientUser;
-		static IClientApps*   ClientApps;
+		static IClientEngine*  ClientEngine;
+		static IClientUser*    ClientUser;
+		static IClientApps*    ClientApps;
+		static IClientFriends* ClientFriends;
 
 		static void LoadOverlay();
 		static bool DoUserChecks();
@@ -145,4 +172,7 @@ class SteamProxy
 		static void StartGame();
 
 		static void GenerateID();
+
+		static void RunCallback(int32 callId, void* data);
+		static void UnregisterCalls();
 };
