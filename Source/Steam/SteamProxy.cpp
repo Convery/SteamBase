@@ -277,6 +277,7 @@ bool SteamProxy::BOverlayNeedsPresent()
 void SteamProxy::StartGame()
 {
 	SetEnvironmentVariableA("SteamAppId", hString::va("%lu", Global::Steam_AppID));
+	SetEnvironmentVariableA("SteamGameId", hString::va("%llu", Global::Steam_AppID & 0xFFFFFF));
 
 	if (!FileSystem::FileExists("steam_appid.txt"))
 	{
@@ -389,8 +390,9 @@ void SteamProxy::RunFrame()
 	CallbackMsg_t message;
 	while (SteamProxy::SteamBGetCallback(SteamProxy::Pipe, &message))
 	{
-		DBGPrint("SteamProxy: Callback dispatched: %d %s", message.m_iCallback, SteamCallback::GetCallbackName(message.m_iCallback));
+		DBGPrint("SteamProxy: Callback dispatched (%d): %s", message.m_iCallback, SteamCallback::GetCallbackName(message.m_iCallback));
 		SteamProxy::RunCallback(message.m_iCallback, message.m_pubParam);
+		SteamCallback::RunCallback(message.m_iCallback, message.m_pubParam); // Dispatch to our isolated callback system
 		SteamProxy::SteamFreeLastCallback(SteamProxy::Pipe);
 	}
 
@@ -403,7 +405,7 @@ void SteamProxy::RunFrame()
 			bool failed = false;
 			if (SteamProxy::ISteamUtils->IsAPICallCompleted(call.call, &failed))
 			{
-				DBGPrint("SteamProxy: Handling call: %llX of type %d", call.call, call.callId);
+				DBGPrint("SteamProxy: Handling call (%d): %s", call.callId, SteamCallback::GetCallbackName(call.callId));
 				call.handled = true;
 
 				if (failed)

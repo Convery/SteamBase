@@ -94,7 +94,8 @@ static bool ReadInterfaces()
 	}
 
 	remove(INTERFACE_VERSION_FILE);
-	MessageBox(0, "Failed to parse interfaces from '" INTERFACE_VERSION_FILE "'", "Error", MB_ICONERROR);
+	MessageBox(0, "Failed to parse interfaces from '" INTERFACE_VERSION_FILE "'.\nMake sure you have a valid internet connection!", "Error", MB_ICONERROR);
+	ExitProcess(0); // Should we really exit here? Well, yeah, the game will crash anyways.
 	return false;
 }
 

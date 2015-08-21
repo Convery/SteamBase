@@ -237,7 +237,7 @@ void RedactedFriends::RequestFriendRichPresence(CSteamID steamIDFriend)
 bool RedactedFriends::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString)
 {
 	PrintCurrentFunction();
-	return false;
+	STEAMPROXY_CALL(ISteamFriends, InviteUserToGame, steamIDFriend, pchConnectString);
 }
 int32_t RedactedFriends::GetCoplayFriendCount()
 {

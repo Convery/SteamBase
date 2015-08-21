@@ -48,6 +48,9 @@ public:
 	// Does what one would expect.
 	static void RunCallbacks();
 
+	// Run steam-internal callbacks
+	static void RunCallback(int32_t callback, void* data);
+
 	// Register a global callback.
 	static void RegisterCallback(CallbackBase* handler, int32_t callback);
 

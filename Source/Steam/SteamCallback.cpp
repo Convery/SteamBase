@@ -103,6 +103,31 @@ void SteamCallback::RunCallbacks()
 	LeaveCriticalSection(&ThreadSafe);
 }
 
+void SteamCallback::RunCallback(int32_t callback, void* data)
+{
+	if (!Initialized)
+	{
+		InitializeCriticalSection(&ThreadSafe);
+		Initialized = true;
+	}
+
+	EnterCriticalSection(&ThreadSafe);
+
+	std::vector<CallbackBase*>::iterator cbiter;
+
+	for (cbiter = _Callbacks.begin(); cbiter < _Callbacks.end(); ++cbiter)
+	{
+		CallbackBase* cb = *cbiter;
+
+		if (cb && cb->GetICallback() == callback)
+		{
+			cb->Run(data);
+		}
+	}
+
+	LeaveCriticalSection(&ThreadSafe);
+}
+
 #pragma region CallbackNames
 
 //enum ECallbackType
@@ -186,9 +211,28 @@ static void BuildCallbackMap() // CallbackNames[0] = "";
 	CallbackNames[346] = "FriendsEnumerateFollowingList";
 	CallbackNames[347] = "SetPersonaNameResponse";
 
-	// Tired, just going to add the missing T6 ones for now.
-	// TODO: Add all callbacks.
+	CallbackNames[501] = "FavoritesListChangedOld";
+	CallbackNames[502] = "FavoritesListChanged";
+
+	CallbackNames[711] = "SteamConfigStoreChanged";
+
+	CallbackNames[805] = "FriendChatMsg";
+	CallbackNames[810] = "ChatRoomMsg";
+	CallbackNames[811] = "ChatRoomDlgClose";
+	CallbackNames[812] = "ChatRoomClosing";
+	CallbackNames[819] = "ClanInfoChanged";
+	CallbackNames[836] = "FriendsMenuChange";
+
+	CallbackNames[903] = "PrimaryChatDestinationSet";
+	CallbackNames[963] = "FriendMessageHistoryChatLog";
+
+	CallbackNames[1001] = "AppDataChanged";
+	CallbackNames[1002] = "RequestAppCallbacksComplete";
+	CallbackNames[1003] = "AppInfoUpdateComplete";
+	CallbackNames[1004] = "AppEventTriggered";
 	CallbackNames[1005] = "DlcInstalled";
+	CallbackNames[1006] = "AppEventStateChange";
+
 	CallbackNames[1101] = "UserStatsReceived";
 	CallbackNames[1102] = "UserStatsStored";
 	CallbackNames[1103] = "UserAchievementStored";
