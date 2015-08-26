@@ -122,6 +122,11 @@ bool IdentifyBinary()
 #define API __declspec(dllexport)
 extern "C"
 {
+	API void *__cdecl SteamUGC()
+	{
+		MessageBoxA(0, "Need to implement UGC!", "ERROR", MB_ICONERROR);
+		return NULL;
+	}
 	API void *__cdecl SteamApps()
 	{
 		return InterfaceManager::GetInterface(_SteamApps);
