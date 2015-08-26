@@ -364,3 +364,8 @@ HSteamCall RedactedFriends::AddFriendByName(const char *pchEmailOrAccountName)
 	PrintCurrentFunction();
 	return 0;
 }
+
+int RedactedFriends::GetFriendSteamLevel(CSteamID steamIDFriend){
+	PrintCurrentFunction();
+	return 1;
+}

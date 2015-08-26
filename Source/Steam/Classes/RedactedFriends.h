@@ -99,4 +99,5 @@ public:
 	static bool AddFriend(CSteamID steamIDFriend);
 	static bool RemoveFriend(CSteamID steamIDFriend);
 	static HSteamCall AddFriendByName(const char *pchEmailOrAccountName);
+	static int GetFriendSteamLevel(CSteamID steamIDFriend);
 };

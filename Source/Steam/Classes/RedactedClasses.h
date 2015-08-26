@@ -14,6 +14,7 @@
 #include "RedactedFriends.h"
 #include "RedactedGameServer.h"
 #include "RedactedMatchmaking.h"
+#include "RedactedMatchmakingServers.h"
 #include "RedactedNetworking.h"
 #include "RedactedRemoteStorage.h"
 #include "RedactedUser.h"

@@ -1843,3 +1843,80 @@ public:
 	SteamAPICall_t EnumerateFollowingList(uint32 unStartIndex);
 };
 #pragma endregion
+
+#pragma region SteamFriends015
+class SteamFriends015 : public ISteamFriends015
+{
+public:
+	const char *GetPersonaName();
+	SteamAPICall_t SetPersonaName(const char *pchPersonaName);
+	EPersonaState GetPersonaState();
+	int GetFriendCount(int iFriendFlags);
+	CSteamID GetFriendByIndex( int iFriend, int iFriendFlags );
+	EFriendRelationship GetFriendRelationship(CSteamID steamIDFriend);
+	EPersonaState GetFriendPersonaState(CSteamID steamIDFriend);
+	const char *GetFriendPersonaName(CSteamID steamIDFriend);
+	bool GetFriendGamePlayed(CSteamID steamID, FriendGameInfo_t *pGamePlayInfo);
+	const char *GetFriendPersonaNameHistory(CSteamID steamIDFriend, int iPersonaName);
+	int GetFriendSteamLevel(CSteamID steamIDFriend);
+	const char *GetPlayerNickname(CSteamID steamIDPlayer);
+	int16 GetFriendsGroupCount();
+	int16 GetFriendsGroupIDByIndex(int32);
+	const char * GetFriendsGroupName(int16);
+	unknown_ret GetFriendsGroupMembersCount(int16);
+	unknown_ret GetFriendsGroupMembersList(int16, CSteamID *, int32);
+	bool HasFriend(CSteamID steamIDFriend, int iFriendFlags);
+	int GetClanCount();
+	CSteamID GetClanByIndex(int iClan);
+	const char *GetClanName(CSteamID steamIDClan);
+	const char *GetClanTag(CSteamID steamIDClan);
+	bool GetClanActivityCounts(CSteamID steamID, int *pnOnline, int *pnInGame, int *pnChatting);
+	SteamAPICall_t DownloadClanActivityCounts(CSteamID groupIDs[], int nIds);
+	int GetFriendCountFromSource(CSteamID steamIDSource);
+    CSteamID GetFriendFromSourceByIndex( CSteamID steamIDSource, int iFriend );
+	bool IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource);
+	void SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking);
+	void ActivateGameOverlay(const char *pchDialog);
+	void ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID);
+	void ActivateGameOverlayToWebPage(const char *pchURL);
+	void ActivateGameOverlayToStore(AppId_t nAppID, EOverlayToStoreFlag eFlag);
+	void SetPlayedWith(CSteamID steamIDUserPlayedWith);
+	void ActivateGameOverlayInviteDialog(CSteamID steamIDLobby);
+	int GetSmallFriendAvatar(CSteamID steamIDFriend);
+	int GetMediumFriendAvatar(CSteamID steamIDFriend);
+	int GetLargeFriendAvatar(CSteamID steamIDFriend);
+	bool RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly);
+	SteamAPICall_t RequestClanOfficerList(CSteamID steamIDClan);
+	CSteamID GetClanOwner( CSteamID steamIDClan );
+	int GetClanOfficerCount(CSteamID steamIDClan);
+	CSteamID GetClanOfficerByIndex( CSteamID steamIDClan, int iOfficer );
+	EUserRestriction GetUserRestrictions();
+	bool SetRichPresence(const char *pchKey, const char *pchValue);
+	void ClearRichPresence();
+	const char *GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey);
+	int GetFriendRichPresenceKeyCount(CSteamID steamIDFriend);
+	const char *GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int iKey);
+	void RequestFriendRichPresence(CSteamID steamIDFriend);
+	bool InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString);
+	int GetCoplayFriendCount();
+	CSteamID GetCoplayFriend( int iCoplayFriend );
+	int GetFriendCoplayTime(CSteamID steamIDFriend);
+	AppId_t GetFriendCoplayGame(CSteamID steamIDFriend);
+	SteamAPICall_t JoinClanChatRoom(CSteamID steamIDClan);
+	bool LeaveClanChatRoom(CSteamID steamIDClan);
+	int GetClanChatMemberCount(CSteamID steamIDClan);
+	CSteamID GetChatMemberByIndex( CSteamID steamIDClan, int iUser );
+	bool SendClanChatMessage(CSteamID steamIDClanChat, const char *pchText);
+	int GetClanChatMessage(CSteamID steamIDClanChat, int iMessage, void *prgchText, int cchTextMax, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter);
+	bool IsClanChatAdmin(CSteamID steamIDClanChat, CSteamID steamIDUser);
+	bool IsClanChatWindowOpenInSteam(CSteamID steamIDClanChat);
+	bool OpenClanChatWindowInSteam(CSteamID steamIDClanChat);
+	bool CloseClanChatWindowInSteam(CSteamID steamIDClanChat);
+	bool SetListenForFriendsMessages(bool bInterceptEnabled);
+	bool ReplyToFriendMessage(CSteamID steamIDFriend, const char *pchMsgToSend);
+	int GetFriendMessage(CSteamID steamIDFriend, int iMessageID, void *pvData, int cubData, EChatEntryType *peChatEntryType);
+	SteamAPICall_t GetFollowerCount(CSteamID steamID);
+	SteamAPICall_t IsFollowing(CSteamID steamID);
+	SteamAPICall_t EnumerateFollowingList(uint32 unStartIndex);
+};
+#pragma endregion

@@ -109,3 +109,61 @@ public:
 };
 
 #pragma endregion
+
+#pragma region SteamGameServer012
+
+class SteamGameServer012 : public ISteamGameServer012
+{
+public:
+	bool InitGameServer(uint32 unGameIP, uint16 unGamePort, uint16 usQueryPort, uint32 unServerFlags, AppId_t nAppID, const char *pchVersion);
+	void SetProduct(const char *pchProductName);
+	void SetGameDescription(const char *pchGameDescription);
+	void SetModDir(const char *pchModDir);
+	void SetDedicatedServer(bool bDedicatedServer);
+
+	void LogOn(const char *pszUnk);
+	void LogOnAnonymous();
+	void LogOff();
+	bool BLoggedOn();
+	bool BSecure();
+	CSteamID GetSteamID();
+	bool WasRestartRequested();
+
+	void SetMaxPlayerCount(int cPlayersMax);
+	void SetBotPlayerCount(int cBotPlayers);
+	void SetServerName(const char *pszServerName);
+	void SetMapName(const char *pszMapName);
+	void SetPasswordProtected(bool bPasswordProtected);
+	void SetSpectatorPort(uint16 unSpectatorPort);
+	void SetSpectatorServerName(const char *pszSpectatorServerName);
+	void ClearAllKeyValues();
+	void SetKeyValue(const char *pKey, const char *pValue);
+	void SetGameTags(const char *pchGameTags);
+	void SetGameData(const char *pchGameData);
+	void SetRegion(const char *pchRegionName);
+
+	int SendUserConnectAndAuthenticate(uint32 unIPClient, const void *pvAuthBlob, uint32 cubAuthBlobSize, CSteamID *pSteamIDUser);
+	CSteamID CreateUnauthenticatedUserConnection();
+	void SendUserDisconnect(CSteamID steamIDUser);
+	bool BUpdateUserData(CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore);
+
+	HAuthTicket GetAuthSessionTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket);
+	EBeginAuthSessionResult BeginAuthSession(const void *pAuthTicket, int cbAuthTicket, CSteamID steamID);
+	void EndAuthSession(CSteamID steamID);
+	void CancelAuthTicket(HAuthTicket hAuthTicket);
+	EUserHasLicenseForAppResult UserHasLicenseForApp(CSteamID steamID, AppId_t appID);
+	bool RequestUserGroupStatus(CSteamID steamIDUser, CSteamID steamIDGroup);
+
+	void GetGameplayStats();
+	SteamAPICall_t GetServerReputation();
+	uint32 GetPublicIP();
+	bool HandleIncomingPacket(const void *pData, int cbData, uint32 srcIP, uint16 srcPort);
+	int GetNextOutgoingPacket(void *pOut, int cbMaxOut, uint32 *pNetAdr, uint16 *pPort);
+	void EnableHeartbeats(bool bActive);
+	void SetHeartbeatInterval(int iHeartbeatInterval);
+	void ForceHeartbeat();
+	SteamAPICall_t AssociateWithClan(CSteamID clanID);
+	SteamAPICall_t ComputeNewPlayerCompatibility(CSteamID steamID);
+};
+
+#pragma endregion

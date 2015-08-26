@@ -247,3 +247,201 @@ SteamAPICall_t SteamGameServer011::ComputeNewPlayerCompatibility(CSteamID steamI
 }
 
 #pragma endregion
+
+#pragma region SteamGameServer012
+
+// This is called by SteamGameServer_Init, and you will usually not need to call it directly
+bool SteamGameServer012::InitGameServer(uint32 unGameIP, uint16 unGamePort, uint16 usQueryPort, uint32 unServerFlags, AppId_t nAppID, const char *pchVersion)
+{
+	return RedactedGameServer::InitGameServer(unGameIP, unGamePort, usQueryPort, unServerFlags, nAppID, pchVersion);
+}
+void SteamGameServer012::SetProduct(const char *pchProductName)
+{
+	return RedactedGameServer::SetProduct(pchProductName);
+}
+void SteamGameServer012::SetGameDescription(const char *pchGameDescription)
+{
+	return RedactedGameServer::SetGameDescription(pchGameDescription);
+}
+void SteamGameServer012::SetModDir(const char *pchModDir)
+{
+	return RedactedGameServer::SetModDir(pchModDir);
+}
+void SteamGameServer012::SetDedicatedServer(bool bDedicatedServer)
+{
+	return RedactedGameServer::SetDedicatedServer(bDedicatedServer);
+}
+
+// Login.
+void SteamGameServer012::LogOn(const char *pszUnk)
+{
+	//NO-OP for now
+}
+void SteamGameServer012::LogOnAnonymous()
+{
+	return RedactedGameServer::LogOnAnonymous();
+}
+void SteamGameServer012::LogOff()
+{
+	return RedactedGameServer::LogOff();
+}
+
+// Status.
+bool SteamGameServer012::BLoggedOn()
+{
+	return RedactedGameServer::BLoggedOn();
+}
+bool SteamGameServer012::BSecure()
+{
+	return RedactedGameServer::BSecure();
+}
+CSteamID SteamGameServer012::GetSteamID()
+{
+	return RedactedGameServer::GetSteamID();
+}
+bool SteamGameServer012::WasRestartRequested()
+{
+	return RedactedGameServer::WasRestartRequested();
+}
+
+// Server state.
+void SteamGameServer012::SetMaxPlayerCount(int cPlayersMax)
+{
+	return RedactedGameServer::SetMaxPlayerCount(cPlayersMax);
+}
+void SteamGameServer012::SetBotPlayerCount(int cBotPlayers)
+{
+	return RedactedGameServer::SetBotPlayerCount(cBotPlayers);
+}
+void SteamGameServer012::SetServerName(const char *pszServerName)
+{
+	return RedactedGameServer::SetServerName(pszServerName);
+}
+void SteamGameServer012::SetMapName(const char *pszMapName)
+{
+	return RedactedGameServer::SetMapName(pszMapName);
+}
+void SteamGameServer012::SetPasswordProtected(bool bPasswordProtected)
+{
+	return RedactedGameServer::SetPasswordProtected(bPasswordProtected);
+}
+void SteamGameServer012::SetSpectatorPort(uint16_t unSpectatorPort)
+{
+	return RedactedGameServer::SetSpectatorPort(unSpectatorPort);
+}
+void SteamGameServer012::SetSpectatorServerName(const char *pszSpectatorServerName)
+{
+	return RedactedGameServer::SetSpectatorServerName(pszSpectatorServerName);
+}
+void SteamGameServer012::ClearAllKeyValues()
+{
+	return RedactedGameServer::ClearAllKeyValues();
+}
+
+// Add/update a key/value pair.
+void SteamGameServer012::SetKeyValue(const char *pKey, const char *pValue)
+{
+	return RedactedGameServer::SetKeyValue(pKey, pValue);
+}
+void SteamGameServer012::SetGameTags(const char *pchGameTags)
+{
+	return RedactedGameServer::SetGameTags(pchGameTags);
+}
+void SteamGameServer012::SetGameData(const char *pchGameData)
+{
+	return RedactedGameServer::SetGameData(pchGameData);
+}
+void SteamGameServer012::SetRegion(const char *pchRegionName)
+{
+	return RedactedGameServer::SetRegion(pchRegionName);
+}
+
+// Player list management.
+int SteamGameServer012::SendUserConnectAndAuthenticate(uint32 unIPClient, const void *pvAuthBlob, uint32 cubAuthBlobSize, CSteamID *pSteamIDUser)
+{
+	return RedactedGameServer::SendUserConnectAndAuthenticate(unIPClient, pvAuthBlob, cubAuthBlobSize, pSteamIDUser);
+}
+CSteamID SteamGameServer012::CreateUnauthenticatedUserConnection()
+{
+	return RedactedGameServer::CreateUnauthenticatedUserConnection();
+}
+void SteamGameServer012::SendUserDisconnect(CSteamID steamIDUser)
+{
+	return RedactedGameServer::SendUserDisconnect(steamIDUser);
+}
+bool SteamGameServer012::BUpdateUserData(CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore)
+{
+	return RedactedGameServer::BUpdateUserData(steamIDUser, pchPlayerName, uScore);
+}
+
+// New auth system APIs.
+HAuthTicket SteamGameServer012::GetAuthSessionTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket)
+{
+	return RedactedGameServer::GetAuthSessionTicket(pTicket, cbMaxTicket, pcbTicket);
+}
+EBeginAuthSessionResult SteamGameServer012::BeginAuthSession(const void *pAuthTicket, int cbAuthTicket, CSteamID steamID)
+{
+	return RedactedGameServer::BeginAuthSession(pAuthTicket, cbAuthTicket, steamID);
+}
+void SteamGameServer012::EndAuthSession(CSteamID steamID)
+{
+	return RedactedGameServer::EndAuthSession(steamID);
+}
+void SteamGameServer012::CancelAuthTicket(HAuthTicket hAuthTicket)
+{
+	return RedactedGameServer::CancelAuthTicket(hAuthTicket);
+}
+EUserHasLicenseForAppResult SteamGameServer012::UserHasLicenseForApp(CSteamID steamID, AppId_t appID)
+{
+	return RedactedGameServer::UserHasLicenseForApp(steamID, appID);
+}
+bool SteamGameServer012::RequestUserGroupStatus(CSteamID steamIDUser, CSteamID steamIDGroup)
+{
+	return RedactedGameServer::RequestUserGroupStatus(steamIDUser, steamIDGroup);
+}
+
+// Queryable info.
+void SteamGameServer012::GetGameplayStats()
+{
+	return RedactedGameServer::GetGameplayStats();
+}
+SteamAPICall_t SteamGameServer012::GetServerReputation()
+{
+	return RedactedGameServer::GetServerReputation();
+}
+uint32_t SteamGameServer012::GetPublicIP()
+{
+	return RedactedGameServer::GetPublicIP();
+}
+bool SteamGameServer012::HandleIncomingPacket(const void *pData, int cbData, uint32 srcIP, uint16 srcPort)
+{
+	return RedactedGameServer::HandleIncomingPacket(pData, cbData, srcIP, srcPort);
+}
+int SteamGameServer012::GetNextOutgoingPacket(void *pOut, int cbMaxOut, uint32 *pNetAdr, uint16 *pPort)
+{
+	return RedactedGameServer::GetNextOutgoingPacket(pOut, cbMaxOut, pNetAdr, pPort);
+}
+
+// Heartbeats.
+void SteamGameServer012::EnableHeartbeats(bool bActive)
+{
+	return RedactedGameServer::EnableHeartbeats(bActive);
+}
+void SteamGameServer012::SetHeartbeatInterval(int iHeartbeatInterval)
+{
+	return RedactedGameServer::SetHeartbeatInterval(iHeartbeatInterval);
+}
+void SteamGameServer012::ForceHeartbeat()
+{
+	return RedactedGameServer::ForceHeartbeat();
+}
+SteamAPICall_t SteamGameServer012::AssociateWithClan(CSteamID clanID)
+{
+	return RedactedGameServer::AssociateWithClan(clanID);
+}
+SteamAPICall_t SteamGameServer012::ComputeNewPlayerCompatibility(CSteamID steamID)
+{
+	return RedactedGameServer::ComputeNewPlayerCompatibility(steamID);
+}
+
+#pragma endregion

@@ -212,6 +212,7 @@
     <ClInclude Include="Source\Steam\Classes\RedactedFriends.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedGameServer.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedMatchmaking.h" />
+    <ClInclude Include="Source\Steam\Classes\RedactedMatchmakingServers.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedNetworking.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedRemoteStorage.h" />
     <ClInclude Include="Source\Steam\Classes\RedactedUser.h" />
@@ -223,6 +224,7 @@
     <ClInclude Include="Source\Steam\ClassWrappers\SteamFriends.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamGameServer.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamMatchmaking.h" />
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamMatchmakingServers.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamNetworking.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamRemoteStorage.h" />
     <ClInclude Include="Source\Steam\ClassWrappers\SteamUser.h" />
@@ -406,6 +408,7 @@
     <ClInclude Include="Source\Steam\Interface\ISteamUser015.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamUser016.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamUser017.h" />
+    <ClInclude Include="Source\Steam\Interface\ISteamUser018.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamUserStats001.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamUserStats002.h" />
     <ClInclude Include="Source\Steam\Interface\ISteamUserStats003.h" />
@@ -497,6 +500,7 @@
     <ClCompile Include="Source\Steam\Classes\RedactedFriends.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedGameServer.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedMatchmaking.cpp" />
+    <ClCompile Include="Source\Steam\Classes\RedactedMatchmakingServers.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedNetworking.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedRemoteStorage.cpp" />
     <ClCompile Include="Source\Steam\Classes\RedactedUser.cpp" />
@@ -506,6 +510,7 @@
     <ClCompile Include="Source\Steam\ClassWrappers\SteamFriends.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamGameServer.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamMatchmaking.cpp" />
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamMatchmakingServers.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamNetworking.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamRemoteStorage.cpp" />
     <ClCompile Include="Source\Steam\ClassWrappers\SteamUser.cpp" />

@@ -3504,3 +3504,290 @@ SteamAPICall_t SteamFriends014::EnumerateFollowingList(uint32 unStartIndex)
 	return RedactedFriends::EnumerateFollowingList(unStartIndex);
 }
 #pragma endregion
+
+#pragma region SteamFriends015
+
+const char *SteamFriends015::GetPersonaName()
+{
+	return RedactedFriends::GetPersonaName();
+}
+SteamAPICall_t SteamFriends015::SetPersonaName(const char *pchPersonaName)
+{
+	return RedactedFriends::SetPersonaName(pchPersonaName);
+}
+EPersonaState SteamFriends015::GetPersonaState()
+{
+	return RedactedFriends::GetPersonaState();
+}
+int32_t SteamFriends015::GetFriendCount(int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendCount(iFriendFlags);
+}
+CSteamID SteamFriends015::GetFriendByIndex(int32_t iFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::GetFriendByIndex(iFriend, iFriendFlags);
+}
+EFriendRelationship SteamFriends015::GetFriendRelationship(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRelationship(steamIDFriend);
+}
+EPersonaState SteamFriends015::GetFriendPersonaState(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendPersonaState(steamIDFriend);
+}
+const char *SteamFriends015::GetFriendPersonaName(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendPersonaName(steamIDFriend);
+}
+bool SteamFriends015::GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo)
+{
+	return RedactedFriends::GetFriendGamePlayed(steamIDFriend, pFriendGameInfo);
+}
+const char *SteamFriends015::GetFriendPersonaNameHistory(CSteamID steamIDFriend, int32_t iPersonaName)
+{
+	return RedactedFriends::GetFriendPersonaNameHistory(steamIDFriend, iPersonaName);
+}
+
+const char *SteamFriends015::GetPlayerNickname(CSteamID steamIDPlayer)
+{
+	return RedactedFriends::GetPlayerNickname(steamIDPlayer);
+}
+bool SteamFriends015::HasFriend(CSteamID steamIDFriend, int32_t iFriendFlags)
+{
+	return RedactedFriends::HasFriend(steamIDFriend, iFriendFlags);
+}
+int32_t SteamFriends015::GetClanCount()
+{
+	return RedactedFriends::GetClanCount();
+}
+CSteamID SteamFriends015::GetClanByIndex(int32_t iClan)
+{
+	return RedactedFriends::GetClanByIndex(iClan);
+}
+const char *SteamFriends015::GetClanName(CSteamID steamIDClan)
+{
+	return RedactedFriends::GetClanName(steamIDClan);
+}
+const char *SteamFriends015::GetClanTag(CSteamID steamIDClan)
+{
+	return RedactedFriends::GetClanTag(steamIDClan);
+}
+
+bool SteamFriends015::GetClanActivityCounts(CSteamID steamID, int32_t *pnOnline, int32_t *pnInGame, int32_t *pnChatting)
+{
+	return RedactedFriends::GetClanActivityCounts(steamID, pnOnline, pnInGame, pnChatting);
+}
+SteamAPICall_t SteamFriends015::DownloadClanActivityCounts(CSteamID groupIDs[], int32_t nIds)
+{
+	return RedactedFriends::DownloadClanActivityCounts(groupIDs, nIds);
+}
+int32_t SteamFriends015::GetFriendCountFromSource(CSteamID steamIDSource)
+{
+	return RedactedFriends::GetFriendCountFromSource(steamIDSource);
+}
+CSteamID SteamFriends015::GetFriendFromSourceByIndex(CSteamID steamIDSource, int32_t iFriend)
+{
+	return RedactedFriends::GetFriendFromSourceByIndex(steamIDSource, iFriend);
+}
+bool SteamFriends015::IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource)
+{
+	return RedactedFriends::IsUserInSource(steamIDUser, steamIDSource);
+}
+void SteamFriends015::SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking)
+{
+	RedactedFriends::SetInGameVoiceSpeaking(steamIDUser, bSpeaking);
+}
+void SteamFriends015::ActivateGameOverlay(const char *pchDialog)
+{
+	RedactedFriends::ActivateGameOverlay(pchDialog);
+}
+void SteamFriends015::ActivateGameOverlayToUser(const char *pchDialog, CSteamID steamID)
+{
+	RedactedFriends::ActivateGameOverlayToUser(pchDialog, steamID);
+}
+void SteamFriends015::ActivateGameOverlayToWebPage(const char *pchURL)
+{
+	RedactedFriends::ActivateGameOverlayToWebPage(pchURL);
+}
+void SteamFriends015::ActivateGameOverlayToStore(AppId_t nAppID, EOverlayToStoreFlag eFlag)
+{
+	return RedactedFriends::ActivateGameOverlayToStore(nAppID, eFlag);
+}
+void SteamFriends015::SetPlayedWith(CSteamID steamIDUserPlayedWith)
+{
+	RedactedFriends::SetPlayedWith(steamIDUserPlayedWith);
+}
+void SteamFriends015::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby)
+{
+	RedactedFriends::ActivateGameOverlayInviteDialog(steamIDLobby);
+}
+int32_t SteamFriends015::GetSmallFriendAvatar(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetSmallFriendAvatar(steamIDFriend);
+}
+int32_t SteamFriends015::GetMediumFriendAvatar(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetMediumFriendAvatar(steamIDFriend);
+}
+int32_t SteamFriends015::GetLargeFriendAvatar(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetLargeFriendAvatar(steamIDFriend);
+}
+bool SteamFriends015::RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly)
+{
+	return RedactedFriends::RequestUserInformation(steamIDUser, bRequireNameOnly);
+}
+SteamAPICall_t SteamFriends015::RequestClanOfficerList(CSteamID steamIDClan)
+{
+	return RedactedFriends::RequestClanOfficerList(steamIDClan);
+}
+CSteamID SteamFriends015::GetClanOwner(CSteamID steamIDClan)
+{
+	return RedactedFriends::GetClanOwner(steamIDClan);
+}
+int32_t SteamFriends015::GetClanOfficerCount(CSteamID steamIDClan)
+{
+	return RedactedFriends::GetClanOfficerCount(steamIDClan);
+}
+CSteamID SteamFriends015::GetClanOfficerByIndex(CSteamID steamIDClan, int32_t iOfficer)
+{
+	return RedactedFriends::GetClanOfficerByIndex(steamIDClan, iOfficer);
+}
+EUserRestriction SteamFriends015::GetUserRestrictions()
+{
+	return RedactedFriends::GetUserRestrictions();
+}
+bool SteamFriends015::SetRichPresence(const char *pchKey, const char *pchValue)
+{
+	return RedactedFriends::SetRichPresence(pchKey, pchValue);
+}
+void SteamFriends015::ClearRichPresence()
+{
+	RedactedFriends::ClearRichPresence();
+}
+const char *SteamFriends015::GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey)
+{
+	return RedactedFriends::GetFriendRichPresence(steamIDFriend, pchKey);
+}
+int32_t SteamFriends015::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendRichPresenceKeyCount(steamIDFriend);
+}
+const char *SteamFriends015::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int32_t iKey)
+{
+	return RedactedFriends::GetFriendRichPresenceKeyByIndex(steamIDFriend, iKey);
+}
+void SteamFriends015::RequestFriendRichPresence(CSteamID steamIDFriend)
+{
+	RedactedFriends::RequestFriendRichPresence(steamIDFriend);
+}
+bool SteamFriends015::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString)
+{
+	return RedactedFriends::InviteUserToGame(steamIDFriend, pchConnectString);
+}
+int32_t SteamFriends015::GetCoplayFriendCount()
+{
+	return RedactedFriends::GetCoplayFriendCount();
+}
+CSteamID SteamFriends015::GetCoplayFriend(int32_t iCoplayFriend)
+{
+	return RedactedFriends::GetCoplayFriend(iCoplayFriend);
+}
+int32_t SteamFriends015::GetFriendCoplayTime(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendCoplayTime(steamIDFriend);
+}
+AppId_t SteamFriends015::GetFriendCoplayGame(CSteamID steamIDFriend)
+{
+	return RedactedFriends::GetFriendCoplayGame(steamIDFriend);
+}
+SteamAPICall_t SteamFriends015::JoinClanChatRoom(CSteamID steamIDClan)
+{
+	return RedactedFriends::JoinClanChatRoom(steamIDClan);
+}
+bool SteamFriends015::LeaveClanChatRoom(CSteamID steamIDClan)
+{
+	return RedactedFriends::LeaveClanChatRoom(steamIDClan);
+}
+int32_t SteamFriends015::GetClanChatMemberCount(CSteamID steamIDClan)
+{
+	return RedactedFriends::GetClanChatMemberCount(steamIDClan);
+}
+CSteamID SteamFriends015::GetChatMemberByIndex(CSteamID steamIDClan, int32_t iUser)
+{
+	return RedactedFriends::GetChatMemberByIndex(steamIDClan, iUser);
+}
+bool SteamFriends015::SendClanChatMessage(CSteamID steamIDClanChat, const char *pchText)
+{
+	return RedactedFriends::SendClanChatMessage(steamIDClanChat, pchText);
+}
+int32_t SteamFriends015::GetClanChatMessage(CSteamID steamIDClanChat, int32_t iMessage, void *prgchText, int32_t cchTextMax, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter)
+{
+	return RedactedFriends::GetClanChatMessage(steamIDClanChat, iMessage, prgchText, cchTextMax, peChatEntryType, pSteamIDChatter);
+}
+bool SteamFriends015::IsClanChatAdmin(CSteamID steamIDClanChat, CSteamID steamIDUser)
+{
+	return RedactedFriends::IsClanChatAdmin(steamIDClanChat, steamIDUser);
+}
+bool SteamFriends015::IsClanChatWindowOpenInSteam(CSteamID steamIDClanChat)
+{
+	return RedactedFriends::IsClanChatWindowOpenInSteam(steamIDClanChat);
+}
+bool SteamFriends015::OpenClanChatWindowInSteam(CSteamID steamIDClanChat)
+{
+	return RedactedFriends::OpenClanChatWindowInSteam(steamIDClanChat);
+}
+bool SteamFriends015::CloseClanChatWindowInSteam(CSteamID steamIDClanChat)
+{
+	return RedactedFriends::CloseClanChatWindowInSteam(steamIDClanChat);
+}
+bool SteamFriends015::SetListenForFriendsMessages(bool bInterceptEnabled)
+{
+	return RedactedFriends::SetListenForFriendsMessages(bInterceptEnabled);
+}
+bool SteamFriends015::ReplyToFriendMessage(CSteamID steamIDFriend, const char *pchMsgToSend)
+{
+	return RedactedFriends::ReplyToFriendMessage(steamIDFriend, pchMsgToSend);
+}
+int32_t SteamFriends015::GetFriendMessage(CSteamID steamIDFriend, int32_t iMessageID, void *pvData, int32_t cubData, EChatEntryType *peChatEntryType)
+{
+	return RedactedFriends::GetFriendMessage(steamIDFriend, iMessageID, pvData, cubData, peChatEntryType);
+}
+SteamAPICall_t SteamFriends015::GetFollowerCount(CSteamID steamID)
+{
+	return RedactedFriends::GetFollowerCount(steamID);
+}
+SteamAPICall_t SteamFriends015::IsFollowing(CSteamID steamID)
+{
+	return RedactedFriends::IsFollowing(steamID);
+}
+SteamAPICall_t SteamFriends015::EnumerateFollowingList(uint32 unStartIndex)
+{
+	return RedactedFriends::EnumerateFollowingList(unStartIndex);
+}
+int SteamFriends015::GetFriendSteamLevel(CSteamID steamIDFriend){
+	return RedactedFriends::GetFriendSteamLevel(steamIDFriend);
+}
+
+int16 SteamFriends015::GetFriendsGroupCount(){
+	//NO-OP for now..
+	return 0;
+}
+int16 SteamFriends015::GetFriendsGroupIDByIndex(int32){
+	//NO-OP for now..
+	return 0;
+}
+const char * SteamFriends015::GetFriendsGroupName(int16){
+	//NO-OP for now..
+	return 0;
+}
+unknown_ret SteamFriends015::GetFriendsGroupMembersCount(int16){	
+	//NO-OP for now..
+	return 0;
+}
+unknown_ret SteamFriends015::GetFriendsGroupMembersList(int16, CSteamID *, int32){
+	//NO-OP for now..
+	return 0;
+}
+
+#pragma endregion
