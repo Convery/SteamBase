@@ -43,4 +43,7 @@ public:
 
 	static CSteamID GetAppOwner();
 	static const char *GetLaunchQueryParam(const char *pchKey);
+
+	static bool GetDlcDownloadProgress(AppId_t nAppID, uint64 *punBytesDownloaded, uint64 *punBytesTotal);
+	static int GetAppBuildId();
 };

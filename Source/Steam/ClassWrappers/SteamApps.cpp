@@ -386,3 +386,131 @@ const char *SteamApps006::GetLaunchQueryParam(const char *pchKey)
 	return RedactedApps::GetLaunchQueryParam(pchKey);
 }
 #pragma endregion
+
+#pragma region SteamApps007
+bool SteamApps007::BIsSubscribed()
+{
+	return RedactedApps::IsSubscribedToCurrentApp();
+}
+bool SteamApps007::BIsLowViolence()
+{
+	return RedactedApps::IsMatureContentDisabled();
+}
+bool SteamApps007::BIsCybercafe()
+{
+	return RedactedApps::IsACybercafeAccount();
+}
+bool SteamApps007::BIsVACBanned()
+{
+	return RedactedApps::IsUserVACBanned();
+}
+const char *SteamApps007::GetCurrentGameLanguage()
+{
+	return RedactedApps::GetCurrentGameLanguage();
+}
+const char *SteamApps007::GetAvailableGameLanguages()
+{
+	return RedactedApps::GetAvailableGameLanguages();
+}
+
+// only use this member if you need to check ownership of another game related to yours, a demo for example
+bool SteamApps007::BIsSubscribedApp(AppId_t nAppID)
+{
+	return RedactedApps::IsSubscribedToApp(nAppID);
+}
+
+// Takes AppID of DLC and checks if the user owns the DLC & if the DLC is installed
+bool SteamApps007::BIsDlcInstalled(AppId_t nAppID)
+{
+	return RedactedApps::IsDlcInstalled(nAppID);
+}
+
+// returns the Unix time of the purchase of the app
+uint32 SteamApps007::GetEarliestPurchaseUnixTime(AppId_t nAppID)
+{
+	return RedactedApps::GetEarliestPurchaseUnixTime(nAppID);
+}
+
+// Checks if the user is subscribed to the current app through a free weekend
+// This function will return false for users who have a retail or other type of license
+// Before using, please ask your Valve technical contact how to package and secure your free weekened
+bool SteamApps007::BIsSubscribedFromFreeWeekend()
+{
+	return RedactedApps::IsSubscribedFromFreeWeekend();
+}
+// Returns the number of DLC pieces for the running app
+int SteamApps007::GetDLCCount()
+{
+	return RedactedApps::GetDLCCount();
+}
+
+// Returns metadata for DLC by index, of range [0, GetDLCCount()]
+bool SteamApps007::BGetDLCDataByIndex(int iDLC, AppId_t *pAppID, bool *pbAvailable, char *pchName, int cchNameBufferSize)
+{
+	return RedactedApps::GetDLCDataByIndex(iDLC, pAppID, pbAvailable, pchName, cchNameBufferSize);
+}
+
+// Install/Uninstall control for optional DLC
+void SteamApps007::InstallDLC(AppId_t nAppID)
+{
+	return RedactedApps::InstallDLC(nAppID);
+}
+void SteamApps007::UninstallDLC(AppId_t nAppID)
+{
+	return RedactedApps::UninstallDLC(nAppID);
+}
+
+// Request cd-key for yourself or owned DLC. If you are interested in this
+// data then make sure you provide us with a list of valid keys to be distributed
+// to users when they purchase the game, before the game ships.
+// You'll receive an AppProofOfPurchaseKeyResponse_t callback when
+// the key is available (which may be immediately).
+void SteamApps007::RequestAppProofOfPurchaseKey(AppId_t nAppID)
+{
+	return RedactedApps::RequestAppProofOfPurchaseKey(nAppID);
+}
+
+bool SteamApps007::GetCurrentBetaName(char *pchName, int cchNameBufferSize)
+{
+	return RedactedApps::GetCurrentBetaName(pchName, cchNameBufferSize);
+}
+bool SteamApps007::MarkContentCorrupt(bool bMissingFilesOnly)
+{
+	return RedactedApps::MarkContentCorrupt(bMissingFilesOnly);
+}
+uint32 SteamApps007::GetInstalledDepots(AppId_t appID, DepotId_t *pvecDepots, uint32 cMaxDepots)
+{
+	return RedactedApps::GetInstalledDepots(pvecDepots, cMaxDepots);
+}
+
+// returns current app install folder for AppID, returns folder name length
+uint32 SteamApps007::GetAppInstallDir(AppId_t appID, char *pchFolder, uint32 cchFolderBufferSize)
+{
+	return RedactedApps::GetAppInstallDir(appID, pchFolder, cchFolderBufferSize);
+}
+bool SteamApps007::BIsAppInstalled(AppId_t appID)
+{
+	return RedactedApps::BIsAppInstalled(appID);
+}
+
+CSteamID SteamApps007::GetAppOwner()
+{
+	return RedactedApps::GetAppOwner();
+}
+const char *SteamApps007::GetLaunchQueryParam(const char *pchKey)
+{
+	return RedactedApps::GetLaunchQueryParam(pchKey);
+}
+
+// get download progress for optional DLC
+bool SteamApps007::GetDlcDownloadProgress(AppId_t nAppID, uint64 *punBytesDownloaded, uint64 *punBytesTotal)
+{
+	return RedactedApps::GetDlcDownloadProgress(nAppID, punBytesDownloaded, punBytesTotal);
+}
+
+// return the buildid of this app, may change at any time based on backend updates to the game
+int SteamApps007::GetAppBuildId()
+{
+	return RedactedApps::GetAppBuildId();
+}
+#pragma endregion

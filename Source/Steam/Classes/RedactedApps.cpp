@@ -173,3 +173,11 @@ const char *RedactedApps::GetLaunchQueryParam(const char *pchKey)
 
 	return "";
 }
+bool RedactedApps::GetDlcDownloadProgress(AppId_t nAppID, uint64 *punBytesDownloaded, uint64 *punBytesTotal)
+{
+	return false;
+}
+int RedactedApps::GetAppBuildId()
+{
+	return 0;
+}
