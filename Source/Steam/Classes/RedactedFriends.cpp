@@ -231,7 +231,7 @@ const char *RedactedFriends::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFri
 }
 void RedactedFriends::RequestFriendRichPresence(CSteamID steamIDFriend)
 {
-	PrintCurrentFunction();
+	//PrintCurrentFunction();
 }
 
 bool RedactedFriends::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString)
