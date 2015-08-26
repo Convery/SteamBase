@@ -216,7 +216,7 @@ void RedactedFriends::ClearRichPresence()
 }
 const char *RedactedFriends::GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey)
 {
-	PrintCurrentFunction();
+	//PrintCurrentFunction();
 	return "";
 }
 int32_t RedactedFriends::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend)
