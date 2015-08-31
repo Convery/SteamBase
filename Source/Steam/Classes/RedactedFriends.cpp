@@ -208,30 +208,32 @@ EUserRestriction RedactedFriends::GetUserRestrictions()
 bool RedactedFriends::SetRichPresence(const char *pchKey, const char *pchValue)
 {
 	PrintCurrentFunction();
-	return false;
+	STEAMPROXY_CALL(ISteamFriends, SetRichPresence, pchKey, pchValue);
 }
 void RedactedFriends::ClearRichPresence()
 {
 	PrintCurrentFunction();
+	STEAMPROXY_CALL(ISteamFriends, ClearRichPresence);
 }
 const char *RedactedFriends::GetFriendRichPresence(CSteamID steamIDFriend, const char *pchKey)
 {
 	//PrintCurrentFunction();
-	return "";
+	STEAMPROXY_CALL(ISteamFriends, GetFriendRichPresence, steamIDFriend, pchKey);
 }
 int32_t RedactedFriends::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend)
 {
 	PrintCurrentFunction();
-	return 0;
+	STEAMPROXY_CALL(ISteamFriends, GetFriendRichPresenceKeyCount, steamIDFriend);
 }
 const char *RedactedFriends::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int32_t iKey)
 {
 	PrintCurrentFunction();
-	return "";
+	STEAMPROXY_CALL(ISteamFriends, GetFriendRichPresenceKeyByIndex, steamIDFriend, iKey);
 }
 void RedactedFriends::RequestFriendRichPresence(CSteamID steamIDFriend)
 {
 	//PrintCurrentFunction();
+	STEAMPROXY_CALL(ISteamFriends, RequestFriendRichPresence, steamIDFriend);
 }
 
 bool RedactedFriends::InviteUserToGame(CSteamID steamIDFriend, const char *pchConnectString)
