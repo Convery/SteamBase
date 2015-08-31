@@ -42,7 +42,7 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 	if (ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_BREAKPOINT) return EXCEPTION_CONTINUE_EXECUTION;
 
 	// Try skipping exceptions
-	/* Disable that, it seems unsafe
+	// Disable that, it seems unsafe
 	if ((ExceptionInfo->ExceptionRecord->ExceptionFlags & EXCEPTION_NONCONTINUABLE) != EXCEPTION_NONCONTINUABLE)
 	{
 		OutputDebugStringA(hString::va("New exception at 0x%X, try ignoring it...", ExceptionInfo->ExceptionRecord->ExceptionAddress));
@@ -53,7 +53,7 @@ LONG WINAPI DumpHandler::CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS Exc
 	{
 		OutputDebugStringA("Ignoring failed. Handling it now...");
 	}
-	*/
+	
 
 	// step 1: write minidump
 	char error[1024];

@@ -89,6 +89,7 @@ static bool ReadInterfaces()
 		PARSEINTERFACE(root, _SteamUser,                "User",                INTERFACE_STEAMUSER001)
 		PARSEINTERFACE(root, _SteamUserStats,           "UserStats",           INTERFACE_STEAMUSERSTATS001)
 		PARSEINTERFACE(root, _SteamUtils,               "Utils",               INTERFACE_STEAMUTILS001)
+		PARSEINTERFACE(root, _SteamUGC,                 "UGC",                 INTERFACE_STEAMUGC001)
 
 		return true;
 	}
@@ -116,6 +117,9 @@ bool IdentifyBinary()
 	IDENITFY_BINARY("s1_sp64_ship.exe", 209650)
 	IDENITFY_BINARY("s1_mp64_ship.exe", 209660)
 
+	IDENITFY_BINARY("TESV.exe", 72850)
+	IDENITFY_BINARY("SkyrimLauncher.exe", 72850)
+
 	return false;
 }
 
@@ -124,8 +128,7 @@ extern "C"
 {
 	API void *__cdecl SteamUGC()
 	{
-		MessageBoxA(0, "Need to implement UGC!", "ERROR", MB_ICONERROR);
-		return NULL;
+		return InterfaceManager::GetInterface(_SteamUGC);
 	}
 	API void *__cdecl SteamApps()
 	{

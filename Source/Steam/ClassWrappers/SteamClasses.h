@@ -20,3 +20,4 @@
 #include "SteamUser.h"
 #include "SteamUserStats.h"
 #include "SteamUtils.h"
+#include "SteamUGC.h"

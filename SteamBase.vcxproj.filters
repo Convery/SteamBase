@@ -924,6 +924,15 @@
     <ClInclude Include="Source\Steam\Interface\ISteamUser018.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Steam\Interface\ISteamUGC003.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\ClassWrappers\SteamUGC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Steam\Classes\RedactedUGC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\External\GlobalVariables.cpp">
@@ -1051,6 +1060,12 @@
     </ClCompile>
     <ClCompile Include="Source\Steam\Classes\RedactedMatchmakingServers.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\ClassWrappers\SteamUGC.cpp">
+      <Filter>Source Files\Steam\ClassWrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Steam\Classes\RedactedUGC.cpp">
+      <Filter>Source Files\Steam\Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,3 +20,4 @@
 #include "RedactedUser.h"
 #include "RedactedUserStats.h"
 #include "RedactedUtils.h"
+#include "RedactedUGC.h"

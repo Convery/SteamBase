@@ -156,10 +156,10 @@ bool WinConsole::InitializeConsole(const char *Logfilename)
 
 void WinConsole::EnqueueMessage(char *Source, char *Message, char *Data, bool InstantPrint)
 {
-	char Time[7        + 1];
-	char Src [4        + 1];
-	char Msg [MSG_SIZE + 1];
-	char Dta [6        + 1];
+	char Time[7        + 1] = { 0 };
+	char Src [4        + 1] = { 0 };
+	char Msg [MSG_SIZE + 1] = { 0 };
+	char Dta [6        + 1] = { 0 };
 	std::string FormatedString;
 
 	// Threadsafe operation.
