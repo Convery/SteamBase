@@ -1,4 +1,5 @@
-# SteamBase
-Base for steam operations.
+This repo have not been maintained for years.
 
-Requires <a href="https://software.intel.com/en-us/intel-parallel-studio-xe">Intel® Parallel Studio XE 2015</a>
+Check https://github.com/AyriaPublic for more recent tools.
+
+For example AyriaPlatform for the SteamEmulation and NativeBootstrap for the plugins.
