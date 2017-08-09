@@ -1,5 +1,7 @@
-This repo have not been maintained for years.
+# This repository is not maintained (and haven't been since 2015)
 
-Check https://github.com/AyriaPublic for more recent tools.
+The purpose of it was to implement a Steam emulator for the [Redacted project](https://redacted.se), but was later forked and is no longer compatible with the project.
 
-For example AyriaPlatform for the SteamEmulation and NativeBootstrap for the plugins.
+There's a lot better alternatives these days if you want to emulate Steam, such as SmartSteamEmu (SSE).
+
+There's also the Platformwrapper_cpp repository which is currently hosted by @Convery but will later be hosted by @AyriaPublic when it's ready for release. That repository wraps common platforms to work with Ayria. Actively developed and maybe interesting.
