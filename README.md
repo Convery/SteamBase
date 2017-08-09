@@ -4,4 +4,4 @@ The purpose of it was to implement a Steam emulator for the [Redacted project](h
 
 There's a lot better alternatives these days if you want to emulate Steam, such as SmartSteamEmu (SSE).
 
-There's also the Platformwrapper_cpp repository which is currently hosted by @Convery but will later be hosted by @AyriaPublic when it's ready for release. That repository wraps common platforms to work with Ayria. Actively developed and maybe interesting.
+There's also the Platformwrapper_cpp repository which is currently hosted by [@Convery](https://github.com/Convery) but will later be hosted by [@AyriaPublic](https://github.com/AyriaPublic) when it's ready for release. That repository wraps common platforms to work with Ayria. Actively developed and maybe interesting.
